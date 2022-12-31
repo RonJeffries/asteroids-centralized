@@ -31,6 +31,7 @@ object U {
     const val MISSILE_SPEED = SPEED_OF_LIGHT / 3.0
     const val SPLAT_LIFETIME = 2.0
     const val SHIP_ROTATION_SPEED = 200.0 // degrees per second
+    const val SHIPS_PER_QUARTER = 4
     val SHIP_ACCELERATION = Velocity(120.0, 0.0)
     val SHIP_DECELERATION_FACTOR = 0.5 // speed reduces in half every second
     val CENTER_OF_UNIVERSE = Point(UNIVERSE_SIZE / 2, UNIVERSE_SIZE / 2)

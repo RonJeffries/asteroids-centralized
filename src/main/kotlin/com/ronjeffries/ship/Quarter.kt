@@ -1,6 +1,9 @@
 package com.ronjeffries.ship
 
-class Quarter(private val controls: Controls, private val shipCount: Int = 4): ISpaceObject, InteractingSpaceObject {
+class Quarter(
+    private val controls: Controls,
+    private val shipCount: Int = U.SHIPS_PER_QUARTER
+): ISpaceObject, InteractingSpaceObject {
     override fun update(deltaTime: Double, trans: Transaction) {
         trans.clear()
         val scoreKeeper = ScoreKeeper(shipCount)
