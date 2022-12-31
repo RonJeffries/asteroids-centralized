@@ -26,7 +26,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun initializeGame(controls: Controls, shipCount: Int) {
-        add(Quarter(controls, shipCount))
+        val trans = Transaction()
+        val quarter = Quarter(controls, shipCount)
+        quarter.update(0.0, trans)
+        knownObjects.applyChanges(trans)
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
