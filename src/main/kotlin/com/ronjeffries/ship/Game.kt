@@ -26,7 +26,16 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun initializeGame(controls: Controls, shipCount: Int) {
-        val trans = Transaction()
+        knownObjects.performWithTransaction { trans ->
+            createInitialObjects(trans,shipCount, controls)
+        }
+    }
+
+    private fun createInitialObjects(
+        trans: Transaction,
+        shipCount: Int,
+        controls: Controls
+    ) {
         trans.clear()
         val scoreKeeper = ScoreKeeper(shipCount)
         trans.add(scoreKeeper)
@@ -36,7 +45,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         val ship = Ship(shipPosition, controls)
         val shipChecker = ShipChecker(ship, scoreKeeper)
         trans.add(shipChecker)
-        knownObjects.applyChanges(trans)
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {

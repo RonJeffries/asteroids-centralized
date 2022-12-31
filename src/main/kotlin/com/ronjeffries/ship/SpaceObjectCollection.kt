@@ -49,6 +49,12 @@ class SpaceObjectCollection {
         return pairs
     }
 
+    fun performWithTransaction(action: (Transaction) -> Unit ) {
+        val trans = Transaction()
+        action(trans)
+        applyChanges(trans)
+    }
+
     fun removeAndFinalizeAll(moribund: Set<ISpaceObject>) {
         moribund.forEach { spaceObjects += it.subscriptions.finalize() }
         removeAll(moribund)
