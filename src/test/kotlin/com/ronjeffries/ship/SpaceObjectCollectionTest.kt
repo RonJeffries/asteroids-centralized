@@ -153,4 +153,13 @@ class SpaceObjectCollectionTest {
         s.remove(toAdd)
         assertThat(s.attackers).doesNotContain(toAdd)
     }
+
+    @Test
+    fun `performWithTransaction works`() {
+        val s = SpaceObjectCollection()
+        val saucer = Saucer()
+        val ship = Ship(Point.ZERO)
+        s.performWithTransaction { trans-> trans.add(saucer); trans.add(ship) }
+        assertThat(s.attackers.size).isEqualTo(2)
+    }
 }
