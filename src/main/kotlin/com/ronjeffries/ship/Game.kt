@@ -22,7 +22,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun insertQuarter(controls: Controls) {
-        add(Quarter(controls))
+        add(Quarter(controls, U.SHIPS_PER_QUARTER))
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {

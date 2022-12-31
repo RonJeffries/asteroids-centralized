@@ -2,7 +2,7 @@ package com.ronjeffries.ship
 
 class Quarter(
     private val controls: Controls,
-    private val shipCount: Int = U.SHIPS_PER_QUARTER
+    private val shipCount: Int
 ): ISpaceObject, InteractingSpaceObject {
     override fun update(deltaTime: Double, trans: Transaction) {
         trans.clear()

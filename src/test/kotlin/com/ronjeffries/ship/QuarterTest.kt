@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class QuarterTest {
     val controls = Controls()
-    val quarter = Quarter(controls)
+    val quarter = Quarter(controls, U.SHIPS_PER_QUARTER)
     val trans = Transaction()
     @Test
     fun `create it`() {
