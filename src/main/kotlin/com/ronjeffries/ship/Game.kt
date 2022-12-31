@@ -18,11 +18,15 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun createInitialContents(controls: Controls) {
-        add(Quarter(controls,0))
+        initializeGame(controls, 0)
     }
 
     fun insertQuarter(controls: Controls) {
-        add(Quarter(controls, U.SHIPS_PER_QUARTER))
+        initializeGame(controls, U.SHIPS_PER_QUARTER)
+    }
+
+    private fun initializeGame(controls: Controls, shipCount: Int) {
+        add(Quarter(controls, shipCount))
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
