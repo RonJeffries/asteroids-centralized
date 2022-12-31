@@ -27,8 +27,15 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
 
     private fun initializeGame(controls: Controls, shipCount: Int) {
         val trans = Transaction()
-        val quarter = Quarter(controls, shipCount)
-        quarter.update(0.0, trans)
+        trans.clear()
+        val scoreKeeper = ScoreKeeper(shipCount)
+        trans.add(scoreKeeper)
+        trans.add(WaveMaker())
+        trans.add(SaucerMaker())
+        val shipPosition = U.CENTER_OF_UNIVERSE
+        val ship = Ship(shipPosition, controls)
+        val shipChecker = ShipChecker(ship, scoreKeeper)
+        trans.add(shipChecker)
         knownObjects.applyChanges(trans)
     }
 
@@ -39,14 +46,14 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         beginInteractions()
         processInteractions()
         finishInteractions()
-        drawer?.let {draw(drawer)}
+        drawer?.let { draw(drawer) }
     }
 
     // spike sketch of centralized interaction
     fun interact(attacker: ISpaceObject, target: ISpaceObject, trans: Transaction) {
-        if ( attacker == target ) return
-        if ( outOfRange(attacker, target) ) return
-        if ( attacker is Missile ) {
+        if (attacker == target) return
+        if (outOfRange(attacker, target)) return
+        if (attacker is Missile) {
             if (target is Ship) {
                 remove(attacker)
                 explode(target)
@@ -55,10 +62,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
                 explode(target)
             } else if (target is Asteroid) {
                 remove(attacker)
-                if ( attacker.missileIsFromShip ) addScore(target)
+                if (attacker.missileIsFromShip) addScore(target)
                 split(target)
             }
-        } else if ( attacker is Ship ) {
+        } else if (attacker is Ship) {
         } else { // attacker is Saucer
         }
     }
@@ -69,8 +76,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun split(o: ISpaceObject) {}
     private fun addScore(o: ISpaceObject) {}
 
-    private fun beginInteractions()
-        = knownObjects.forEach { it.subscriptions.beforeInteractions() }
+    private fun beginInteractions() = knownObjects.forEach { it.subscriptions.beforeInteractions() }
 
     private fun finishInteractions() {
         val buffer = Transaction()
@@ -78,8 +84,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         knownObjects.applyChanges(buffer)
     }
 
-    private fun draw(drawer: Drawer)
-        = knownObjects.forEach {drawer.isolated { it.subscriptions.draw(drawer) } }
+    private fun draw(drawer: Drawer) = knownObjects.forEach { drawer.isolated { it.subscriptions.draw(drawer) } }
 
     fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
 
