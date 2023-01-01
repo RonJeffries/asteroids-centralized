@@ -7,7 +7,6 @@ class SpaceObjectCollection {
     val targets = mutableListOf<ISpaceObject>()
 
     fun add(spaceObject: ISpaceObject) {
-        if ( spaceObject is ScoreKeeper) error("Do not add ScoreKeeper in transaction")
         if ( spaceObject is Score ) {
             scoreKeeper.addScore(spaceObject.score)
             return
