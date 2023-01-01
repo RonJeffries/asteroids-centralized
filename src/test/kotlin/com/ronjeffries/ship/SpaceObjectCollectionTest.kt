@@ -162,4 +162,16 @@ class SpaceObjectCollectionTest {
         s.performWithTransaction { trans-> trans.add(saucer); trans.add(ship) }
         assertThat(s.attackers.size).isEqualTo(2)
     }
+
+    @Test
+    fun `can return the ScoreKeeper`() {
+        val s = SpaceObjectCollection()
+        val keeper = ScoreKeeper()
+        assertThat(s.scoreKeeper()).isEqualTo(null)
+        val trans = Transaction()
+        trans.add(keeper)
+        s.applyChanges(trans)
+        val found = s.scoreKeeper()
+        assertThat(found).isEqualTo(keeper)
+    }
 }

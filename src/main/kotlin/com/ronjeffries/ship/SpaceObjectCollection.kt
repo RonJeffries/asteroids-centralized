@@ -70,5 +70,11 @@ class SpaceObjectCollection {
         removeAll(setOf(spaceObject))
     }
 
+    fun scoreKeeper(): ISpaceObject? {
+        return spaceObjects.find {
+            it is ScoreKeeper
+        }
+    }
+
     val size get() = spaceObjects.size
 }
