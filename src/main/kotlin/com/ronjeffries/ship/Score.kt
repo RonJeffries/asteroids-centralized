@@ -1,14 +1,7 @@
 package com.ronjeffries.ship
 
-class Score(val score: Int): ISpaceObject, InteractingSpaceObject {
-
-    override val subscriptions = Subscriptions(
-        interactWithScoreKeeper = {_, trans -> trans.remove(this) }
-    )
-
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {
-        other.subscriptions.interactWithScore(this, trans)
-    }
-
+class Score(val score: Int): ISpaceObject {
+    override val subscriptions = Subscriptions()
+    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {}
     override fun update(deltaTime: Double, trans: Transaction) { }
 }

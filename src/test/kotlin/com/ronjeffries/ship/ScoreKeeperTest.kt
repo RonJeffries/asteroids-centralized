@@ -18,38 +18,6 @@ class ScoreKeeperTest {
     }
 
     @Test
-    fun `scorekeeper captures keeper vs other`() {
-        val score = Score(20)
-        val keeper = ScoreKeeper()
-        val p = Pair(keeper, score)
-        val first = p.first
-        val second = p.second
-        val trans = Transaction()
-        first.callOther(second, trans)
-        second.callOther(first, trans)
-        val discards = trans.removes.toList()
-        assertThat(discards.size).isEqualTo(1)
-        assertThat(discards).contains(score)
-        assertThat(keeper.formatted()).isEqualTo("00020")
-    }
-
-    @Test
-    fun `scorekeeper captures other vs keeper`() {
-        val score = Score(20)
-        val keeper = ScoreKeeper()
-        val p = Pair(score, keeper)
-        val first = p.first
-        val second = p.second
-        val trans = Transaction()
-        first.callOther(second, trans)
-        second.callOther(first, trans)
-        val discards = trans.removes.toList()
-        assertThat(discards.size).isEqualTo(1)
-        assertThat(discards).contains(score)
-        assertThat(keeper.formatted()).isEqualTo("00020")
-    }
-
-    @Test
     fun `ScoreKeeper provides ships to be made`() {
         val keeper = ScoreKeeper(2)
         val ship = Ship(U.CENTER_OF_UNIVERSE)
