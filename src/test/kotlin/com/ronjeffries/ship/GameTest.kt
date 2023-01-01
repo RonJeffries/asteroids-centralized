@@ -57,4 +57,13 @@ class GameTest {
         val pairs = game.knownObjects.pairsToCheck()
         assertThat(pairs.size).isEqualTo(n*(n-1)/2)
     }
+
+    @Test
+    fun `game creation creates ScoreKeeper`() {
+        val game = Game()
+        val controls = Controls()
+        game.insertQuarter(controls)
+        val keeper: ScoreKeeper = game.knownObjects.scoreKeeper
+        assertThat(keeper.shipCount).isEqualTo(U.SHIPS_PER_QUARTER)
+    }
 }

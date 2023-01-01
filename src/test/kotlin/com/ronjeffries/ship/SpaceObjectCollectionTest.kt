@@ -164,30 +164,16 @@ class SpaceObjectCollectionTest {
     }
 
     @Test
-    fun `can return the ScoreKeeper`() {
-        val s = SpaceObjectCollection()
-        val keeper = ScoreKeeper()
-        assertThat(s.scoreKeeper()).isEqualTo(null)
-        val trans = Transaction()
-        trans.add(keeper)
-        s.applyChanges(trans)
-        val found = s.scoreKeeper()
-        assertThat(found).isEqualTo(keeper)
-    }
-
-    @Test
     fun `score accumulates without updating mix`() {
         val s = SpaceObjectCollection()
         val keeper = ScoreKeeper()
-        val trans = Transaction()
-        trans.add(keeper)
-        s.applyChanges(trans)
-        assertThat(s.spaceObjects.size).isEqualTo(1)
+        s.scoreKeeper = keeper
+        assertThat(s.spaceObjects.size).isEqualTo(0)
         val scoreTrans = Transaction()
         val score = Score(123)
         scoreTrans.add(score)
         s.applyChanges(scoreTrans)
-        assertThat(s.spaceObjects.size).isEqualTo(1)
+        assertThat(s.spaceObjects.size).isEqualTo(0)
         assertThat(keeper.totalScore).isEqualTo(123)
     }
 }

@@ -1,13 +1,15 @@
 package com.ronjeffries.ship
 
 class SpaceObjectCollection {
+    var scoreKeeper = ScoreKeeper()
     val spaceObjects = mutableListOf<ISpaceObject>()
     val attackers = mutableListOf<ISpaceObject>()
     val targets = mutableListOf<ISpaceObject>()
 
     fun add(spaceObject: ISpaceObject) {
+        if ( spaceObject is ScoreKeeper) error("Do not add ScoreKeeper in transaction")
         if ( spaceObject is Score ) {
-            (scoreKeeper() as ScoreKeeper).addScore(spaceObject.score)
+            scoreKeeper.addScore(spaceObject.score)
             return
         }
         spaceObjects.add(spaceObject)
@@ -72,12 +74,6 @@ class SpaceObjectCollection {
 
     fun remove(spaceObject: ISpaceObject) {
         removeAll(setOf(spaceObject))
-    }
-
-    fun scoreKeeper(): ISpaceObject? {
-        return spaceObjects.find {
-            it is ScoreKeeper
-        }
     }
 
     val size get() = spaceObjects.size

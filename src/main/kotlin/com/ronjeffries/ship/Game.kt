@@ -38,7 +38,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     ) {
         trans.clear()
         val scoreKeeper = ScoreKeeper(shipCount)
-        trans.add(scoreKeeper)
+        knownObjects.scoreKeeper = scoreKeeper
         trans.add(WaveMaker())
         trans.add(SaucerMaker())
         val shipPosition = U.CENTER_OF_UNIVERSE
@@ -92,7 +92,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         knownObjects.applyChanges(buffer)
     }
 
-    private fun draw(drawer: Drawer) = knownObjects.forEach { drawer.isolated { it.subscriptions.draw(drawer) } }
+    private fun draw(drawer: Drawer) {
+        knownObjects.forEach { drawer.isolated { it.subscriptions.draw(drawer) } }
+        knownObjects.scoreKeeper.draw(drawer)
+    }
 
     fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
 
