@@ -5,22 +5,20 @@ import org.openrndr.draw.Drawer
 import org.openrndr.draw.isolated
 
 
-class ScoreKeeper(var shipCount: Int = 3): ISpaceObject, InteractingSpaceObject {
+class ScoreKeeper(var shipCount: Int = 3): ISpaceObject {
     var totalScore = 0
     private val lineSpace = U.FONT_SIZE
     private val charSpace = 30.0 // random guess seems good
-
-    override val subscriptions = Subscriptions(
-        interactWithScore = { score, _ -> addScore(score.score) },
-        draw = this::draw
-    )
 
     fun addScore(score: Int) {
         totalScore += score
     }
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) =
-        other.subscriptions.interactWithScoreKeeper(this, trans)
+    override val subscriptions = Subscriptions(
+        draw = this::draw
+    )
+
+    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {}
 
     override fun update(deltaTime: Double, trans: Transaction) {}
 
