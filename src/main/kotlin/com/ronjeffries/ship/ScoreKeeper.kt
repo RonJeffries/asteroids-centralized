@@ -11,9 +11,13 @@ class ScoreKeeper(var shipCount: Int = 3): ISpaceObject, InteractingSpaceObject 
     private val charSpace = 30.0 // random guess seems good
 
     override val subscriptions = Subscriptions(
-        interactWithScore = { score, _ -> totalScore += score.score },
+        interactWithScore = { score, _ -> addScore(score.score) },
         draw = this::draw
     )
+
+    fun addScore(score: Int) {
+        totalScore += score
+    }
 
     override fun callOther(other: InteractingSpaceObject, trans: Transaction) =
         other.subscriptions.interactWithScoreKeeper(this, trans)

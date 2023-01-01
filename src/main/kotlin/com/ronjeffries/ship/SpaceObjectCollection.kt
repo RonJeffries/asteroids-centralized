@@ -6,6 +6,10 @@ class SpaceObjectCollection {
     val targets = mutableListOf<ISpaceObject>()
 
     fun add(spaceObject: ISpaceObject) {
+        if ( spaceObject is Score ) {
+            (scoreKeeper() as ScoreKeeper).addScore(spaceObject.score)
+            return
+        }
         spaceObjects.add(spaceObject)
         if (spaceObject is Missile) attackers.add(spaceObject)
         if (spaceObject is Ship) {
