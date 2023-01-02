@@ -12,8 +12,11 @@ class SpaceObjectCollection {
             scoreKeeper.addScore(spaceObject.score)
             return
         }
+        if ( spaceObject is DeferredAction) {
+            deferredActions.add(spaceObject)
+            return
+        }
         spaceObjects.add(spaceObject)
-        if ( spaceObject is DeferredAction) deferredActions.add(spaceObject)
         if (spaceObject is Missile) attackers.add(spaceObject)
         if (spaceObject is Ship) {
             attackers.add(spaceObject)

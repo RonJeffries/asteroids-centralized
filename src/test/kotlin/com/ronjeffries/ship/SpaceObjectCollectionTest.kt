@@ -185,7 +185,7 @@ class SpaceObjectCollectionTest {
         val deferred = DeferredAction(3.0, Transaction()) {}
         s.add(deferred)
         assertThat(s.deferredActions.size).describedAs("deferred after add").isEqualTo(1)
-        assertThat(s.spaceObjects.size).describedAs("all after add").isEqualTo(1) // will change
+        assertThat(s.spaceObjects.size).describedAs("all after add").isEqualTo(0) // DA's not added to mix
         s.remove(deferred)
         assertThat(s.deferredActions.size).describedAs("deferred after remove").isEqualTo(0)
         assertThat(s.spaceObjects.size).describedAs("all after remove").isEqualTo(0)

@@ -101,6 +101,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
 
     fun tick(deltaTime: Double) {
         val trans = Transaction()
+        knownObjects.deferredActions.forEach { it.update(deltaTime, trans)}
         knownObjects.forEach { it.update(deltaTime, trans) }
         knownObjects.applyChanges(trans)
     }
