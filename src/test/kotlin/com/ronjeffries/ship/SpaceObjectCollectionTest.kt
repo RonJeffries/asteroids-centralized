@@ -190,4 +190,15 @@ class SpaceObjectCollectionTest {
         assertThat(s.deferredActions.size).describedAs("deferred after remove").isEqualTo(0)
         assertThat(s.spaceObjects.size).describedAs("all after remove").isEqualTo(0)
     }
+
+    @Test
+    fun `can count asteroids`() {
+        val s = SpaceObjectCollection()
+        s.add(Asteroid(Point.ZERO))
+        s.add(Ship(U.CENTER_OF_UNIVERSE))
+        s.add(Asteroid(Point.ZERO))
+        s.add(Asteroid(Point.ZERO))
+        assertThat(s.size).isEqualTo(4)
+        assertThat(s.asteroidCount()).isEqualTo(3)
+    }
 }

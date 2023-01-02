@@ -39,6 +39,8 @@ class SpaceObjectCollection {
 
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
+    fun asteroidCount(): Int = targets.filter { it is Asteroid }.size
+
     fun clear() {
         spaceObjects.clear()
     }
