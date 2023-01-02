@@ -39,10 +39,13 @@ class SpaceObjectCollection {
 
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
-    fun asteroidCount(): Int = targets.filter { it is Asteroid }.size
+    fun asteroidCount(): Int = targets.filterIsInstance<Asteroid>().size
 
     fun clear() {
         spaceObjects.clear()
+        targets.clear()
+        attackers.clear()
+        deferredActions.clear()
     }
 
     fun forEach(spaceObject: (ISpaceObject)->Unit) = spaceObjects.forEach(spaceObject)
@@ -68,7 +71,7 @@ class SpaceObjectCollection {
     }
 
     fun removeAndFinalizeAll(moribund: Set<ISpaceObject>) {
-        moribund.forEach { spaceObjects += it.subscriptions.finalize() }
+        moribund.forEach { addAll(it.subscriptions.finalize()) }
         removeAll(moribund)
     }
 
