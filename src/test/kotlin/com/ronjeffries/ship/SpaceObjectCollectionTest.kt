@@ -176,4 +176,13 @@ class SpaceObjectCollectionTest {
         assertThat(s.spaceObjects.size).isEqualTo(0)
         assertThat(keeper.totalScore).isEqualTo(123)
     }
+
+    @Test
+    fun `collection isolates DeferredObject instances`() {
+        val s = SpaceObjectCollection()
+        assertThat(s.deferredActions.size).isEqualTo(0)
+        val deferred = DeferredAction(3.0, Transaction()) {}
+        s.add(deferred)
+        assertThat(s.deferredActions.size).isEqualTo(1)
+    }
 }

@@ -5,6 +5,7 @@ class SpaceObjectCollection {
     val spaceObjects = mutableListOf<ISpaceObject>()
     val attackers = mutableListOf<ISpaceObject>()
     val targets = mutableListOf<ISpaceObject>()
+    val deferredActions = mutableListOf<ISpaceObject>()
 
     fun add(spaceObject: ISpaceObject) {
         if ( spaceObject is Score ) {
@@ -12,6 +13,7 @@ class SpaceObjectCollection {
             return
         }
         spaceObjects.add(spaceObject)
+        if ( spaceObject is DeferredAction) deferredActions.add(spaceObject)
         if (spaceObject is Missile) attackers.add(spaceObject)
         if (spaceObject is Ship) {
             attackers.add(spaceObject)
