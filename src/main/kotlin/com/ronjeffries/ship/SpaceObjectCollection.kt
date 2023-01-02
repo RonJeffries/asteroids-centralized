@@ -71,6 +71,7 @@ class SpaceObjectCollection {
         spaceObjects.removeAll(moribund)
         attackers.removeAll(moribund)
         targets.removeAll(moribund)
+        deferredActions.removeAll(moribund)
     }
 
     fun remove(spaceObject: ISpaceObject) {
