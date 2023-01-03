@@ -201,4 +201,18 @@ class SpaceObjectCollectionTest {
         assertThat(s.size).isEqualTo(4)
         assertThat(s.asteroidCount()).isEqualTo(3)
     }
+
+    @Test
+    fun `clear clears all sub-collections`() {
+        val s = SpaceObjectCollection()
+        s.add(Missile(Ship(U.CENTER_OF_UNIVERSE)))
+        s.add(Asteroid(Point.ZERO))
+        s.add(WaveMaker())
+        val deferredAction = DeferredAction(3.0, Transaction()) {}
+        s.add(deferredAction)
+        s.clear()
+        for ( coll in s.allCollections()) {
+            assertThat(coll).isEmpty()
+        }
+    }
 }

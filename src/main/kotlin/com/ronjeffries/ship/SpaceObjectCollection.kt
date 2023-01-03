@@ -6,6 +6,10 @@ class SpaceObjectCollection {
     val attackers = mutableListOf<ISpaceObject>()
     val targets = mutableListOf<ISpaceObject>()
     val deferredActions = mutableListOf<ISpaceObject>()
+    // update function below if you add to these
+    fun allCollections(): List<MutableList<ISpaceObject>> {
+        return listOf (spaceObjects, attackers, targets, deferredActions)
+    }
 
     fun add(spaceObject: ISpaceObject) {
         if ( spaceObject is Score ) {
@@ -42,10 +46,9 @@ class SpaceObjectCollection {
     fun asteroidCount(): Int = targets.filterIsInstance<Asteroid>().size
 
     fun clear() {
-        spaceObjects.clear()
-        targets.clear()
-        attackers.clear()
-        deferredActions.clear()
+        for ( coll in allCollections()) {
+            coll.clear()
+        }
     }
 
     fun forEach(spaceObject: (ISpaceObject)->Unit) = spaceObjects.forEach(spaceObject)
