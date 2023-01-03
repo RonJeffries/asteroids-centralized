@@ -6,6 +6,7 @@ import org.openrndr.draw.isolated
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
+    private val oneShot = OneShot(4.0) { makeWave(it) }
 
     fun add(newObject: ISpaceObject) = knownObjects.add(newObject)
 
@@ -38,10 +39,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         shipCount: Int,
         controls: Controls
     ) {
+        oneShot.cancel(Transaction())
         trans.clear()
         val scoreKeeper = ScoreKeeper(shipCount)
         knownObjects.scoreKeeper = scoreKeeper
-        trans.add(WaveMaker())
         trans.add(SaucerMaker())
         val shipPosition = U.CENTER_OF_UNIVERSE
         val ship = Ship(shipPosition, controls)
@@ -56,7 +57,16 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         beginInteractions()
         processInteractions()
         finishInteractions()
+        createNewWaveIfNeeded()
         drawer?.let { draw(drawer) }
+    }
+
+    private fun createNewWaveIfNeeded() {
+        if ( knownObjects.asteroidCount() == 0 ) {
+            val trans = Transaction()
+            oneShot.execute(trans)
+            knownObjects.applyChanges(trans)
+        }
     }
 
     // spike sketch of centralized interaction

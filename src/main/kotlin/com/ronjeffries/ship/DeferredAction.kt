@@ -1,7 +1,7 @@
 package com.ronjeffries.ship
 
 class DeferredAction(
-    private val delay: Double,
+    val delay: Double,
     initialTransaction: Transaction,
     private val action: (Transaction) -> Unit
 ) : ISpaceObject, InteractingSpaceObject {

@@ -39,8 +39,10 @@ class SaucerMakerTest {
         mix.add(maker)
         val game = Game(mix) // makes game without the standard init
         game.cycle(0.1) // ELAPSED seconds
-        assertThat(mix.size).isEqualTo(1)
-        assertThat(mix.deferredActions.size).isEqualTo(1)
+        assertThat(mix.size).describedAs("mix size").isEqualTo(1)
+        assertThat(mix.deferredActions.size).describedAs("deferred size").isEqualTo(2)
+        val found = mix.deferredActions.find { (it as DeferredAction).delay == 7.0 }
+        assertThat(found).isNotNull
         assertThat(mix.contains(maker)).describedAs("maker sticks around").isEqualTo(true)
         game.cycle(7.2) //ELAPSED seconds
         assertThat(mix.contains(saucer)).describedAs("saucer missing").isEqualTo(true)
