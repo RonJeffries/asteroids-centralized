@@ -22,6 +22,7 @@ object U {
     const val FONT_SIZE = 64.0
     const val ASTEROID_SPEED = 100.0
     const val DROP_SCALE = 3.0
+    const val INITIAL_ASTEROID_COUNT = 4
     const val MAKER_DELAY = 3.0
     const val SAFE_SHIP_DISTANCE = UNIVERSE_SIZE/10.0
     const val SAUCER_SPEED = 150.0
