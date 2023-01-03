@@ -78,4 +78,20 @@ class GameTest {
         game.cycle(4.2)
         assertThat(game.knownObjects.asteroidCount()).isEqualTo(4)
     }
+
+    @Test
+    fun `game creates asteroids even when quarter comes rapidly`() {
+        val game = Game()
+        val controls = Controls()
+        game.createInitialContents(controls)
+        assertThat(game.knownObjects.asteroidCount()).isEqualTo(0)
+        game.cycle(0.2)
+        game.cycle(0.3)
+        game.insertQuarter(controls)
+        game.cycle(0.2)
+        game.cycle(0.3)
+        assertThat(game.knownObjects.asteroidCount()).isEqualTo(0)
+        game.cycle(4.2)
+        assertThat(game.knownObjects.asteroidCount()).isEqualTo(4)
+    }
 }
