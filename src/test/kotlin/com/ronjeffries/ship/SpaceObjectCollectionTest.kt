@@ -207,7 +207,7 @@ class SpaceObjectCollectionTest {
         val s = SpaceObjectCollection()
         s.add(Missile(Ship(U.CENTER_OF_UNIVERSE)))
         s.add(Asteroid(Point.ZERO))
-        s.add(WaveMaker())
+        s.add(Score(666))
         val deferredAction = DeferredAction(3.0, Transaction()) {}
         s.add(deferredAction)
         s.clear()
