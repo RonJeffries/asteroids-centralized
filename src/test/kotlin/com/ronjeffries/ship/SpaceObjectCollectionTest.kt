@@ -215,4 +215,19 @@ class SpaceObjectCollectionTest {
             assertThat(coll).isEmpty()
         }
     }
+
+    @Test
+    fun `removeAll removes from all collections`() {
+        val s = SpaceObjectCollection()
+        val toRemove: MutableSet<ISpaceObject> = mutableSetOf()
+        for ( coll in s.allCollections()) {
+            val toAdd = Asteroid(U.CENTER_OF_UNIVERSE)
+            toRemove.add(toAdd)
+            coll.add(toAdd)
+        }
+        s.removeAll(toRemove)
+        for ( coll in s.allCollections()) {
+            assertThat(coll).isEmpty()
+        }
+    }
 }
