@@ -66,4 +66,16 @@ class GameTest {
         val keeper: ScoreKeeper = game.knownObjects.scoreKeeper
         assertThat(keeper.shipCount).isEqualTo(U.SHIPS_PER_QUARTER)
     }
+
+    @Test
+    fun `game creates asteroids after a while`() {
+        val game = Game()
+        val controls = Controls()
+        game.createInitialContents(controls)
+        assertThat(game.knownObjects.asteroidCount()).isEqualTo(0)
+        game.cycle(0.2)
+        game.cycle(0.3)
+        game.cycle(4.2)
+        assertThat(game.knownObjects.asteroidCount()).isEqualTo(4)
+    }
 }

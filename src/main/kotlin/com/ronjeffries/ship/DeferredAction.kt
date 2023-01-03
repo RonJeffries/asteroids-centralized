@@ -14,7 +14,7 @@ class DeferredAction(
 
     override fun update(deltaTime: Double, trans: Transaction) {
         elapsedTime += deltaTime
-        if (elapsedTime > delay ) {
+        if (elapsedTime >= delay ) {
             action(trans)
             trans.remove(this)
         }
