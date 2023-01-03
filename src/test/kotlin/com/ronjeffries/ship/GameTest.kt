@@ -94,4 +94,16 @@ class GameTest {
         game.cycle(4.2)
         assertThat(game.knownObjects.asteroidCount()).isEqualTo(4)
     }
+
+    @Test
+    fun `game can create asteroids directly`() {
+        val game = Game()
+        game.createInitialContents(Controls())
+        val transForFour = Transaction()
+        game.makeWave(transForFour)
+        assertThat(transForFour.adds.size).isEqualTo(4)
+        val transForSix = Transaction()
+        game.makeWave(transForSix)
+        assertThat(transForSix.adds.size).isEqualTo(6)
+    }
 }

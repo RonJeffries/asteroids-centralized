@@ -5,6 +5,7 @@ import org.openrndr.draw.isolated
 
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
+    private var numberOfAsteroidsToCreate = 0
 
     fun add(newObject: ISpaceObject) = knownObjects.add(newObject)
 
@@ -26,6 +27,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun initializeGame(controls: Controls, shipCount: Int) {
+        numberOfAsteroidsToCreate = U.SHIPS_PER_QUARTER
         knownObjects.performWithTransaction { trans ->
             createInitialObjects(trans,shipCount, controls)
         }
@@ -95,6 +97,19 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun draw(drawer: Drawer) {
         knownObjects.forEach { drawer.isolated { it.subscriptions.draw(drawer) } }
         knownObjects.scoreKeeper.draw(drawer)
+    }
+
+    private fun howMany(): Int {
+        return numberOfAsteroidsToCreate.also {
+            numberOfAsteroidsToCreate += 2
+            if (numberOfAsteroidsToCreate > 11) numberOfAsteroidsToCreate = 11
+        }
+    }
+
+    fun makeWave(it: Transaction) {
+        for (i in 1..howMany()) {
+            it.add(Asteroid(U.randomEdgePoint()))
+        }
     }
 
     fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
