@@ -203,6 +203,14 @@ class SpaceObjectCollectionTest {
     }
 
     @Test
+    fun `can detect saucer`() {
+        val s = SpaceObjectCollection()
+        assertThat(s.saucerExists()).isEqualTo(false)
+        s.add(Saucer())
+        assertThat(s.saucerExists()).isEqualTo(true)
+    }
+
+    @Test
     fun `clear clears all sub-collections`() {
         val s = SpaceObjectCollection()
         s.add(Missile(Ship(U.CENTER_OF_UNIVERSE)))

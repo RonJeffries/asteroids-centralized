@@ -6,7 +6,11 @@ import org.openrndr.draw.isolated
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
-    private val oneShot = OneShot(4.0) { makeWave(it) }
+
+    private val waveOneShot = OneShot(4.0) { makeWave(it) }
+    private val saucerOneShot = OneShot( 7.0) {it.add(Saucer())}
+    // all OneShot instances go here:
+    private val allOneShots = listOf(waveOneShot, saucerOneShot)
 
     fun add(newObject: ISpaceObject) = knownObjects.add(newObject)
 
@@ -39,11 +43,11 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         shipCount: Int,
         controls: Controls
     ) {
-        oneShot.cancel(Transaction())
+        val ignored = Transaction()
+        for (oneShot in allOneShots) { oneShot.cancel(ignored) }
         trans.clear()
         val scoreKeeper = ScoreKeeper(shipCount)
         knownObjects.scoreKeeper = scoreKeeper
-        trans.add(SaucerMaker())
         val shipPosition = U.CENTER_OF_UNIVERSE
         val ship = Ship(shipPosition, controls)
         val shipChecker = ShipChecker(ship, scoreKeeper)
@@ -58,13 +62,22 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         processInteractions()
         finishInteractions()
         createNewWaveIfNeeded()
+        createSaucerIfNeeded()
         drawer?.let { draw(drawer) }
     }
 
     private fun createNewWaveIfNeeded() {
         if ( knownObjects.asteroidCount() == 0 ) {
             val trans = Transaction()
-            oneShot.execute(trans)
+            waveOneShot.execute(trans)
+            knownObjects.applyChanges(trans)
+        }
+    }
+
+    private fun createSaucerIfNeeded() {
+        if ( ! knownObjects.saucerExists() ) {
+            val trans = Transaction()
+            saucerOneShot.execute(trans)
             knownObjects.applyChanges(trans)
         }
     }

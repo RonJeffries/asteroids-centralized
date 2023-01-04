@@ -89,5 +89,9 @@ class SpaceObjectCollection {
         removeAll(setOf(spaceObject))
     }
 
+    fun saucerExists(): Boolean {
+        return targets.filterIsInstance<Saucer>().isNotEmpty()
+    }
+
     val size get() = spaceObjects.size
 }
