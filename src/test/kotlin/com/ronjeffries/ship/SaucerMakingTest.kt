@@ -18,4 +18,22 @@ class SaucerMakingTest {
         val saucer = mix.targets.find { it is Saucer }
         assertThat(saucer).isNotNull
     }
+
+    @Test
+    fun `saucer changes direction`() {
+        // test ensures that we cache the saucer rather than create new ones
+        // cycle receives ELAPSED TIME!
+        val mix = SpaceObjectCollection()
+        val game = Game(mix) // makes game without the standard init
+        game.cycle(0.1) // ELAPSED seconds
+        game.cycle(7.2) //ELAPSED seconds
+        val saucer = mix.targets.first() as Saucer
+        assertThat(saucer.velocity.x > 0.0)
+        mix.performWithTransaction { it.remove(saucer) }
+        game.cycle(7.3)
+        game.cycle(14.4)
+        val nextSaucer = mix.targets.find { it is Saucer}
+        val actual = nextSaucer as Saucer
+        assertThat(actual.velocity.x < 0.0)
+    }
 }

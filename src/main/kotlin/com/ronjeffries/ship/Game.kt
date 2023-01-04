@@ -6,9 +6,10 @@ import org.openrndr.draw.isolated
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
+    private val saucer = Saucer()
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
-    private val saucerOneShot = OneShot( 7.0) {it.add(Saucer())}
+    private val saucerOneShot = OneShot( 7.0) {it.add(saucer)}
     // all OneShot instances go here:
     private val allOneShots = listOf(waveOneShot, saucerOneShot)
 
