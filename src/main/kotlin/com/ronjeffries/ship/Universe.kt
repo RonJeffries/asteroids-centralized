@@ -22,6 +22,7 @@ object U {
     const val SAUCER_SCALE = 4.0
     const val SAUCER_SPEED = 150.0
     const val SHIPS_PER_QUARTER = 4
+    const val SHIP_DECELERATION_FACTOR = 0.5 // speed reduces in half every second
     const val SHIP_KILL_RADIUS = 12.0
     const val SHIP_MAKER_DELAY = 3.0
     const val SHIP_ROTATION_SPEED = 200.0 // degrees per second
@@ -37,7 +38,6 @@ object U {
 
     val CENTER_OF_UNIVERSE = Point(UNIVERSE_SIZE / 2, UNIVERSE_SIZE / 2)
     val SHIP_ACCELERATION = Velocity(120.0, 0.0)
-    val SHIP_DECELERATION_FACTOR = 0.5 // speed reduces in half every second
 
     fun randomPoint() = Point(Random.nextDouble(0.0, UNIVERSE_SIZE), Random.nextDouble(0.0, UNIVERSE_SIZE))
     fun randomInsidePoint() = Point(randomInsideDouble(), randomInsideDouble())
