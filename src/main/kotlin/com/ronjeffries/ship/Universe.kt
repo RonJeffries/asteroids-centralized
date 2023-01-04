@@ -39,9 +39,9 @@ object U {
     val CENTER_OF_UNIVERSE = Point(UNIVERSE_SIZE / 2, UNIVERSE_SIZE / 2)
     val SHIP_ACCELERATION = Velocity(120.0, 0.0)
 
-    fun randomPoint() = Point(Random.nextDouble(0.0, UNIVERSE_SIZE), Random.nextDouble(0.0, UNIVERSE_SIZE))
     fun randomInsidePoint() = Point(randomInsideDouble(), randomInsideDouble())
     private fun randomInsideDouble() = UNIVERSE_SIZE/10.0 + Random.nextDouble(UNIVERSE_SIZE-2* UNIVERSE_SIZE/10.0)
+    fun randomPoint() = Point(Random.nextDouble(0.0, UNIVERSE_SIZE), Random.nextDouble(0.0, UNIVERSE_SIZE))
     fun randomVelocity(speed: Double): Velocity = Velocity(speed,0.0).rotate(Random.nextDouble(360.0))
 
     fun randomEdgePoint(): Point =
