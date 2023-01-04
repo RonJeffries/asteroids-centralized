@@ -32,6 +32,7 @@ class SaucerMakingTest {
         mix.performWithTransaction { it.remove(saucer) }
         game.cycle(7.3)
         game.cycle(14.4)
+        game.cycle(14.5)
         val nextSaucer = mix.targets.find { it is Saucer}
         val actual = nextSaucer as Saucer
         assertThat(actual.velocity.x < 0.0)

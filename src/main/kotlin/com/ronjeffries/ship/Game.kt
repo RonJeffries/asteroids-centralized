@@ -44,8 +44,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         shipCount: Int,
         controls: Controls
     ) {
-        val ignored = Transaction()
-        for (oneShot in allOneShots) { oneShot.cancel(ignored) }
+        cancelAllOneShots()
         trans.clear()
         val scoreKeeper = ScoreKeeper(shipCount)
         knownObjects.scoreKeeper = scoreKeeper
@@ -53,6 +52,13 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         val ship = Ship(shipPosition, controls)
         val shipChecker = ShipChecker(ship, scoreKeeper)
         trans.add(shipChecker)
+    }
+
+    private fun cancelAllOneShots() {
+        val ignored = Transaction()
+        for (oneShot in allOneShots) {
+            oneShot.cancel(ignored)
+        }
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
