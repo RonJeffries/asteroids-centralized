@@ -205,9 +205,9 @@ class SpaceObjectCollectionTest {
     @Test
     fun `can detect saucer`() {
         val s = SpaceObjectCollection()
-        assertThat(s.saucerExists()).isEqualTo(false)
+        assertThat(s.saucerMissing()).isEqualTo(true)
         s.add(Saucer())
-        assertThat(s.saucerExists()).isEqualTo(true)
+        assertThat(s.saucerMissing()).isEqualTo(false)
     }
 
     @Test

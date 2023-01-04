@@ -75,7 +75,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun createSaucerIfNeeded() {
-        if ( ! knownObjects.saucerExists() ) {
+        if ( knownObjects.saucerMissing() ) {
             val trans = Transaction()
             saucerOneShot.execute(trans)
             knownObjects.applyChanges(trans)
