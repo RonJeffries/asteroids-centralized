@@ -30,7 +30,7 @@ class ShipCheckerAndMakerTest {
         val trans = Transaction()
         ship.enterHyperspace(trans)
         assertThat(trans.firstRemove()).isEqualTo(ship)
-        ship.finalize()
+        ship.finalizeObject()
         assertThat(ship.position).isNotEqualTo(U.CENTER_OF_UNIVERSE)
     }
 
@@ -40,7 +40,7 @@ class ShipCheckerAndMakerTest {
         val trans = Transaction()
         ship.collision(trans)
         assertThat(trans.firstRemove()).isEqualTo(ship)
-        ship.finalize()
+        ship.finalizeObject()
         assertThat(ship.position).isEqualTo(U.CENTER_OF_UNIVERSE)
     }
 
@@ -89,7 +89,7 @@ class ShipCheckerAndMakerTest {
             position = U.CENTER_OF_UNIVERSE
         )
         val maker = ShipMaker(ship)
-        maker.update(U.MAKER_DELAY, Transaction())
+        maker.update(U.SHIP_MAKER_DELAY, Transaction())
         maker.subscriptions.beforeInteractions()
         // nothing in the way
         val nothing = Transaction()
@@ -107,7 +107,7 @@ class ShipCheckerAndMakerTest {
         ship.heading = 90.0
         val maker = ShipMaker(ship)
         val ignored = Transaction()
-        maker.update(U.MAKER_DELAY, ignored)
+        maker.update(U.SHIP_MAKER_DELAY, ignored)
         maker.update(0.01, ignored)
         maker.subscriptions.beforeInteractions()
         // nothing in the way
@@ -163,7 +163,7 @@ class ShipCheckerAndMakerTest {
         val asteroid = Asteroid(U.CENTER_OF_UNIVERSE)
         val maker = ShipMaker(ship)
         val ignored = Transaction()
-        maker.update(U.MAKER_DELAY, ignored)
+        maker.update(U.SHIP_MAKER_DELAY, ignored)
         maker.update(0.01, ignored)
         maker.subscriptions.beforeInteractions()
         val notInteresting = Transaction()
@@ -194,7 +194,7 @@ class ShipCheckerAndMakerTest {
         ship.heading = heading
         ship.velocity = velocity
         val maker = ShipMaker(ship)
-        maker.update(U.MAKER_DELAY + 0.01, Transaction())
+        maker.update(U.SHIP_MAKER_DELAY + 0.01, Transaction())
         maker.subscriptions.beforeInteractions()
         // no obstacles
         maker.asteroidTally = 60 // no possible hyperspace failure

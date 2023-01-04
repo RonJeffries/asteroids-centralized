@@ -8,24 +8,24 @@ typealias Velocity = Vector2
 typealias Acceleration = Vector2
 
 object U {
+    const val ASTEROID_KILL_RADIUS = 64.0
+    const val ASTEROID_SCALE = 4.0
     const val ASTEROID_SPEED = 100.0
+    const val ASTEROID_STARTING_COUNT = 4
     const val DRAW_SCALE = 1.0
     const val DROP_SCALE = 3.0
     const val FONT_SIZE = 64.0
-    const val INITIAL_ASTEROID_COUNT = 4
-    const val KILL_ASTEROID = 64.0
-    const val KILL_MISSILE = 1.0
-    const val KILL_SAUCER = 10.0 // scaled dx=40 dy=24 suggests 12.0 Make it hard.
-    const val KILL_SHIP = 12.0
-    const val MAKER_DELAY = 3.0
+    const val MISSILE_KILL_RADIUS = 1.0
     const val MISSILE_LIFETIME = 3.0
+    const val SAUCER_KILL_RADIUS = 10.0 // scaled dx=40 dy=24 suggests 12.0 Make it hard.
     const val SAUCER_LIFETIME = 10.0
+    const val SAUCER_SCALE = 4.0
     const val SAUCER_SPEED = 150.0
-    const val SCALE_ASTEROID = 4.0
-    const val SCALE_SAUCER = 4.0
-    const val SCALE_SHIP = 2.0
     const val SHIPS_PER_QUARTER = 4
+    const val SHIP_KILL_RADIUS = 12.0
+    const val SHIP_MAKER_DELAY = 3.0
     const val SHIP_ROTATION_SPEED = 200.0 // degrees per second
+    const val SHIP_SCALE = 2.0
     const val SPEED_OF_LIGHT = 500.0
     const val SPLAT_LIFETIME = 2.0
     const val STROKE_ALL = 1.0

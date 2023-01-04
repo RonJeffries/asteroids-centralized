@@ -15,7 +15,7 @@ private val flare = listOf(
 class Ship(
     override var position: Point,
     val controls: Controls = Controls(),
-    override val killRadius: Double = U.KILL_SHIP
+    override val killRadius: Double = U.SHIP_KILL_RADIUS
 ) : ISpaceObject, InteractingSpaceObject, Collider {
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
@@ -29,7 +29,7 @@ class Ship(
         interactWithSaucer = { saucer, trans -> checkCollision(saucer, trans) },
         interactWithMissile = { missile, trans -> checkCollision(missile, trans) },
         draw = this::draw,
-        finalize = this::finalize
+        finalize = this::finalizeObject
     )
 
     private fun checkCollision(other: Collider, trans: Transaction) {
@@ -75,7 +75,7 @@ class Ship(
         drawer.translate(position)
 //        drawKillRadius(drawer)
         drawer.strokeWeight = U.STROKE_ALL
-        drawer.scale(U.SCALE_SHIP, U.SCALE_SHIP)
+        drawer.scale(U.SHIP_SCALE, U.SHIP_SCALE)
         drawer.scale(dropScale, dropScale)
         drawer.rotate(heading )
         drawer.stroke = ColorRGBa.WHITE
@@ -98,7 +98,7 @@ class Ship(
 
     private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
 
-    fun finalize(): List<ISpaceObject> {
+    fun finalizeObject(): List<ISpaceObject> {
         if ( inHyperspace ) {
             position = U.randomInsidePoint()
         } else {

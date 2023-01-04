@@ -216,7 +216,7 @@ class SolidObjectTest {
         controls.fire = true
 
         // hand calculate expected result
-        val missileOffset = Vector2(2 * U.KILL_SHIP + 2 * U.KILL_MISSILE, 0.0)
+        val missileOffset = Vector2(2 * U.SHIP_KILL_RADIUS + 2 * U.MISSILE_KILL_RADIUS, 0.0)
         val expectedPosition = ship.position + missileOffset.rotate(ship.heading)
 
         // fire missile and check it
@@ -236,7 +236,7 @@ class SolidObjectTest {
         )
 
         // hand calculate expected result
-        val missileOffset = Vector2(2 * U.KILL_SHIP + 2 * U.KILL_MISSILE, 0.0)
+        val missileOffset = Vector2(2 * U.SHIP_KILL_RADIUS + 2 * U.MISSILE_KILL_RADIUS, 0.0)
 
         // check that we always position the missile in front of the ship
         ship.heading = 90.0

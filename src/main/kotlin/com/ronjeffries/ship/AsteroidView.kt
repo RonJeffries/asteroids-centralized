@@ -39,7 +39,7 @@ class AsteroidView {
 //        drawKillRadius(drawer, asteroid)
         drawer.stroke = ColorRGBa.WHITE
         drawer.fill = null
-        val sc = asteroid.scale()*U.SCALE_ASTEROID
+        val sc = asteroid.scale()*U.ASTEROID_SCALE
         drawer.scale(sc,sc)
         drawer.rotate(asteroid.heading)
         drawer.stroke = ColorRGBa.WHITE

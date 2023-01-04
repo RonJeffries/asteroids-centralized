@@ -25,7 +25,7 @@ class ShipMaker(val ship: Ship, val scoreKeeper: ScoreKeeper = ScoreKeeper()) : 
             safeToEmerge = false
         },
         afterInteractions = { trans->
-            if (ship.inHyperspace || elapsedTime > U.MAKER_DELAY && safeToEmerge) {
+            if (ship.inHyperspace || elapsedTime > U.SHIP_MAKER_DELAY && safeToEmerge) {
                 replaceTheShip(trans)
             }
         }
@@ -48,7 +48,7 @@ class ShipMaker(val ship: Ship, val scoreKeeper: ScoreKeeper = ScoreKeeper()) : 
         } else {
             ship.inHyperspace = false
             trans.add(Splat(ship))
-            ship.finalize() // dead again
+            ship.finalizeObject() // dead again
         }
         trans.add(ShipChecker(ship, scoreKeeper))
     }

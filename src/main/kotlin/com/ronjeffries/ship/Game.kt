@@ -28,7 +28,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun initializeGame(controls: Controls, shipCount: Int) {
-        numberOfAsteroidsToCreate = U.INITIAL_ASTEROID_COUNT
+        numberOfAsteroidsToCreate = U.ASTEROID_STARTING_COUNT
         knownObjects.performWithTransaction { trans ->
             createInitialObjects(trans,shipCount, controls)
         }
