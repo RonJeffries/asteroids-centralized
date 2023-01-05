@@ -68,13 +68,14 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         beginInteractions()
         processInteractions()
         finishInteractions()
+        U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
         drawer?.let { draw(drawer) }
     }
 
     private fun createNewWaveIfNeeded() {
-        if ( knownObjects.asteroidCount() == 0 ) {
+        if ( U.AsteroidTally == 0 ) {
             val trans = Transaction()
             waveOneShot.execute(trans)
             knownObjects.applyChanges(trans)

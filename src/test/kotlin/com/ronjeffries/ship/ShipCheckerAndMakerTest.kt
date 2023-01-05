@@ -28,9 +28,8 @@ class ShipCheckerAndMakerTest {
     fun `ship randomizes position on hyperspace entry`() {
         val ship = Ship(U.CENTER_OF_UNIVERSE)
         val trans = Transaction()
+        U.AsteroidTally  = 100 // hyperspace never fails
         ship.enterHyperspace(trans)
-        assertThat(trans.firstRemove()).isEqualTo(ship)
-        ship.finalizeObject()
         assertThat(ship.position).isNotEqualTo(U.CENTER_OF_UNIVERSE)
     }
 
@@ -67,20 +66,6 @@ class ShipCheckerAndMakerTest {
         val trans = Transaction()
         checker.subscriptions.afterInteractions(trans)
         assertThat(scoreKeeper.shipCount).isEqualTo(0)
-    }
-
-    @Test
-    fun `does not debit ScoreKeeper if ship is in hyperspace`() {
-        val scoreKeeper = ScoreKeeper(1)
-        val ship = Ship(U.CENTER_OF_UNIVERSE)
-        val removalTrans = Transaction()
-        ship.enterHyperspace(removalTrans)
-        assertThat(removalTrans.firstRemove()).isEqualTo(ship)
-        val checker = ShipChecker(ship, scoreKeeper)
-        checker.subscriptions.beforeInteractions()
-        val makerTrans = Transaction()
-        checker.subscriptions.afterInteractions(makerTrans)
-        assertThat(scoreKeeper.shipCount).isEqualTo(1)
     }
 
     @Test

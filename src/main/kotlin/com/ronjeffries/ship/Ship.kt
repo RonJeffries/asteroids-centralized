@@ -2,6 +2,7 @@ package com.ronjeffries.ship
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
+import kotlin.random.Random
 
 private val points = listOf(
     Point(-3.0, -2.0), Point(-3.0, 2.0), Point(-5.0, 4.0),
@@ -52,9 +53,21 @@ class Ship(
     }
 
     fun enterHyperspace(trans: Transaction) {
-        inHyperspace = true
-        trans.remove(this)
+        position = U.randomInsidePoint()
+        if (hyperspaceOK()) {
+            dropIn()
+        } else {
+            trans.add(Splat(this))
+            position = U.CENTER_OF_UNIVERSE
+            trans.remove(this)
+        }
     }
+
+    private fun hyperspaceOK(): Boolean = !hyperspaceFailure(Random.nextInt(0, 63), U.AsteroidTally)
+
+    // allegedly the original arcade rule
+    fun hyperspaceFailure(random0thru62: Int, asteroidTally: Int): Boolean
+            = random0thru62 >= (asteroidTally + 44)
 
     fun collision(trans: Transaction) {
         trans.add(Splat(this))
