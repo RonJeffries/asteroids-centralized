@@ -11,7 +11,7 @@ class ShipChecker(
         beforeInteractions = { missingShip = true },
         interactWithShip = { _, _ -> missingShip = false },
         afterInteractions = { trans ->
-            if ( missingShip && (ship.inHyperspace || scoreKeeper.takeShip())) {
+            if ( missingShip && scoreKeeper.takeShip()) {
                 trans.add(ShipMaker(ship, scoreKeeper))
                 trans.remove(this)
             }

@@ -20,7 +20,6 @@ class Ship(
 ) : ISpaceObject, InteractingSpaceObject, Collider {
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
-    var inHyperspace = false
     private var dropScale = U.DROP_SCALE
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
@@ -44,7 +43,6 @@ class Ship(
     }
 
     override fun update(deltaTime: Double, trans: Transaction) {
-        inHyperspace = false
         accelerating = false
         dropScale -= U.DROP_SCALE/60.0
         if (dropScale < 1.0 ) dropScale = 1.0
@@ -72,7 +70,6 @@ class Ship(
     fun collision(trans: Transaction) {
         trans.add(Splat(this))
         trans.remove(this)
-        inHyperspace = false // belt and suspenders
     }
 
     fun accelerate(deltaV: Acceleration) {
@@ -112,13 +109,9 @@ class Ship(
     private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
 
     fun finalizeObject(): List<ISpaceObject> {
-        if ( inHyperspace ) {
-            position = U.randomInsidePoint()
-        } else {
-            position = U.CENTER_OF_UNIVERSE
-            velocity = Velocity.ZERO
-            heading = 0.0
-        }
+        position = U.CENTER_OF_UNIVERSE
+        velocity = Velocity.ZERO
+        heading = 0.0
         return emptyList()
     }
 

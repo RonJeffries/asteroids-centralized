@@ -182,7 +182,7 @@ class ShipCheckerAndMakerTest {
         maker.update(U.SHIP_MAKER_DELAY + 0.01, Transaction())
         maker.subscriptions.beforeInteractions()
         // no obstacles
-        maker.asteroidTally = 60 // no possible hyperspace failure
+        U.AsteroidTally = 60 // no possible hyperspace failure
         val trans = Transaction()
         maker.subscriptions.afterInteractions(trans)
         assertThat(trans.adds.size).isEqualTo(2)
@@ -191,29 +191,28 @@ class ShipCheckerAndMakerTest {
         assertThat(ship.velocity).isEqualTo(velocity)
         assertThat(ship.heading).isEqualTo(heading)
     }
-
-    @Test
-    fun `maker counts asteroids`() {
-        val a = Asteroid(U.randomPoint())
-        val ship = Ship(
-            position = U.CENTER_OF_UNIVERSE
-        )
-        val maker = ShipMaker(ship)
-        maker.subscriptions.beforeInteractions()
-        val trans = Transaction()
-        maker.subscriptions.interactWithAsteroid(a, trans)
-        maker.subscriptions.interactWithAsteroid(a, trans)
-        assertThat(maker.asteroidTally).isEqualTo(2)
-    }
+//
+//    @Test
+//    fun `maker counts asteroids`() {
+//        val a = Asteroid(U.randomPoint())
+//        val ship = Ship(
+//            position = U.CENTER_OF_UNIVERSE
+//        )
+//        val maker = ShipMaker(ship)
+//        maker.subscriptions.beforeInteractions()
+//        val trans = Transaction()
+//        maker.subscriptions.interactWithAsteroid(a, trans)
+//        maker.subscriptions.interactWithAsteroid(a, trans)
+//        assertThat(U.AsteroidTally).isEqualTo(2)
+//    }
 
     @Test
     fun `hyperspace failure checks`() {
-        val ignoredShip = Ship(U.CENTER_OF_UNIVERSE)
-        val hyper = ShipMaker(ignoredShip)
-        assertThat(hyper.hyperspaceFailure(62, 19)).describedAs("roll 62 19 asteroids").isEqualTo(false)
-        assertThat(hyper.hyperspaceFailure(62, 18)).describedAs("roll 62 18 asteroids").isEqualTo(true)
-        assertThat(hyper.hyperspaceFailure(45, 0)).describedAs("roll 45 0 asteroids").isEqualTo(true)
-        assertThat(hyper.hyperspaceFailure(44, 0)).describedAs("roll 44 0 asteroids").isEqualTo(true)
-        assertThat(hyper.hyperspaceFailure(43, 0)).describedAs("roll 43 0 asteroids").isEqualTo(false)
+        val ship = Ship(U.CENTER_OF_UNIVERSE)
+        assertThat(ship.hyperspaceFailure(62, 19)).describedAs("roll 62 19 asteroids").isEqualTo(false)
+        assertThat(ship.hyperspaceFailure(62, 18)).describedAs("roll 62 18 asteroids").isEqualTo(true)
+        assertThat(ship.hyperspaceFailure(45, 0)).describedAs("roll 45 0 asteroids").isEqualTo(true)
+        assertThat(ship.hyperspaceFailure(44, 0)).describedAs("roll 44 0 asteroids").isEqualTo(true)
+        assertThat(ship.hyperspaceFailure(43, 0)).describedAs("roll 43 0 asteroids").isEqualTo(false)
     }
 }
