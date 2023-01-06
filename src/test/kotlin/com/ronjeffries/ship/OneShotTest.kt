@@ -19,6 +19,24 @@ class OneShotTest {
     }
 
     @Test
+    fun `condition is honored`() {
+        val trans = Transaction()
+        var ready = false
+        var count = 0
+        val once = OneShot(2.0, { ready }) { count += 1}
+        assertThat(count).isEqualTo(0)
+        once.execute(trans)
+        val defer = trans.firstAdd()
+        defer.update(0.1, trans)
+        assertThat(count).describedAs("not yet").isEqualTo(0)
+        defer.update(2.2, trans)
+        assertThat(count).describedAs("not ready").isEqualTo(0)
+        ready = true
+        defer.update(0.1, trans)
+        assertThat(count).describedAs("ready").isEqualTo(1)
+    }
+
+    @Test
     fun `won't run twice immediately`() {
         val trans = Transaction()
         var count = 0
