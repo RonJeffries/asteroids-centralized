@@ -26,7 +26,7 @@ class DeferredActionTest {
         val trans = Transaction()
         var ready = false
         val cond = { ready }
-        val dca = DeferredConditionalAction(2.0, cond, trans) { _ -> done = true }
+        val dca = DeferredAction(2.0, cond, trans) { _ -> done = true }
         val newTrans = Transaction()
         dca.update(1.1, newTrans)
         assertThat(done).describedAs("not time yet").isEqualTo(false)
