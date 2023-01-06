@@ -20,4 +20,24 @@ class DeferredActionTest {
         assertThat(newTrans.adds).isEmpty()
         assertThat(newTrans.removes).contains(tmw)
     }
+
+    @Test
+    fun `conditional action triggers after n seconds and true condition`() {
+        val trans = Transaction()
+        var ready = false
+        val cond = { ready }
+        val dca = DeferredConditionalAction(2.0, cond, trans) { _ -> done = true }
+        val newTrans = Transaction()
+        dca.update(1.1, newTrans)
+        assertThat(done).describedAs("not time yet").isEqualTo(false)
+        assertThat(newTrans.adds).isEmpty()
+        assertThat(newTrans.removes).isEmpty()
+        dca.update(1.1, newTrans)
+        assertThat(done).describedAs("not ready yet").isEqualTo(false)
+        ready = true
+        dca.update(0.1, newTrans)
+        assertThat(done).describedAs("time up and ready").isEqualTo(true)
+        assertThat(newTrans.adds).isEmpty()
+        assertThat(newTrans.removes).contains(dca)
+    }
 }
