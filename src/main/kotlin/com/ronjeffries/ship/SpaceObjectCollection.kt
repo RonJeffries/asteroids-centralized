@@ -93,5 +93,9 @@ class SpaceObjectCollection {
         return targets.filterIsInstance<Saucer>().isEmpty()
     }
 
+    fun shipIsPresent(): Boolean {
+        return attackers.filterIsInstance<Ship>().isNotEmpty()
+    }
+
     val size get() = spaceObjects.size
 }

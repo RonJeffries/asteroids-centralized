@@ -7,11 +7,16 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
     private val saucer = Saucer()
+    private lateinit var ship: Ship
+    private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
     private val saucerOneShot = OneShot( 7.0) {it.add(saucer)}
+    private val shipOneShot = OneShot(U.SHIP_MAKER_DELAY, { canShipEmerge() }) {
+       if ( scoreKeeper.takeShip() ) it.add(ship)
+    }
     // all OneShot instances go here:
-    private val allOneShots = listOf(waveOneShot, saucerOneShot)
+    private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 
     fun add(newObject: ISpaceObject) = knownObjects.add(newObject)
 
@@ -25,7 +30,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun createInitialContents(controls: Controls) {
-        initializeGame(controls, 0)
+        initializeGame(controls, -1)
     }
 
     fun insertQuarter(controls: Controls) {
@@ -46,12 +51,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     ) {
         cancelAllOneShots()
         trans.clear()
-        val scoreKeeper = ScoreKeeper(shipCount)
+        scoreKeeper = ScoreKeeper(shipCount)
         knownObjects.scoreKeeper = scoreKeeper
         val shipPosition = U.CENTER_OF_UNIVERSE
-        val ship = Ship(shipPosition, controls)
-        val shipChecker = ShipChecker(ship, scoreKeeper)
-        trans.add(shipChecker)
+        ship = Ship(shipPosition, controls)
     }
 
     private fun cancelAllOneShots() {
@@ -71,7 +74,15 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
+        createShipIfNeeded()
         drawer?.let { draw(drawer) }
+    }
+
+    private fun createShipIfNeeded() {
+        if ( knownObjects.shipIsPresent() ) return
+        val trans = Transaction()
+        shipOneShot.execute(trans)
+        knownObjects.applyChanges(trans)
     }
 
     private fun createNewWaveIfNeeded() {
