@@ -24,7 +24,7 @@ class Saucer : ISpaceObject, InteractingSpaceObject, Collider {
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 
-    private var direction: Double
+    private var direction: Double = -1.0
     lateinit var velocity: Velocity
     private val speed = U.SAUCER_SPEED
     private var elapsedTime = 0.0
@@ -36,6 +36,10 @@ class Saucer : ISpaceObject, InteractingSpaceObject, Collider {
     private var currentMissile: Missile? = null
 
     init {
+        initialize()
+    }
+
+    fun initialize() {
         direction = -1.0
         wakeUp()
     }

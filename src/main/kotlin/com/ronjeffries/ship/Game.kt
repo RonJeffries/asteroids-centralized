@@ -51,6 +51,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     ) {
         cancelAllOneShots()
         trans.clear()
+        saucer.initialize()
         scoreKeeper = ScoreKeeper(shipCount)
         knownObjects.scoreKeeper = scoreKeeper
         val shipPosition = U.CENTER_OF_UNIVERSE
