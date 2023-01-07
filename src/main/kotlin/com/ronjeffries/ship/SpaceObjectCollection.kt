@@ -12,27 +12,29 @@ class SpaceObjectCollection {
     }
 
     fun add(spaceObject: ISpaceObject) {
-        if ( spaceObject is Score ) {
-            scoreKeeper.addScore(spaceObject.score)
-            return
+        when (spaceObject) {
+            is Score -> scoreKeeper.addScore(spaceObject.score)
+            is DeferredAction -> deferredActions.add(spaceObject)
+            else -> addActualSpaceObjects(spaceObject)
         }
-        if ( spaceObject is DeferredAction) {
-            deferredActions.add(spaceObject)
-            return
-        }
-        spaceObjects.add(spaceObject)
-        if (spaceObject is Missile) attackers.add(spaceObject)
-        if (spaceObject is Ship) {
-            attackers.add(spaceObject)
-            targets.add(spaceObject)
-        }
-        if (spaceObject is Saucer)  {
-            attackers.add(spaceObject)
-            targets.add(spaceObject)
-        }
-        if (spaceObject is Asteroid) targets.add(spaceObject)
     }
-    
+
+    private fun addActualSpaceObjects(spaceObject: ISpaceObject) {
+        spaceObjects.add(spaceObject)
+        when (spaceObject) {
+            is Missile -> attackers.add(spaceObject)
+            is Asteroid -> targets.add(spaceObject)
+            is Ship -> {
+                attackers.add(spaceObject)
+                targets.add(spaceObject)
+            }
+            is Saucer -> {
+                attackers.add(spaceObject)
+                targets.add(spaceObject)
+            }
+        }
+    }
+
     fun addAll(newbies: Collection<ISpaceObject>) {
         newbies.forEach{ add(it) }
     }
