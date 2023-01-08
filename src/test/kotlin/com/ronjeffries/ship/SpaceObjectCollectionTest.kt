@@ -227,7 +227,7 @@ class SpaceObjectCollectionTest {
     @Test
     fun `removeAll removes from all collections`() {
         val s = SpaceObjectCollection()
-        val toRemove: MutableSet<ISpaceObject> = mutableSetOf()
+        val toRemove: MutableSet<InteractingSpaceObject> = mutableSetOf()
         for ( coll in s.allCollections()) {
             val toAdd = Asteroid(U.CENTER_OF_UNIVERSE)
             toRemove.add(toAdd)
@@ -242,7 +242,7 @@ class SpaceObjectCollectionTest {
     @Test
     fun `removeAndFinalizeAll removes from all collections`() {
         val s = SpaceObjectCollection()
-        val toRemove: MutableSet<ISpaceObject> = mutableSetOf()
+        val toRemove: MutableSet<InteractingSpaceObject> = mutableSetOf()
         for ( coll in s.allCollections()) {
             val toAdd = Score(666)
             toRemove.add(toAdd)

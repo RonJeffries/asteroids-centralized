@@ -9,7 +9,7 @@ class Asteroid(
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
     override val killRadius: Double = U.ASTEROID_KILL_RADIUS,
     private val splitCount: Int = 2
-) : ISpaceObject, InteractingSpaceObject, Collider {
+) : InteractingSpaceObject, SpaceObject, Collider {
     private val view = AsteroidView()
     var heading: Double = Random.nextDouble(360.0)
 
@@ -24,8 +24,8 @@ class Asteroid(
         view.draw(this, drawer)
     }
 
-    private fun finalize(): List<ISpaceObject> {
-        val objectsToAdd: MutableList<ISpaceObject> = mutableListOf()
+    private fun finalize(): List<InteractingSpaceObject> {
+        val objectsToAdd: MutableList<InteractingSpaceObject> = mutableListOf()
         if (splitCount >= 1) {
             objectsToAdd.add(asSplit(this))
             objectsToAdd.add(asSplit(this))
@@ -68,6 +68,6 @@ class Asteroid(
         }
     }
 
-    override fun callOther(other: ISpaceObject, trans: Transaction) =
+    override fun callOther(other: InteractingSpaceObject, trans: Transaction) =
         other.subscriptions.interactWithAsteroid(this, trans)
 }

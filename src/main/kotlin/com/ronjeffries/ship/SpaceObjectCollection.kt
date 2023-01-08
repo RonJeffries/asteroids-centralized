@@ -2,16 +2,16 @@ package com.ronjeffries.ship
 
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
-    val spaceObjects = mutableListOf<ISpaceObject>()
-    val attackers = mutableListOf<ISpaceObject>()
-    val targets = mutableListOf<ISpaceObject>()
-    val deferredActions = mutableListOf<ISpaceObject>()
+    val spaceObjects = mutableListOf<InteractingSpaceObject>()
+    val attackers = mutableListOf<InteractingSpaceObject>()
+    val targets = mutableListOf<InteractingSpaceObject>()
+    val deferredActions = mutableListOf<InteractingSpaceObject>()
     // update function below if you add to these
-    fun allCollections(): List<MutableList<ISpaceObject>> {
+    fun allCollections(): List<MutableList<InteractingSpaceObject>> {
         return listOf (spaceObjects, attackers, targets, deferredActions)
     }
 
-    fun add(spaceObject: ISpaceObject) {
+    fun add(spaceObject: InteractingSpaceObject) {
         when (spaceObject) {
             is Score -> scoreKeeper.addScore(spaceObject.score)
             is DeferredAction -> deferredActions.add(spaceObject)
@@ -19,7 +19,7 @@ class SpaceObjectCollection {
         }
     }
 
-    private fun addActualSpaceObjects(spaceObject: ISpaceObject) {
+    private fun addActualSpaceObjects(spaceObject: InteractingSpaceObject) {
         spaceObjects.add(spaceObject)
         when (spaceObject) {
             is Missile -> attackers.add(spaceObject)
@@ -35,11 +35,11 @@ class SpaceObjectCollection {
         }
     }
 
-    fun addAll(newbies: Collection<ISpaceObject>) {
+    fun addAll(newbies: Collection<InteractingSpaceObject>) {
         newbies.forEach{ add(it) }
     }
 
-    fun any(predicate: (ISpaceObject)-> Boolean): Boolean {
+    fun any(predicate: (InteractingSpaceObject)-> Boolean): Boolean {
         return spaceObjects.any(predicate)
     }
 
@@ -53,14 +53,14 @@ class SpaceObjectCollection {
         }
     }
 
-    fun forEach(spaceObject: (ISpaceObject)->Unit) = spaceObjects.forEach(spaceObject)
+    fun forEach(spaceObject: (InteractingSpaceObject)->Unit) = spaceObjects.forEach(spaceObject)
 
-    fun contains(obj:ISpaceObject): Boolean {
+    fun contains(obj:InteractingSpaceObject): Boolean {
         return spaceObjects.contains(obj)
     }
 
-    fun pairsToCheck(): List<Pair<ISpaceObject, ISpaceObject>> {
-        val pairs = mutableListOf<Pair<ISpaceObject, ISpaceObject>>()
+    fun pairsToCheck(): List<Pair<InteractingSpaceObject, InteractingSpaceObject>> {
+        val pairs = mutableListOf<Pair<InteractingSpaceObject, InteractingSpaceObject>>()
         spaceObjects.indices.forEach { i ->
             spaceObjects.indices.minus(0..i).forEach { j ->
                 pairs.add(spaceObjects[i] to spaceObjects[j])
@@ -75,19 +75,19 @@ class SpaceObjectCollection {
         applyChanges(trans)
     }
 
-    fun removeAndFinalizeAll(moribund: Set<ISpaceObject>) {
+    fun removeAndFinalizeAll(moribund: Set<InteractingSpaceObject>) {
         moribund.forEach { addAll(it.subscriptions.finalize()) }
         removeAll(moribund)
     }
 
-    fun removeAll(moribund: Set<ISpaceObject>) {
+    fun removeAll(moribund: Set<InteractingSpaceObject>) {
         spaceObjects.removeAll(moribund)
         attackers.removeAll(moribund)
         targets.removeAll(moribund)
         deferredActions.removeAll(moribund)
     }
 
-    fun remove(spaceObject: ISpaceObject) {
+    fun remove(spaceObject: InteractingSpaceObject) {
         removeAll(setOf(spaceObject))
     }
 

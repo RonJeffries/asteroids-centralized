@@ -25,9 +25,9 @@ class Controls {
         }
     }
 
-    private fun fire(obj: Ship): List<ISpaceObject> = missilesToFire(obj).also { fire = false }
+    private fun fire(obj: Ship): List<InteractingSpaceObject> = missilesToFire(obj).also { fire = false }
 
-    private fun missilesToFire(obj: Ship): List<ISpaceObject> {
+    private fun missilesToFire(obj: Ship): List<InteractingSpaceObject> {
         return if (fire) {
 //            listOf(SolidObject.missile(obj))
             listOf(Missile(obj))
