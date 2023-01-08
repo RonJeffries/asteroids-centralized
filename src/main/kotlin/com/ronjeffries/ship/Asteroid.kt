@@ -68,6 +68,6 @@ class Asteroid(
         }
     }
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) =
+    override fun callOther(other: ISpaceObject, trans: Transaction) =
         other.subscriptions.interactWithAsteroid(this, trans)
 }

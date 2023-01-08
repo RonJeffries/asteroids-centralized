@@ -72,7 +72,7 @@ class Missile(
 
     private fun checkCollision(other: Collider) = Collision(other).hit(this)
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {
+    override fun callOther(other: ISpaceObject, trans: Transaction) {
         other.subscriptions.interactWithMissile(this, trans)
     }
 

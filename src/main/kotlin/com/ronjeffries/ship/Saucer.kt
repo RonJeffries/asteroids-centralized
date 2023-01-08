@@ -72,7 +72,7 @@ class Saucer : ISpaceObject, InteractingSpaceObject, Collider {
         }
     }
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) =
+    override fun callOther(other: ISpaceObject, trans: Transaction) =
         other.subscriptions.interactWithSaucer(this, trans)
 
     override fun update(deltaTime: Double, trans: Transaction) {

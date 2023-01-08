@@ -38,7 +38,7 @@ class Ship(
         }
     }
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {
+    override fun callOther(other: ISpaceObject, trans: Transaction) {
         other.subscriptions.interactWithShip(this, trans)
     }
 
