@@ -17,7 +17,7 @@ class Ship(
     override var position: Point,
     val controls: Controls = Controls(),
     override val killRadius: Double = U.SHIP_KILL_RADIUS
-) : InteractingSpaceObject, SpaceObject, Collider {
+) : InteractingSpaceObject, Collider {
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
     private var dropScale = U.DROP_SCALE

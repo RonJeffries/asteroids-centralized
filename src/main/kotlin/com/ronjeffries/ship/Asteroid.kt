@@ -9,7 +9,7 @@ class Asteroid(
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
     override val killRadius: Double = U.ASTEROID_KILL_RADIUS,
     private val splitCount: Int = 2
-) : InteractingSpaceObject, SpaceObject, Collider {
+) : InteractingSpaceObject, Collider {
     private val view = AsteroidView()
     var heading: Double = Random.nextDouble(360.0)
 
