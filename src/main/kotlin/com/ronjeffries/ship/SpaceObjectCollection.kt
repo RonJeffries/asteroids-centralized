@@ -13,7 +13,6 @@ class SpaceObjectCollection {
 
     fun add(spaceObject: SpaceObject) {
         when (spaceObject) {
-            is Score -> scoreKeeper.addScore(spaceObject.score)
             is DeferredAction -> deferredActions.add(spaceObject)
             else -> addActualSpaceObjects(spaceObject as InteractingSpaceObject)
         }
