@@ -4,6 +4,7 @@ class Transaction {
     val adds = mutableSetOf<SpaceObject>()
     val removes = mutableSetOf<SpaceObject>()
     private var shouldClear = false
+    private var score = 0
 
     fun add(spaceObject: SpaceObject) {
         adds.add(spaceObject)
@@ -13,8 +14,13 @@ class Transaction {
         adds.forEach { add(it) }
     }
 
+    fun addScore(scoreToAdd: Int) {
+        score += scoreToAdd
+    }
+
     fun applyChanges(spaceObjectCollection: SpaceObjectCollection) {
         if (shouldClear ) spaceObjectCollection.clear()
+        spaceObjectCollection.addScore(score)
         spaceObjectCollection.removeAndFinalizeAll(removes)
         spaceObjectCollection.addAll(adds)
     }

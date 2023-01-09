@@ -39,6 +39,10 @@ class SpaceObjectCollection {
         newbies.forEach{ add(it) }
     }
 
+    fun addScore(score: Int) {
+        scoreKeeper.addScore(score)
+    }
+
     fun any(predicate: (InteractingSpaceObject)-> Boolean): Boolean {
         return spaceObjects.any(predicate)
     }
@@ -48,6 +52,7 @@ class SpaceObjectCollection {
     fun asteroidCount(): Int = targets.filterIsInstance<Asteroid>().size
 
     fun clear() {
+        scoreKeeper.clear()
         for ( coll in allCollections()) {
             coll.clear()
         }

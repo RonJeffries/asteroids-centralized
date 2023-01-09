@@ -13,6 +13,10 @@ class ScoreKeeper(var shipCount: Int = 3) {
         totalScore += score
     }
 
+    fun clear() {
+        totalScore = 0
+    }
+
     fun draw(drawer: Drawer) {
         drawScore(drawer)
         drawFreeShips(drawer)

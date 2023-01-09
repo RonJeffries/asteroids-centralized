@@ -38,4 +38,32 @@ class TransactionTest {
         clearTrans.applyChanges(coll)
         assertThat(coll.size).isEqualTo(0)
     }
+
+    @Test
+    fun `accumulates score via member`() {
+        val coll = SpaceObjectCollection()
+        val scoreKeeper = ScoreKeeper(0)
+        coll.scoreKeeper = scoreKeeper
+        val trans = Transaction()
+        trans.addScore(15)
+        trans.addScore(27)
+        coll.applyChanges(trans)
+        assertThat(scoreKeeper.totalScore).isEqualTo(42)
+    }
+
+    @Test
+    fun `clears score on clear`() {
+        val coll = SpaceObjectCollection()
+        val scoreKeeper = ScoreKeeper(0)
+        coll.scoreKeeper = scoreKeeper
+        val trans = Transaction()
+        trans.addScore(15)
+        trans.addScore(27)
+        coll.applyChanges(trans)
+        assertThat(scoreKeeper.totalScore).isEqualTo(42)
+        val newTrans = Transaction()
+        newTrans.clear()
+        coll.applyChanges(newTrans)
+        assertThat(scoreKeeper.totalScore).isEqualTo(0)
+    }
 }
