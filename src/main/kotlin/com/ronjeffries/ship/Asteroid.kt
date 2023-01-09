@@ -40,15 +40,13 @@ class Asteroid(
             splitCount = splitCount - 1
         )
 
-    fun getScore(): Score {
-        return Score(
-            when (splitCount) {
-                2 -> 20
-                1 -> 50
-                0 -> 100
-                else -> 0
-            }
-        )
+    fun getScore(): Int {
+        return when (splitCount) {
+            2 -> 20
+            1 -> 50
+            0 -> 100
+            else -> 0
+        }
     }
 
     fun scale() =2.0.pow(splitCount)
