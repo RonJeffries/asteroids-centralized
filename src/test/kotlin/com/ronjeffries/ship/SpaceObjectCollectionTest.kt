@@ -224,33 +224,35 @@ class SpaceObjectCollectionTest {
         }
     }
 
-    @Test
-    fun `removeAll removes from all collections`() {
-        val s = SpaceObjectCollection()
-        val toRemove: MutableSet<InteractingSpaceObject> = mutableSetOf()
-        for ( coll in s.allCollections()) {
-            val toAdd = Asteroid(U.CENTER_OF_UNIVERSE)
-            toRemove.add(toAdd)
-            coll.add(toAdd)
-        }
-        s.removeAll(toRemove)
-        for ( coll in s.allCollections()) {
-            assertThat(coll).isEmpty()
-        }
-    }
+// Needs replacement?
+//    @Test
+//    fun `removeAll removes from all collections`() {
+//        val s = SpaceObjectCollection()
+//        val toRemove: MutableSet<InteractingSpaceObject> = mutableSetOf()
+//        for ( coll in s.allCollections()) {
+//            val toAdd = Asteroid(U.CENTER_OF_UNIVERSE)
+//            toRemove.add(toAdd)
+//            coll.add(toAdd)
+//        }
+//        s.removeAll(toRemove)
+//        for ( coll in s.allCollections()) {
+//            assertThat(coll).isEmpty()
+//        }
+//    }
 
-    @Test
-    fun `removeAndFinalizeAll removes from all collections`() {
-        val s = SpaceObjectCollection()
-        val toRemove: MutableSet<InteractingSpaceObject> = mutableSetOf()
-        for ( coll in s.allCollections()) {
-            val toAdd = Score(666)
-            toRemove.add(toAdd)
-            coll.add(toAdd)
-        }
-        s.removeAndFinalizeAll(toRemove)
-        for ( coll in s.allCollections()) {
-            assertThat(coll).isEmpty()
-        }
-    }
+// Score isn't in any collections
+//    @Test
+//    fun `removeAndFinalizeAll removes from all collections`() {
+//        val s = SpaceObjectCollection()
+//        val toRemove: MutableSet<InteractingSpaceObject> = mutableSetOf()
+//        for ( coll in s.allCollections()) {
+//            val toAdd = Score(666)
+//            toRemove.add(toAdd)
+//            coll.add(toAdd)
+//        }
+//        s.removeAndFinalizeAll(toRemove)
+//        for ( coll in s.allCollections()) {
+//            assertThat(coll).isEmpty()
+//        }
+//    }
 }

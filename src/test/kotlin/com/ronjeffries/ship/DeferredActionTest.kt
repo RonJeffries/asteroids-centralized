@@ -9,7 +9,7 @@ class DeferredActionTest {
     fun `triggers after n seconds`() {
         val trans = Transaction()
         DeferredAction(2.0, trans) { _ -> done = true}
-        val tmw = trans.firstAdd()
+        val tmw = trans.firstAdd() as DeferredAction
         val newTrans = Transaction()
         tmw.update(1.1, newTrans)
         assertThat(done).isEqualTo(false)

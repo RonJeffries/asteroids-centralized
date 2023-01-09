@@ -129,16 +129,16 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun split(o: InteractingSpaceObject) {}
     private fun addScore(o: InteractingSpaceObject) {}
 
-    private fun beginInteractions() = knownObjects.forEach { it.subscriptions.beforeInteractions() }
+    private fun beginInteractions() = knownObjects.forEachInteracting { it.subscriptions.beforeInteractions() }
 
     private fun finishInteractions() {
         val buffer = Transaction()
-        knownObjects.forEach { it.subscriptions.afterInteractions(buffer) }
+        knownObjects.forEachInteracting { it.subscriptions.afterInteractions(buffer) }
         knownObjects.applyChanges(buffer)
     }
 
     private fun draw(drawer: Drawer) {
-        knownObjects.forEach { drawer.isolated { it.subscriptions.draw(drawer) } }
+        knownObjects.forEachInteracting { drawer.isolated { it.subscriptions.draw(drawer) } }
         knownObjects.scoreKeeper.draw(drawer)
     }
 
@@ -160,7 +160,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     fun tick(deltaTime: Double) {
         val trans = Transaction()
         knownObjects.deferredActions.forEach { it.update(deltaTime, trans)}
-        knownObjects.forEach { it.update(deltaTime, trans) }
+        knownObjects.forEachInteracting { it.update(deltaTime, trans) }
         knownObjects.applyChanges(trans)
     }
 

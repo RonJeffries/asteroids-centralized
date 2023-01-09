@@ -5,17 +5,17 @@ class SpaceObjectCollection {
     val spaceObjects = mutableListOf<InteractingSpaceObject>()
     val attackers = mutableListOf<InteractingSpaceObject>()
     val targets = mutableListOf<InteractingSpaceObject>()
-    val deferredActions = mutableListOf<InteractingSpaceObject>()
+    val deferredActions = mutableListOf<DeferredAction>()
     // update function below if you add to these
-    fun allCollections(): List<MutableList<InteractingSpaceObject>> {
+    fun allCollections(): List<MutableList<out SpaceObject>> {
         return listOf (spaceObjects, attackers, targets, deferredActions)
     }
 
-    fun add(spaceObject: InteractingSpaceObject) {
+    fun add(spaceObject: SpaceObject) {
         when (spaceObject) {
             is Score -> scoreKeeper.addScore(spaceObject.score)
             is DeferredAction -> deferredActions.add(spaceObject)
-            else -> addActualSpaceObjects(spaceObject)
+            else -> addActualSpaceObjects(spaceObject as InteractingSpaceObject)
         }
     }
 
@@ -35,7 +35,7 @@ class SpaceObjectCollection {
         }
     }
 
-    fun addAll(newbies: Collection<InteractingSpaceObject>) {
+    fun addAll(newbies: Collection<SpaceObject>) {
         newbies.forEach{ add(it) }
     }
 
@@ -53,7 +53,8 @@ class SpaceObjectCollection {
         }
     }
 
-    fun forEach(spaceObject: (InteractingSpaceObject)->Unit) = spaceObjects.forEach(spaceObject)
+    fun forEachInteracting(action: (InteractingSpaceObject)->Unit) =
+        spaceObjects.forEach(action)
 
     fun contains(obj:InteractingSpaceObject): Boolean {
         return spaceObjects.contains(obj)
@@ -75,19 +76,21 @@ class SpaceObjectCollection {
         applyChanges(trans)
     }
 
-    fun removeAndFinalizeAll(moribund: Set<InteractingSpaceObject>) {
-        moribund.forEach { addAll(it.subscriptions.finalize()) }
+    fun removeAndFinalizeAll(moribund: Set<SpaceObject>) {
+        moribund.forEach {
+            if ( it is InteractingSpaceObject) addAll(it.subscriptions.finalize())
+        }
         removeAll(moribund)
     }
 
-    fun removeAll(moribund: Set<InteractingSpaceObject>) {
+    fun removeAll(moribund: Set<SpaceObject>) {
         spaceObjects.removeAll(moribund)
         attackers.removeAll(moribund)
         targets.removeAll(moribund)
         deferredActions.removeAll(moribund)
     }
 
-    fun remove(spaceObject: InteractingSpaceObject) {
+    fun remove(spaceObject: SpaceObject) {
         removeAll(setOf(spaceObject))
     }
 
