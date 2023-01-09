@@ -26,19 +26,6 @@ class TransactionTest {
     }
 
     @Test
-    fun `accumulate transactions`() {
-        val toFill = Transaction()
-        val filler = Transaction()
-        val toAdd = newShip()
-        val toRemove = newShip()
-        filler.add(toAdd)
-        filler.remove(toRemove)
-        toFill.accumulate(filler)
-        assertThat(filler.hasAdd(toAdd)).isEqualTo(true)
-        assertThat(filler.hasRemove(toRemove)).isEqualTo(true)
-    }
-
-    @Test
     fun `can clear collection`() {
         val coll = SpaceObjectCollection()
         val obj = Asteroid(U.CENTER_OF_UNIVERSE)
