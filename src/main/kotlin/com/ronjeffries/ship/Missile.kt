@@ -52,7 +52,7 @@ class Missile(
         },
         interactWithSaucer = { saucer, trans ->
             if (checkCollision(saucer)) {
-                if (missileIsFromShip) trans.add(saucer.getScore())
+                if (missileIsFromShip) trans.addScore(saucer.getScore())
                 terminateMissile(trans)
             }
         },

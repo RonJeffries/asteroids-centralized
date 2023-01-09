@@ -135,7 +135,7 @@ class Saucer : InteractingSpaceObject, Collider {
         drawer.lineStrip(saucerPoints)
     }
 
-    fun getScore() = Score(200)
+    fun getScore() = 200
 
 //    private fun drawKillRadius(drawer: Drawer) {
 //        drawer.stroke = ColorRGBa.RED // delete comment even more
