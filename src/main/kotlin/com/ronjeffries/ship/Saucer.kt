@@ -20,7 +20,7 @@ private val directions = listOf(
     Velocity(1.0, 0.0), Velocity(1.0, 0.0), Velocity(0.7071, 0.7071), Velocity(0.7071, -0.7071)
 )
 
-class Saucer : InteractingSpaceObject, Collider {
+class Saucer : SpaceObject, Collider {
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 
@@ -72,7 +72,7 @@ class Saucer : InteractingSpaceObject, Collider {
         }
     }
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) =
+    override fun callOther(other: SpaceObject, trans: Transaction) =
         other.subscriptions.interactWithSaucer(this, trans)
 
     override fun update(deltaTime: Double, trans: Transaction) {
@@ -119,7 +119,7 @@ class Saucer : InteractingSpaceObject, Collider {
         velocity = newDirection(Random.nextInt(4)) * speed * direction
     }
 
-    private fun finalize(): List<InteractingSpaceObject> {
+    private fun finalize(): List<SpaceObject> {
         wakeUp()
         return emptyList()
     }

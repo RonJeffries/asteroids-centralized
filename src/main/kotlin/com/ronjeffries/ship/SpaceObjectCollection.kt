@@ -2,9 +2,9 @@ package com.ronjeffries.ship
 
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
-    val spaceObjects = mutableListOf<InteractingSpaceObject>()
-    val attackers = mutableListOf<InteractingSpaceObject>()
-    val targets = mutableListOf<InteractingSpaceObject>()
+    val spaceObjects = mutableListOf<SpaceObject>()
+    val attackers = mutableListOf<SpaceObject>()
+    val targets = mutableListOf<SpaceObject>()
     val deferredActions = mutableListOf<DeferredAction>()
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
@@ -14,11 +14,11 @@ class SpaceObjectCollection {
     fun add(spaceObject: SpaceObject) {
         when (spaceObject) {
             is DeferredAction -> deferredActions.add(spaceObject)
-            else -> addActualSpaceObjects(spaceObject as InteractingSpaceObject)
+            else -> addActualSpaceObjects(spaceObject)
         }
     }
 
-    private fun addActualSpaceObjects(spaceObject: InteractingSpaceObject) {
+    private fun addActualSpaceObjects(spaceObject: SpaceObject) {
         spaceObjects.add(spaceObject)
         when (spaceObject) {
             is Missile -> attackers.add(spaceObject)
@@ -42,7 +42,7 @@ class SpaceObjectCollection {
         scoreKeeper.addScore(score)
     }
 
-    fun any(predicate: (InteractingSpaceObject)-> Boolean): Boolean {
+    fun any(predicate: (SpaceObject)-> Boolean): Boolean {
         return spaceObjects.any(predicate)
     }
 
@@ -57,15 +57,15 @@ class SpaceObjectCollection {
         }
     }
 
-    fun forEachInteracting(action: (InteractingSpaceObject)->Unit) =
+    fun forEachInteracting(action: (SpaceObject)->Unit) =
         spaceObjects.forEach(action)
 
-    fun contains(obj:InteractingSpaceObject): Boolean {
+    fun contains(obj:SpaceObject): Boolean {
         return spaceObjects.contains(obj)
     }
 
-    fun pairsToCheck(): List<Pair<InteractingSpaceObject, InteractingSpaceObject>> {
-        val pairs = mutableListOf<Pair<InteractingSpaceObject, InteractingSpaceObject>>()
+    fun pairsToCheck(): List<Pair<SpaceObject, SpaceObject>> {
+        val pairs = mutableListOf<Pair<SpaceObject, SpaceObject>>()
         spaceObjects.indices.forEach { i ->
             spaceObjects.indices.minus(0..i).forEach { j ->
                 pairs.add(spaceObjects[i] to spaceObjects[j])
@@ -82,7 +82,7 @@ class SpaceObjectCollection {
 
     fun removeAndFinalizeAll(moribund: Set<SpaceObject>) {
         moribund.forEach {
-            if ( it is InteractingSpaceObject) addAll(it.subscriptions.finalize())
+            addAll(it.subscriptions.finalize())
         }
         removeAll(moribund)
     }

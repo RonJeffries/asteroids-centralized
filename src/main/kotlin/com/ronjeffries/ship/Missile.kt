@@ -11,7 +11,7 @@ class Missile(
     shooterVelocity: Velocity = Velocity.ZERO,
     val color: ColorRGBa = ColorRGBa.WHITE,
     val missileIsFromShip: Boolean = false
-): InteractingSpaceObject, Collider {
+): SpaceObject, Collider {
     constructor(ship: Ship): this(ship.position, ship.heading, ship.killRadius, ship.velocity, ColorRGBa.WHITE, true)
     constructor(saucer: Saucer): this(saucer.position, Random.nextDouble(360.0), saucer.killRadius, saucer.velocity, ColorRGBa.GREEN)
 
@@ -72,7 +72,7 @@ class Missile(
 
     private fun checkCollision(other: Collider) = Collision(other).hit(this)
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {
+    override fun callOther(other: SpaceObject, trans: Transaction) {
         other.subscriptions.interactWithMissile(this, trans)
     }
 

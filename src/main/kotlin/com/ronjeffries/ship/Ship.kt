@@ -17,7 +17,7 @@ class Ship(
     override var position: Point,
     val controls: Controls = Controls(),
     override val killRadius: Double = U.SHIP_KILL_RADIUS
-) : InteractingSpaceObject, Collider {
+) : SpaceObject, Collider {
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
     private var dropScale = U.DROP_SCALE
@@ -38,7 +38,7 @@ class Ship(
         }
     }
 
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {
+    override fun callOther(other: SpaceObject, trans: Transaction) {
         other.subscriptions.interactWithShip(this, trans)
     }
 
@@ -108,7 +108,7 @@ class Ship(
 
     private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
 
-    fun finalizeObject(): List<InteractingSpaceObject> {
+    fun finalizeObject(): List<SpaceObject> {
         position = U.CENTER_OF_UNIVERSE
         velocity = Velocity.ZERO
         heading = 0.0

@@ -5,7 +5,7 @@ class DeferredAction(
     val cond: () -> Boolean,
     initialTransaction: Transaction,
     private val action: (Transaction) -> Unit
-) : InteractingSpaceObject, SpaceObject {
+) : SpaceObject {
     constructor(delay: Double, initialTransaction: Transaction, action: (Transaction) -> Unit):
             this(delay, { true }, initialTransaction, action)
     var elapsedTime = 0.0
@@ -24,5 +24,5 @@ class DeferredAction(
     }
 
     override val subscriptions: Subscriptions = Subscriptions()
-    override fun callOther(other: InteractingSpaceObject, trans: Transaction) {}
+    override fun callOther(other: SpaceObject, trans: Transaction) {}
 }

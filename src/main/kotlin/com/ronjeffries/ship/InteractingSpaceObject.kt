@@ -1,7 +1,7 @@
 package com.ronjeffries.ship
 
-interface InteractingSpaceObject: SpaceObject {
+interface SpaceObject {
     val subscriptions: Subscriptions
-    fun callOther(other: InteractingSpaceObject, trans: Transaction)
+    fun callOther(other: SpaceObject, trans: Transaction)
     fun update(deltaTime: Double, trans: Transaction)
 }

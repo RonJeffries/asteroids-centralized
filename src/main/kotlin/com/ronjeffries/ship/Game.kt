@@ -18,7 +18,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     // all OneShot instances go here:
     private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 
-    fun add(newObject: InteractingSpaceObject) = knownObjects.add(newObject)
+    fun add(newObject: SpaceObject) = knownObjects.add(newObject)
 
     fun changesDueToInteractions(): Transaction {
         val trans = Transaction()
@@ -103,7 +103,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     // spike sketch of centralized interaction
-    fun interact(attacker: InteractingSpaceObject, target: InteractingSpaceObject, trans: Transaction) {
+    fun interact(attacker: SpaceObject, target: SpaceObject, trans: Transaction) {
         if (attacker == target) return
         if (outOfRange(attacker, target)) return
         if (attacker is Missile) {
@@ -123,11 +123,11 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         }
     }
 
-    private fun outOfRange(a: InteractingSpaceObject, b: InteractingSpaceObject) = false
-    private fun remove(o: InteractingSpaceObject) {}
-    private fun explode(o: InteractingSpaceObject) {}
-    private fun split(o: InteractingSpaceObject) {}
-    private fun addScore(o: InteractingSpaceObject) {}
+    private fun outOfRange(a: SpaceObject, b: SpaceObject) = false
+    private fun remove(o: SpaceObject) {}
+    private fun explode(o: SpaceObject) {}
+    private fun split(o: SpaceObject) {}
+    private fun addScore(o: SpaceObject) {}
 
     private fun beginInteractions() = knownObjects.forEachInteracting { it.subscriptions.beforeInteractions() }
 
