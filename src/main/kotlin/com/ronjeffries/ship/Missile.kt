@@ -76,4 +76,6 @@ class Missile(
         other.subscriptions.interactWithMissile(this, trans)
     }
 
+    override fun toString(): String = "Missile $position ($killRadius)"
+
 }

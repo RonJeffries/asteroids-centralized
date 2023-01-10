@@ -102,33 +102,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         }
     }
 
-    // spike sketch of centralized interaction
-    fun interact(attacker: SpaceObject, target: SpaceObject, trans: Transaction) {
-        if (attacker == target) return
-        if (outOfRange(attacker, target)) return
-        if (attacker is Missile) {
-            if (target is Ship) {
-                remove(attacker)
-                explode(target)
-            } else if (target is Saucer) {
-                remove(attacker)
-                explode(target)
-            } else if (target is Asteroid) {
-                remove(attacker)
-                if (attacker.missileIsFromShip) addScore(target)
-                split(target)
-            }
-        } else if (attacker is Ship) {
-        } else { // attacker is Saucer
-        }
-    }
-
-    private fun outOfRange(a: SpaceObject, b: SpaceObject) = false
-    private fun remove(o: SpaceObject) {}
-    private fun explode(o: SpaceObject) {}
-    private fun split(o: SpaceObject) {}
-    private fun addScore(o: SpaceObject) {}
-
     private fun beginInteractions() = knownObjects.forEachInteracting { it.subscriptions.beforeInteractions() }
 
     private fun finishInteractions() {

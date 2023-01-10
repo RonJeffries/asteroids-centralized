@@ -3,8 +3,8 @@ package com.ronjeffries.ship
 class Transaction {
     val adds = mutableSetOf<SpaceObject>()
     val removes = mutableSetOf<SpaceObject>()
-    private var shouldClear = false
-    private var score = 0
+    var shouldClear = false
+    var score = 0
 
     fun add(spaceObject: SpaceObject) {
         adds.add(spaceObject)
