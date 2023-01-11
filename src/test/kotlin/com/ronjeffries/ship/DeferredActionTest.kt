@@ -9,7 +9,7 @@ class DeferredActionTest {
     fun `triggers after n seconds`() {
         val trans = Transaction()
         DeferredAction(2.0, trans) { _ -> done = true}
-        val tmw = trans.firstAdd() as DeferredAction
+        val tmw = trans.deferredActionAdds.first()
         val newTrans = Transaction()
         tmw.update(1.1, newTrans)
         assertThat(done).isEqualTo(false)
@@ -18,7 +18,7 @@ class DeferredActionTest {
         tmw.update(1.1, newTrans)
         assertThat(done).isEqualTo(true)
         assertThat(newTrans.adds).isEmpty()
-        assertThat(newTrans.removes).contains(tmw)
+        assertThat(newTrans.deferredActionRemoves).contains(tmw)
     }
 
     @Test
@@ -38,6 +38,6 @@ class DeferredActionTest {
         dca.update(0.1, newTrans)
         assertThat(done).describedAs("time up and ready").isEqualTo(true)
         assertThat(newTrans.adds).isEmpty()
-        assertThat(newTrans.removes).contains(dca)
+        assertThat(newTrans.deferredActionRemoves).contains(dca)
     }
 }

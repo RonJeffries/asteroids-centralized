@@ -10,7 +10,8 @@ class InteractionTests {
         val int = Interaction()
         val trans = Transaction()
         int.interact(ship, ship, trans)
-        assertThat(trans.isEmpty()).isEqualTo(true)
+        val checker = TransactionChecker(trans)
+        assertThat(checker.isEmpty()).isEqualTo(true)
     }
 
     @Test
@@ -20,7 +21,8 @@ class InteractionTests {
         val int = Interaction()
         val trans = Transaction()
         int.interact(missile, ship, trans)
-        assertThat(trans.isEmpty()).isEqualTo(true)
+        val checker = TransactionChecker(trans)
+        assertThat(checker.isEmpty()).isEqualTo(true)
     }
 
     @Test
@@ -44,17 +46,20 @@ fun missileAt(p: Point): Missile {
     return Missile(p).also{ it. position = p}
 }
 
-fun Transaction.isEmpty(): Boolean {
-    if (adds.isNotEmpty()) return false
-    if (removes.isNotEmpty()) return false
-    if (shouldClear) return false
-    if ( score > 0 ) return false
-    return true
-}
-
 class TransactionChecker(val trans: Transaction) {
-    fun removes(o:SpaceObject): Boolean = trans.removes.contains(o)
+    fun removes(o:SpaceObject) {
+        assertThat(trans.removes).contains(o)
+    }
+
     inline fun <reified T> instances(): List<T> {
         return trans.adds.filterIsInstance<T>()
+    }
+
+    fun isEmpty(): Boolean {
+        if (trans.adds.isNotEmpty()) return false
+        if (trans.removes.isNotEmpty()) return false
+        if (trans.shouldClear) return false
+        if ( trans.score > 0 ) return false
+        return true
     }
 }

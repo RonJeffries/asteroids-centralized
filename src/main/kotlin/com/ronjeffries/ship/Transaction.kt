@@ -3,8 +3,18 @@ package com.ronjeffries.ship
 class Transaction {
     val adds = mutableSetOf<SpaceObject>()
     val removes = mutableSetOf<SpaceObject>()
+    val deferredActionAdds = mutableSetOf<DeferredAction>()
+    val deferredActionRemoves = mutableSetOf<DeferredAction>()
     var shouldClear = false
     var score = 0
+
+    fun add(deferredAction: DeferredAction) {
+        deferredActionAdds.add(deferredAction)
+    }
+
+    fun remove(deferredAction: DeferredAction) {
+        deferredActionRemoves.add(deferredAction)
+    }
 
     fun add(spaceObject: SpaceObject) {
         adds.add(spaceObject)
@@ -22,7 +32,9 @@ class Transaction {
         if (shouldClear ) spaceObjectCollection.clear()
         spaceObjectCollection.addScore(score)
         spaceObjectCollection.removeAndFinalizeAll(removes)
+        spaceObjectCollection.removeAndFinalizeAll(deferredActionRemoves)
         spaceObjectCollection.addAll(adds)
+        spaceObjectCollection.addAll(deferredActionAdds)
     }
 
     fun clear() {
