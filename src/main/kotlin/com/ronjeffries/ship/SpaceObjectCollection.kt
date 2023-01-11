@@ -11,11 +11,12 @@ class SpaceObjectCollection {
         return listOf (spaceObjects, attackers, targets, deferredActions)
     }
 
+    fun add(deferredAction: DeferredAction) {
+        deferredActions.add(deferredAction)
+    }
+
     fun add(spaceObject: SpaceObject) {
-        when (spaceObject) {
-            is DeferredAction -> deferredActions.add(spaceObject)
-            else -> addActualSpaceObjects(spaceObject)
-        }
+        addActualSpaceObjects(spaceObject)
     }
 
     private fun addActualSpaceObjects(spaceObject: SpaceObject) {
