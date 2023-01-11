@@ -82,14 +82,14 @@ class SpaceObjectCollection {
     }
 
     fun removeAll(moribund: Set<SpaceObject>) {
-        spaceObjects.removeAll(moribund)
-        attackers.removeAll(moribund)
-        targets.removeAll(moribund)
-        deferredActions.removeAll(moribund)
+        moribund.forEach { remove(it) }
     }
 
-    fun remove(spaceObject: SpaceObject) {
-        removeAll(setOf(spaceObject))
+    fun remove(moribund: SpaceObject) {
+        spaceObjects.remove(moribund)
+        attackers.remove(moribund)
+        targets.remove(moribund)
+        deferredActions.remove(moribund)
     }
 
     fun saucerMissing(): Boolean {
