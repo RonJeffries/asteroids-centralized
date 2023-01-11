@@ -108,11 +108,10 @@ class Ship(
 
     private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
 
-    fun finalizeObject(): List<SpaceObject> {
+    fun finalizeObject(trans: Transaction) {
         position = U.CENTER_OF_UNIVERSE
         velocity = Velocity.ZERO
         heading = 0.0
-        return emptyList()
     }
 
     fun accelerateToNewSpeedInOneSecond(vNew:Velocity, vCurrent: Velocity): Velocity {

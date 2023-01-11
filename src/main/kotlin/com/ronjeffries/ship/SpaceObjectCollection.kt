@@ -82,9 +82,11 @@ class SpaceObjectCollection {
     }
 
     fun removeAndFinalizeAll(moribund: Set<SpaceObject>) {
+        val trans = Transaction()
         moribund.forEach {
-            addAll(it.subscriptions.finalize())
+            it.subscriptions.finalize(trans)
         }
+        trans.applyChanges(this)
         removeAll(moribund)
     }
 

@@ -119,9 +119,8 @@ class Saucer : SpaceObject, Collider {
         velocity = newDirection(Random.nextInt(4)) * speed * direction
     }
 
-    private fun finalize(): List<SpaceObject> {
+    private fun finalize(trans: Transaction) {
         wakeUp()
-        return emptyList()
     }
 
     fun newDirection(direction: Int): Velocity = directions[min(max(0, direction), 3)]

@@ -24,13 +24,11 @@ class Asteroid(
         view.draw(this, drawer)
     }
 
-    private fun finalize(): List<SpaceObject> {
-        val objectsToAdd: MutableList<SpaceObject> = mutableListOf()
+    private fun finalize(trans: Transaction) {
         if (splitCount >= 1) {
-            objectsToAdd.add(asSplit(this))
-            objectsToAdd.add(asSplit(this))
+            trans.add(asSplit(this))
+            trans.add(asSplit(this))
         }
-        return objectsToAdd
     }
 
     private fun asSplit(asteroid: Asteroid): Asteroid =

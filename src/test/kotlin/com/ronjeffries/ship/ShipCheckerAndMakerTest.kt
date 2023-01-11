@@ -19,7 +19,7 @@ class ShipCheckerAndMakerTest {
         val trans = Transaction()
         ship.collision(trans)
         assertThat(trans.firstRemove()).isEqualTo(ship)
-        ship.finalizeObject()
+        ship.finalizeObject(Transaction())
         assertThat(ship.position).isEqualTo(U.CENTER_OF_UNIVERSE)
     }
 

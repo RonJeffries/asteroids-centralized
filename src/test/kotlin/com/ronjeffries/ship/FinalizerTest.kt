@@ -7,7 +7,9 @@ class FinalizerTest {
     @Test
     fun `asteroid finalizer`() {
         val asteroid = Asteroid(Point.ZERO)
-        val splits = asteroid.subscriptions.finalize()
+        val trans = Transaction()
+        asteroid.subscriptions.finalize(trans)
+        val splits = trans.adds
         assertThat(splits.size).isEqualTo(2) // split guys and no score
     }
 }

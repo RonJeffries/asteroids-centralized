@@ -13,5 +13,5 @@ class Subscriptions(
     val afterInteractions: (trans: Transaction) -> Unit = {_ -> },
 
     val draw: (drawer: Drawer) -> Unit = {_ -> },
-    val finalize: () -> List<SpaceObject> = { emptyList() }
+    val finalize: (trans: Transaction) -> Unit = { }
 )
