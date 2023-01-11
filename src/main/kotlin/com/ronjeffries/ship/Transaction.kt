@@ -33,8 +33,8 @@ class Transaction {
         spaceObjectCollection.addScore(score)
         removes.forEach { it.subscriptions.finalize(this)}
         deferredActionRemoves.forEach { it.subscriptions.finalize(this)}
-        if (removes.isNotEmpty()) spaceObjectCollection.removeAll(removes)
-        if (deferredActionRemoves.isNotEmpty()) spaceObjectCollection.removeAll(deferredActionRemoves)
+        removes.forEach { spaceObjectCollection.remove(it)}
+        deferredActionRemoves.forEach { spaceObjectCollection.remove(it)}
         adds.forEach { spaceObjectCollection.add(it)}
         deferredActionAdds.forEach { spaceObjectCollection.add(it)}
     }

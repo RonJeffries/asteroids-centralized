@@ -35,10 +35,6 @@ class SpaceObjectCollection {
         }
     }
 
-    fun addAll(newbies: Collection<SpaceObject>) {
-        newbies.forEach{ add(it) }
-    }
-
     fun addScore(score: Int) {
         scoreKeeper.addScore(score)
     }
@@ -79,10 +75,6 @@ class SpaceObjectCollection {
         val trans = Transaction()
         action(trans)
         applyChanges(trans)
-    }
-
-    fun removeAll(moribund: Set<SpaceObject>) {
-        moribund.forEach { remove(it) }
     }
 
     fun remove(moribund: SpaceObject) {
