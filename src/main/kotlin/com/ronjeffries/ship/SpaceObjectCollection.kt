@@ -77,11 +77,14 @@ class SpaceObjectCollection {
         applyChanges(trans)
     }
 
-    fun remove(moribund: SpaceObject) {
-        spaceObjects.remove(moribund)
-        attackers.remove(moribund)
-        targets.remove(moribund)
-        deferredActions.remove(moribund)
+    fun remove(deferredAction: DeferredAction) {
+        deferredActions.remove(deferredAction)
+    }
+
+    fun remove(spaceObject: SpaceObject) {
+        spaceObjects.remove(spaceObject)
+        attackers.remove(spaceObject)
+        targets.remove(spaceObject)
     }
 
     fun saucerMissing(): Boolean {
