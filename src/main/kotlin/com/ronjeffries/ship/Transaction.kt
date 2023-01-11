@@ -33,8 +33,8 @@ class Transaction {
         spaceObjectCollection.addScore(score)
         spaceObjectCollection.removeAndFinalizeAll(removes)
         spaceObjectCollection.removeAndFinalizeAll(deferredActionRemoves)
-        spaceObjectCollection.addAll(adds)
-        spaceObjectCollection.addAll(deferredActionAdds)
+        adds.forEach { spaceObjectCollection.add(it)}
+        deferredActionAdds.forEach { spaceObjectCollection.add(it)}
     }
 
     fun clear() {
