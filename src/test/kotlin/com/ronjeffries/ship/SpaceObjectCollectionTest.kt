@@ -209,6 +209,25 @@ class SpaceObjectCollectionTest {
         }
     }
 
+    @Test
+    fun `asteroid collection works`() {
+        val s = SpaceObjectCollection()
+        val a = Asteroid(U.CENTER_OF_UNIVERSE)
+        s.add(a)
+        assertThat(s.asteroids.size).isEqualTo(1)
+        s.remove(a)
+        assertThat(s.asteroids.size).isEqualTo(0)
+    }
+
+    @Test
+    fun `missile collection works`() {
+        val s = SpaceObjectCollection()
+        val m = Missile(U.CENTER_OF_UNIVERSE)
+        s.add(m)
+        assertThat(s.missiles.size).isEqualTo(1)
+        s.remove(m)
+        assertThat(s.missiles.size).isEqualTo(0)
+    }
 
 // Needs replacement?
 //    @Test
