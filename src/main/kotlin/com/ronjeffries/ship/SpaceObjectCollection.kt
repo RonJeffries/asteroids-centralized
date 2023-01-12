@@ -2,14 +2,16 @@ package com.ronjeffries.ship
 
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
-    val spaceObjects = mutableListOf<SpaceObject>()
+
+    val asteroids = mutableListOf<Asteroid>()
     val attackers = mutableListOf<SpaceObject>()
-    val targets = mutableListOf<SpaceObject>()
     val deferredActions = mutableListOf<DeferredAction>()
     val missiles = mutableListOf<Missile>()
+    val spaceObjects = mutableListOf<SpaceObject>()
+    val targets = mutableListOf<SpaceObject>()
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
-        return listOf (spaceObjects, attackers, targets, deferredActions)
+        return listOf (asteroids, attackers, deferredActions, missiles, spaceObjects, targets)
     }
 
     fun add(deferredAction: DeferredAction) {
@@ -18,6 +20,12 @@ class SpaceObjectCollection {
 
     fun add(spaceObject: SpaceObject) {
         addActualSpaceObjects(spaceObject)
+    }
+
+    private fun add(asteroid: Asteroid) {
+        spaceObjects.add(asteroid)
+        asteroids.add(asteroid)
+        targets.add(asteroid)
     }
 
     fun add(missile: Missile) {
@@ -30,8 +38,7 @@ class SpaceObjectCollection {
         when (spaceObject) {
             is Missile -> add(spaceObject)
             is Asteroid -> {
-                spaceObjects.add(spaceObject)
-                targets.add(spaceObject)
+                add(spaceObject)
             }
             is Ship -> {
                 spaceObjects.add(spaceObject)
@@ -59,7 +66,7 @@ class SpaceObjectCollection {
 
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
-    fun asteroidCount(): Int = targets.filterIsInstance<Asteroid>().size
+    fun asteroidCount(): Int = asteroids.size
 
     fun clear() {
         scoreKeeper.clear()
@@ -96,9 +103,9 @@ class SpaceObjectCollection {
     }
 
     fun remove(spaceObject: SpaceObject) {
-        spaceObjects.remove(spaceObject)
-        attackers.remove(spaceObject)
-        targets.remove(spaceObject)
+        for ( coll in allCollections()) {
+            coll.remove(spaceObject)
+        }
     }
 
     fun saucerMissing(): Boolean {

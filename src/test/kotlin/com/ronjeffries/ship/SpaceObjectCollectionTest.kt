@@ -209,6 +209,7 @@ class SpaceObjectCollectionTest {
         }
     }
 
+
 // Needs replacement?
 //    @Test
 //    fun `removeAll removes from all collections`() {
