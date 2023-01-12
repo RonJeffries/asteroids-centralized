@@ -20,8 +20,8 @@ class TransactionTest {
         t.add(shipTwo)
         t.remove(shipOne)
         coll.applyChanges(t)
-        assertThat(coll.spaceObjects).contains(shipTwo)
-        assertThat(coll.spaceObjects).doesNotContain(shipOne)
+        assertThat(coll.spaceObjects()).contains(shipTwo)
+        assertThat(coll.spaceObjects()).doesNotContain(shipOne)
         assertThat(coll.size).isEqualTo(1)
     }
 

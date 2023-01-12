@@ -167,14 +167,14 @@ class SpaceObjectCollectionTest {
     fun `collection isolates DeferredObject instances`() {
         val s = SpaceObjectCollection()
         assertThat(s.deferredActions.size).describedAs("deferred before").isEqualTo(0)
-        assertThat(s.spaceObjects.size).describedAs("all before").isEqualTo(0)
+        assertThat(s.spaceObjects().size).describedAs("all before").isEqualTo(0)
         val deferred = DeferredAction(3.0, Transaction()) {}
         s.add(deferred)
         assertThat(s.deferredActions.size).describedAs("deferred after add").isEqualTo(1)
-        assertThat(s.spaceObjects.size).describedAs("all after add").isEqualTo(0) // DA's not added to mix
+        assertThat(s.spaceObjects().size).describedAs("all after add").isEqualTo(0) // DA's not added to mix
         s.remove(deferred)
         assertThat(s.deferredActions.size).describedAs("deferred after remove").isEqualTo(0)
-        assertThat(s.spaceObjects.size).describedAs("all after remove").isEqualTo(0)
+        assertThat(s.spaceObjects().size).describedAs("all after remove").isEqualTo(0)
     }
 
     @Test
@@ -215,8 +215,10 @@ class SpaceObjectCollectionTest {
         val a = Asteroid(U.CENTER_OF_UNIVERSE)
         s.add(a)
         assertThat(s.asteroids.size).isEqualTo(1)
+        assertThat(s.contains(a)).isEqualTo(true)
         s.remove(a)
         assertThat(s.asteroids.size).isEqualTo(0)
+        assertThat(s.contains(a)).isEqualTo(false)
     }
 
     @Test
