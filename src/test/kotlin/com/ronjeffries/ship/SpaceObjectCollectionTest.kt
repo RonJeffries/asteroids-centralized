@@ -249,6 +249,16 @@ class SpaceObjectCollectionTest {
         assertThat(s.ships.size).isEqualTo(0)
     }
 
+    @Test
+    fun `saucer collection works`() {
+        val s = SpaceObjectCollection()
+        val saucer = Saucer()
+        s.add(saucer)
+        assertThat(s.saucers.size).isEqualTo(1)
+        s.remove(saucer)
+        assertThat(s.saucers.size).isEqualTo(0)
+    }
+
 // Needs replacement?
 //    @Test
 //    fun `removeAll removes from all collections`() {

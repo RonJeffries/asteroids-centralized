@@ -8,12 +8,13 @@ class SpaceObjectCollection {
     val deferredActions = mutableListOf<DeferredAction>()
     val missiles = mutableListOf<Missile>()
     val spaceObjects = mutableListOf<SpaceObject>()
+    val saucers = mutableListOf<Saucer>()
     val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
     val targets = mutableListOf<SpaceObject>()
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
-        return listOf (asteroids, attackers, deferredActions, missiles, spaceObjects, ships, splats, targets)
+        return listOf (asteroids, attackers, deferredActions, missiles, spaceObjects, saucers, ships, splats, targets)
     }
 
     fun add(deferredAction: DeferredAction) {
@@ -32,8 +33,15 @@ class SpaceObjectCollection {
 
     fun add(missile: Missile) {
         spaceObjects.add(missile)
-        missiles.add(missile)
         attackers.add(missile)
+        missiles.add(missile)
+    }
+
+    fun add(saucer: Saucer) {
+        spaceObjects.add(saucer)
+        attackers.add(saucer)
+        targets.add(saucer)
+        saucers.add(saucer)
     }
 
     fun add(ship: Ship) {
@@ -58,9 +66,7 @@ class SpaceObjectCollection {
                 add(spaceObject)
             }
             is Saucer -> {
-                spaceObjects.add(spaceObject)
-                attackers.add(spaceObject)
-                targets.add(spaceObject)
+                add(spaceObject)
             }
             is Splat -> {
                 add(spaceObject)
