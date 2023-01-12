@@ -4,18 +4,16 @@ class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
     val asteroids = mutableListOf<Asteroid>()
-    val attackers = mutableListOf<SpaceObject>()
     val deferredActions = mutableListOf<DeferredAction>()
     val missiles = mutableListOf<Missile>()
     val saucers = mutableListOf<Saucer>()
     val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
-    val targets = mutableListOf<SpaceObject>()
 
     fun spaceObjects():List<SpaceObject> = asteroids + missiles + saucers + ships + splats
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
-        return listOf (asteroids, attackers, deferredActions, missiles, saucers, ships, splats, targets)
+        return listOf (asteroids, deferredActions, missiles, saucers, ships, splats)
     }
 
     fun add(deferredAction: DeferredAction) {
@@ -27,33 +25,22 @@ class SpaceObjectCollection {
     }
 
     private fun add(asteroid: Asteroid) {
-//        spaceObjects.add(asteroid)
         asteroids.add(asteroid)
-        targets.add(asteroid)
     }
 
     fun add(missile: Missile) {
-//        spaceObjects.add(missile)
-        attackers.add(missile)
         missiles.add(missile)
     }
 
     fun add(saucer: Saucer) {
-//        spaceObjects.add(saucer)
-        attackers.add(saucer)
-        targets.add(saucer)
         saucers.add(saucer)
     }
 
     fun add(ship: Ship) {
-//        spaceObjects.add(ship)
-        attackers.add(ship)
-        targets.add(ship)
         ships.add(ship)
     }
 
     fun add(splat: Splat) {
-//        spaceObjects.add(splat)
         splats.add(splat)
     }
 
@@ -119,12 +106,20 @@ class SpaceObjectCollection {
         }
     }
 
-    fun saucerMissing(): Boolean {
-        return targets.filterIsInstance<Saucer>().isEmpty()
+    fun saucerIsPresent(): Boolean {
+        return saucers.isNotEmpty()
+    }
+
+    fun saucerIsMissing(): Boolean {
+        return saucers.isEmpty()
     }
 
     fun shipIsPresent(): Boolean {
-        return attackers.filterIsInstance<Ship>().isNotEmpty()
+        return ships.isNotEmpty()
+    }
+
+    fun shipIsMissing(): Boolean {
+        return ships.isEmpty()
     }
 
     val size get() = spaceObjects().size

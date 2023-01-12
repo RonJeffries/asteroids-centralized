@@ -95,7 +95,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun createSaucerIfNeeded() {
-        if ( knownObjects.saucerMissing() ) {
+        if ( knownObjects.saucerIsMissing() ) {
             val trans = Transaction()
             saucerOneShot.execute(trans)
             knownObjects.applyChanges(trans)
@@ -138,16 +138,11 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun canShipEmerge(): Boolean {
-        for ( target in knownObjects.targets ) {
-            if ( target is Saucer ) return false
-            if ( target is Asteroid ) {
-                val distance = target.position.distanceTo(U.CENTER_OF_UNIVERSE)
-                if ( distance < U.SAFE_SHIP_DISTANCE ) return false
-            }
-        }
-        for ( attacker in knownObjects.attackers ) {
-            if ( attacker is Missile ) return false
-            if ( attacker is Saucer ) return false // already checked but hey
+        if (knownObjects.saucerIsPresent()) return false
+        if (knownObjects.missiles.size > 0) return false
+        for ( asteroid in knownObjects.asteroids ) {
+            val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
+            if ( distance < U.SAFE_SHIP_DISTANCE ) return false
         }
         return true
     }

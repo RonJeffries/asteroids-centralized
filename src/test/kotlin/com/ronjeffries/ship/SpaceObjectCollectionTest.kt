@@ -53,114 +53,13 @@ class SpaceObjectCollectionTest {
     }
 
     @Test
-    fun `missiles are attackers`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Missile(Point(100.0, 200.0))
-        s.add(toAdd)
-        assertThat(s.attackers).contains(toAdd)
-    }
-
-    @Test
-    fun `ship is an attacker`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Ship(Point(100.0, 200.0))
-        s.add(toAdd)
-        assertThat(s.attackers).contains(toAdd)
-    }
-
-    @Test
-    fun `ship is a target`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Ship(Point(100.0, 200.0))
-        s.add(toAdd)
-        assertThat(s.targets).contains(toAdd)
-    }
-
-    @Test
-    fun `saucer is a target`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Saucer()
-        s.add(toAdd)
-        assertThat(s.targets).contains(toAdd)
-    }
-
-    @Test
-    fun `Asteroid is a target`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Asteroid(Point(100.0, 200.0))
-        s.add(toAdd)
-        assertThat(s.targets).contains(toAdd)
-    }
-
-    @Test
-    fun `saucer is an attacker`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Saucer()
-        s.add(toAdd)
-        assertThat(s.attackers).contains(toAdd)
-    }
-
-    @Test
-    fun `remove removes missiles from attackers`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Missile(Point(100.0, 200.0))
-        s.add(toAdd)
-        s.remove(toAdd)
-        assertThat(s.attackers).doesNotContain(toAdd)
-    }
-
-    @Test
-    fun `remove removes ship from attackers`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Ship(Point(100.0, 200.0))
-        s.add(toAdd)
-        s.remove(toAdd)
-        assertThat(s.attackers).doesNotContain(toAdd)
-    }
-
-    @Test
-    fun `remove removes ship from targets`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Ship(Point(100.0, 200.0))
-        s.add(toAdd)
-        s.remove(toAdd)
-        assertThat(s.targets).doesNotContain(toAdd)
-    }
-
-    @Test
-    fun `remove removes saucer from targets`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Saucer()
-        s.add(toAdd)
-        s.remove(toAdd)
-        assertThat(s.targets).doesNotContain(toAdd)
-    }
-
-    @Test
-    fun `remove removes asteroid from targets`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Asteroid(Point(100.0, 200.0))
-        s.add(toAdd)
-        s.remove(toAdd)
-        assertThat(s.targets).doesNotContain(toAdd)
-    }
-
-    @Test
-    fun `remove removes saucer from attackers`() {
-        val s = SpaceObjectCollection()
-        val toAdd = Saucer()
-        s.add(toAdd)
-        s.remove(toAdd)
-        assertThat(s.attackers).doesNotContain(toAdd)
-    }
-
-    @Test
     fun `performWithTransaction works`() {
         val s = SpaceObjectCollection()
         val saucer = Saucer()
         val ship = Ship(Point.ZERO)
         s.performWithTransaction { trans-> trans.add(saucer); trans.add(ship) }
-        assertThat(s.attackers.size).isEqualTo(2)
+        assertThat(s.ships).contains(ship)
+        assertThat(s.saucers).contains(saucer)
     }
 
     @Test
@@ -191,9 +90,9 @@ class SpaceObjectCollectionTest {
     @Test
     fun `can detect saucer`() {
         val s = SpaceObjectCollection()
-        assertThat(s.saucerMissing()).isEqualTo(true)
+        assertThat(s.saucerIsMissing()).isEqualTo(true)
         s.add(Saucer())
-        assertThat(s.saucerMissing()).isEqualTo(false)
+        assertThat(s.saucerIsMissing()).isEqualTo(false)
     }
 
     @Test
