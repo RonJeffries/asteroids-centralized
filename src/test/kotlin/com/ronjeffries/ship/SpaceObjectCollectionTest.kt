@@ -229,6 +229,16 @@ class SpaceObjectCollectionTest {
         assertThat(s.missiles.size).isEqualTo(0)
     }
 
+    @Test
+    fun `splats collection works`() {
+        val s = SpaceObjectCollection()
+        val splat = Splat(U.CENTER_OF_UNIVERSE)
+        s.add(splat)
+        assertThat(s.splats.size).isEqualTo(1)
+        s.remove(splat)
+        assertThat(s.splats.size).isEqualTo(0)
+    }
+
 // Needs replacement?
 //    @Test
 //    fun `removeAll removes from all collections`() {
