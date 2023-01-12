@@ -6,6 +6,7 @@ class SpaceObjectCollection {
     val attackers = mutableListOf<SpaceObject>()
     val targets = mutableListOf<SpaceObject>()
     val deferredActions = mutableListOf<DeferredAction>()
+    val missiles = mutableListOf<Missile>()
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
         return listOf (spaceObjects, attackers, targets, deferredActions)
@@ -19,18 +20,31 @@ class SpaceObjectCollection {
         addActualSpaceObjects(spaceObject)
     }
 
+    fun add(missile: Missile) {
+        spaceObjects.add(missile)
+        missiles.add(missile)
+        attackers.add(missile)
+    }
+
     private fun addActualSpaceObjects(spaceObject: SpaceObject) {
-        spaceObjects.add(spaceObject)
         when (spaceObject) {
-            is Missile -> attackers.add(spaceObject)
-            is Asteroid -> targets.add(spaceObject)
+            is Missile -> add(spaceObject)
+            is Asteroid -> {
+                spaceObjects.add(spaceObject)
+                targets.add(spaceObject)
+            }
             is Ship -> {
+                spaceObjects.add(spaceObject)
                 attackers.add(spaceObject)
                 targets.add(spaceObject)
             }
             is Saucer -> {
+                spaceObjects.add(spaceObject)
                 attackers.add(spaceObject)
                 targets.add(spaceObject)
+            }
+            is Splat -> {
+                spaceObjects.add(spaceObject)
             }
         }
     }
