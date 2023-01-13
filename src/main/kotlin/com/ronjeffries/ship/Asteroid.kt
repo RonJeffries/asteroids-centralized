@@ -25,6 +25,10 @@ class Asteroid(
     }
 
     private fun finalize(trans: Transaction) {
+        splitIfPossible(trans)
+    }
+
+    private fun splitIfPossible(trans: Transaction) {
         if (splitCount >= 1) {
             trans.add(asSplit(this))
             trans.add(asSplit(this))
