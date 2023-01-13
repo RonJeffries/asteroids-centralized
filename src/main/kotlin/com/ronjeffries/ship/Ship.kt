@@ -29,7 +29,6 @@ class Ship(
         interactWithSaucer = { saucer, trans -> checkCollision(saucer, trans) },
         interactWithMissile = { missile, trans -> checkCollision(missile, trans) },
         draw = this::draw,
-        finalize = this::finalize
     )
 
     private fun checkCollision(other: Collider, trans: Transaction) {
@@ -107,9 +106,6 @@ class Ship(
 //    }
 
     private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
-
-    fun finalize(trans: Transaction) {
-    }
 
     fun setToHome() {
         position = U.CENTER_OF_UNIVERSE
