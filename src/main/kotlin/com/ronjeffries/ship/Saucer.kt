@@ -53,7 +53,7 @@ class Saucer : SpaceObject, Collider {
 
     override val subscriptions = Subscriptions(
         draw = this::draw,
-        beforeInteractions = { beginInteractions() },
+        beforeInteractions = { beforeInteractions() },
         interactWithAsteroid = { asteroid, trans -> checkCollision(asteroid, trans) },
         interactWithShip = { ship, trans ->
             sawShip = true
@@ -65,7 +65,7 @@ class Saucer : SpaceObject, Collider {
         finalize = this::finalize
     )
 
-    fun beginInteractions() {
+    fun beforeInteractions() {
         sawShip = false; missileReady = true
     }
 
