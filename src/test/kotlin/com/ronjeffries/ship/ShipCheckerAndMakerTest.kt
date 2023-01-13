@@ -14,16 +14,6 @@ class ShipCheckerAndMakerTest {
     }
 
     @Test
-    fun `ship goes to center on collision death`() {
-        val ship = Ship(U.randomPoint())
-        val trans = Transaction()
-        ship.collision(trans)
-        assertThat(trans.firstRemove()).isEqualTo(ship)
-        ship.finalize(Transaction())
-        assertThat(ship.position).isEqualTo(U.CENTER_OF_UNIVERSE)
-    }
-
-    @Test
     fun `hyperspace failure checks`() {
         val ship = Ship(U.CENTER_OF_UNIVERSE)
         assertThat(ship.hyperspaceFailure(62, 19)).describedAs("roll 62 19 asteroids").isEqualTo(false)

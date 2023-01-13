@@ -109,6 +109,9 @@ class Ship(
     private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
 
     fun finalize(trans: Transaction) {
+    }
+
+    fun setToHome() {
         position = U.CENTER_OF_UNIVERSE
         velocity = Velocity.ZERO
         heading = 0.0

@@ -13,8 +13,16 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
     private val saucerOneShot = OneShot( 7.0) {it.add(saucer)}
     private val shipOneShot = OneShot(U.SHIP_MAKER_DELAY, { canShipEmerge() }) {
-       if ( scoreKeeper.takeShip() ) it.add(ship)
+       if ( scoreKeeper.takeShip() ) {
+           startShipAtHome(it)
+       }
     }
+
+    fun startShipAtHome(trans: Transaction) {
+        ship.setToHome()
+        trans.add(ship)
+    }
+
     // all OneShot instances go here:
     private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 

@@ -28,6 +28,25 @@ class GameTest {
     }
 
     @Test
+    fun `ship goes to center when game starts it`() {
+        val game = Game()
+        game.insertQuarter(Controls())
+        val trans = Transaction()
+        game.cycle(0.1)
+        game.cycle(3.1)
+        val ship = game.knownObjects.ships.first()
+        ship.position = Point(100.0, 100.0)
+        ship.collision(trans)
+        assertThat(trans.firstRemove()).isEqualTo(ship)
+        game.knownObjects.applyChanges(trans)
+        assertThat(ship.position).isNotEqualTo(U.CENTER_OF_UNIVERSE)
+        game.cycle(3.2)
+        game.cycle(6.2)
+        val shipAgain = game.knownObjects.ships.first()
+        assertThat(shipAgain.position).isEqualTo(U.CENTER_OF_UNIVERSE)
+    }
+
+    @Test
     fun `colliding ship and asteroid splits asteroid, loses ship`() {
         val game = Game()
         val asteroid = Asteroid(Vector2(1000.0, 1000.0))
