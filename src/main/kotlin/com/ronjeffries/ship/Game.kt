@@ -71,7 +71,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         tick(deltaTime)
         beginInteractions()
         processInteractions()
-        finishInteractions()
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
@@ -103,12 +102,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun beginInteractions() = knownObjects.forEachInteracting { it.subscriptions.beforeInteractions() }
-
-    private fun finishInteractions() {
-        val buffer = Transaction()
-        knownObjects.forEachInteracting { it.subscriptions.afterInteractions(buffer) }
-        knownObjects.applyChanges(buffer)
-    }
 
     private fun draw(drawer: Drawer) {
         knownObjects.forEachInteracting { drawer.isolated { it.subscriptions.draw(drawer) } }

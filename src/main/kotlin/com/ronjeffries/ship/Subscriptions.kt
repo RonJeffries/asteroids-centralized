@@ -10,8 +10,6 @@ class Subscriptions(
     val interactWithSaucer: (saucer: Saucer, trans: Transaction) -> Unit = { _, _, -> },
     val interactWithShip: (ship: Ship, trans: Transaction) -> Unit = { _, _, -> },
 
-    val afterInteractions: (trans: Transaction) -> Unit = {_ -> },
-
     val draw: (drawer: Drawer) -> Unit = {_ -> },
     val finalize: (trans: Transaction) -> Unit = { }
 )
