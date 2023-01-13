@@ -145,7 +145,7 @@ class SaucerTest {
     @Test
     fun `saucer knows if ship present`() {
         val saucer = Saucer()
-        saucer.subscriptions.beforeInteractions()
+        saucer.beforeInteractions()
         assertThat(saucer.sawShip).isEqualTo(false)
         saucer.subscriptions.interactWithShip(Ship(U.CENTER_OF_UNIVERSE), Transaction())
         assertThat(saucer.sawShip).isEqualTo(true)
@@ -158,7 +158,7 @@ class SaucerTest {
         saucer.sawShip = true
         saucer.fire(trans)
         val missile: Missile = trans.firstAdd() as Missile
-        saucer.subscriptions.beforeInteractions()
+        saucer.beforeInteractions()
         saucer.subscriptions.interactWithMissile(missile, trans)
         saucer.sawShip = true
         val empty = Transaction()
