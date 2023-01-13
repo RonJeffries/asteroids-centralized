@@ -24,11 +24,8 @@ class Asteroid(
         view.draw(this, drawer)
     }
 
-    private fun finalize(trans: Transaction) {
-        splitIfPossible(trans)
-    }
-
     private fun splitIfPossible(trans: Transaction) {
+        println("dying here $splitCount")
         if (splitCount >= 1) {
             trans.add(asSplit(this))
             trans.add(asSplit(this))
@@ -55,17 +52,33 @@ class Asteroid(
 
     override val subscriptions = Subscriptions(
         interactWithMissile = { missile, trans -> dieIfColliding(missile, trans) },
-        interactWithShip = { ship, trans -> if (Collision(ship).hit(this)) trans.remove(this) },
-        interactWithSaucer = { saucer, trans -> if (Collision(saucer).hit(this)) trans.remove(this) },
+        interactWithShip = { ship, trans -> dieIfColliding(ship, trans) },
+        interactWithSaucer = { saucer, trans -> dieIfColliding(saucer, trans) },
         draw = this::draw,
-        finalize = this::finalize
     )
 
     private fun dieIfColliding(missile: Missile, trans: Transaction) {
         if (Collision(missile).hit(this)) {
-            trans.remove(this)
-            trans.add(Splat(this))
+            dieDuetoCollision(trans)
         }
+    }
+
+    private fun dieIfColliding(ship: Ship, trans: Transaction) {
+        if (Collision(ship).hit(this)) {
+            dieDuetoCollision(trans)
+        }
+    }
+
+    private fun dieIfColliding(saucer: Saucer, trans: Transaction) {
+        if (Collision(saucer).hit(this)) {
+            dieDuetoCollision(trans)
+        }
+    }
+
+    fun dieDuetoCollision(trans: Transaction) {
+        trans.remove(this)
+        trans.add(Splat(this))
+        splitIfPossible(trans)
     }
 
     override fun callOther(other: SpaceObject, trans: Transaction) =

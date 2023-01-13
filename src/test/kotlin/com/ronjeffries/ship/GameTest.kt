@@ -58,8 +58,8 @@ class GameTest {
         assertThat(game.knownObjects.size).isEqualTo(2)
         assertThat(ship).isIn(game.knownObjects.spaceObjects())
         game.processInteractions()
-        assertThat(game.knownObjects.size).isEqualTo(3) // new ship (hack) Splat, and no Score
-        assertThat(ship).isNotIn(game.knownObjects.spaceObjects()) // but a new one is
+        assertThat(ship).isNotIn(game.knownObjects.spaceObjects())
+        assertThat(game.knownObjects.asteroidCount()).isEqualTo(2)
     }
 
     @Test

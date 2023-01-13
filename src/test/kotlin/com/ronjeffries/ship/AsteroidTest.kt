@@ -18,28 +18,28 @@ class AsteroidTest {
     }
 
     @Test
-    fun `asteroid splits on finalize`() {
+    fun `asteroid splits on collision death`() {
         val full = Asteroid(
             position = Point.ZERO,
             velocity = Velocity.ZERO
         )
         val radius = full.killRadius
         val trans = Transaction()
-        full.subscriptions.finalize(trans)
-        val halfSize = trans.adds
-        assertThat(halfSize.size).isEqualTo(2) // two asteroids and no score
-        val half = halfSize.last()
+        full.dieDuetoCollision(trans)
+        val halfAdds = trans.adds
+        assertThat(halfAdds.size).isEqualTo(3) // two asteroids and a splat
+        val half = halfAdds.last()
         assertThat((half as Asteroid).killRadius).describedAs("half").isEqualTo(radius/2.0)
         val trans2 = Transaction()
-        half.subscriptions.finalize(trans2)
-        val quarterSize = trans2.adds
-        assertThat(quarterSize.size).isEqualTo(2)
-        val quarter = quarterSize.last()
+        half.dieDuetoCollision(trans2)
+        val quarterAdds = trans2.adds
+        assertThat(quarterAdds.size).isEqualTo(3)
+        val quarter = quarterAdds.last()
         assertThat((quarter as Asteroid).killRadius).describedAs("quarter").isEqualTo(radius/4.0)
         val trans3 = Transaction()
-        quarter.subscriptions.finalize(trans3)
-        val eighthSize = trans3.adds
-        assertThat(eighthSize.size).describedAs("should not split third time").isEqualTo(0)
+        quarter.dieDuetoCollision(trans3)
+        val eighthAdds = trans3.adds
+        assertThat(eighthAdds.size).describedAs("should not split third time").isEqualTo(1) // just splat
     }
 
     @Test
@@ -53,7 +53,7 @@ class AsteroidTest {
         assertThat(fullV.length).isEqualTo(U.ASTEROID_SPEED, within(1.0))
         assertThat(fullV).isEqualTo(startingV)
         val trans = Transaction()
-        full.subscriptions.finalize(trans)
+        full.dieDuetoCollision(trans)
         val halfSize = trans.adds
         var countSplits = 0
         halfSize.forEach {

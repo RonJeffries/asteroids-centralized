@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test
 
 class FinalizerTest {
     @Test
-    fun `asteroid finalizer`() {
+    fun `asteroid dieOnCollision`() {
         val asteroid = Asteroid(Point.ZERO)
         val trans = Transaction()
-        asteroid.subscriptions.finalize(trans)
+        asteroid.dieDuetoCollision(trans)
         val splits = trans.adds
-        assertThat(splits.size).isEqualTo(2) // split guys and no score
+        assertThat(splits.size).isEqualTo(3) // split guys and splat
     }
 }
