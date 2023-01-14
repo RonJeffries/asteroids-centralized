@@ -50,25 +50,25 @@ class Asteroid(
     fun scale() =2.0.pow(splitCount)
 
     override val subscriptions = Subscriptions(
-        interactWithMissile = { missile, trans -> dieIfColliding(missile, trans) },
-        interactWithShip = { ship, trans -> dieIfColliding(ship, trans) },
-        interactWithSaucer = { saucer, trans -> dieIfColliding(saucer, trans) },
+        interactWithMissile = { missile, trans -> interactWithMissile(missile, trans) },
+        interactWithShip = { ship, trans -> interactWithMissile(ship, trans) },
+        interactWithSaucer = { saucer, trans -> interactWithMissile(saucer, trans) },
         draw = this::draw,
     )
 
-    private fun dieIfColliding(missile: Missile, trans: Transaction) {
+    private fun interactWithMissile(missile: Missile, trans: Transaction) {
         if (Collision(missile).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    private fun dieIfColliding(ship: Ship, trans: Transaction) {
+    private fun interactWithMissile(ship: Ship, trans: Transaction) {
         if (Collision(ship).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    private fun dieIfColliding(saucer: Saucer, trans: Transaction) {
+    private fun interactWithMissile(saucer: Saucer, trans: Transaction) {
         if (Collision(saucer).hit(this)) {
             dieDuetoCollision(trans)
         }
