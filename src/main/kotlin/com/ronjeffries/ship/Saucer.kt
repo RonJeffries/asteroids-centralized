@@ -24,7 +24,7 @@ class Saucer : SpaceObject, Collider {
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 
-    private var direction: Double = -1.0
+    private var direction: Double = 1.0
     lateinit var velocity: Velocity
     private val speed = U.SAUCER_SPEED
     private var elapsedTime = 0.0
@@ -40,7 +40,7 @@ class Saucer : SpaceObject, Collider {
     }
 
     fun initialize() {
-        direction = -1.0
+        direction = 1.0
         wakeUp()
     }
 
@@ -123,7 +123,6 @@ class Saucer : SpaceObject, Collider {
     }
 
     private fun finalize(trans: Transaction) {
-        wakeUp()
     }
 
     fun newDirection(direction: Int): Velocity = directions[min(max(0, direction), 3)]
@@ -138,6 +137,11 @@ class Saucer : SpaceObject, Collider {
     }
 
     fun getScore() = 200
+
+    fun start(trans: Transaction) {
+        wakeUp()
+        trans.add(this)
+    }
 
 //    private fun drawKillRadius(drawer: Drawer) {
 //        drawer.stroke = ColorRGBa.RED // delete comment even more

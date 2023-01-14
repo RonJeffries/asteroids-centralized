@@ -11,7 +11,12 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
-    private val saucerOneShot = OneShot( 7.0) {it.add(saucer)}
+    private val saucerOneShot = OneShot( 7.0) { startSaucer(it) }
+
+    private fun startSaucer(trans: Transaction) {
+        saucer.start(trans)
+    }
+
     private val shipOneShot = OneShot(U.SHIP_MAKER_DELAY, { canShipEmerge() }) {
        if ( scoreKeeper.takeShip() ) {
            startShipAtHome(it)
