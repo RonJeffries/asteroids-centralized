@@ -67,8 +67,7 @@ class Saucer : SpaceObject, Collider {
         interactWithMissile = { missile, trans ->
             if (missile == currentMissile) missileReady = false
             checkCollision(missile, trans)
-        },
-        finalize = this::finalize
+        }
     )
 
     fun beforeInteractions() {
@@ -127,9 +126,6 @@ class Saucer : SpaceObject, Collider {
     fun zigZag() {
         timeSinceSaucerSeen = 0.0
         velocity = newDirection(Random.nextInt(4)) * speed * direction
-    }
-
-    private fun finalize(trans: Transaction) {
     }
 
     fun newDirection(direction: Int): Velocity = directions[min(max(0, direction), 3)]
