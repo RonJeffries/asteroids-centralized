@@ -36,16 +36,21 @@ class Saucer : SpaceObject, Collider {
     private var currentMissile: Missile? = null
 
     init {
-        initialize()
+        direction = -1.0
+        setStartupValues()
     }
 
-    fun initialize() {
-        direction = 1.0
+    fun start(trans: Transaction) {
         wakeUp()
+        trans.add(this)
     }
 
     private fun wakeUp() {
         direction = -direction
+        setStartupValues()
+    }
+
+    private fun setStartupValues() {
         position = Point(0.0, Random.nextDouble(U.UNIVERSE_SIZE))
         velocity = Velocity(direction, 0.0) * speed
         elapsedTime = 0.0
@@ -56,11 +61,13 @@ class Saucer : SpaceObject, Collider {
         interactWithAsteroid = { asteroid, trans -> checkCollision(asteroid, trans) },
         interactWithShip = { ship, trans ->
             sawShip = true
-            shipFuturePosition = ship.position + ship.velocity*1.5
-            checkCollision(ship, trans) },
+            shipFuturePosition = ship.position + ship.velocity * 1.5
+            checkCollision(ship, trans)
+        },
         interactWithMissile = { missile, trans ->
-            if (missile == currentMissile ) missileReady = false
-            checkCollision(missile, trans) },
+            if (missile == currentMissile) missileReady = false
+            checkCollision(missile, trans)
+        },
         finalize = this::finalize
     )
 
@@ -89,9 +96,9 @@ class Saucer : SpaceObject, Collider {
     }
 
     fun fire(trans: Transaction) {
-        if ( sawShip && missileReady ) {
+        if (sawShip && missileReady) {
             timeSinceLastMissileFired = 0.0
-            if (Random.nextInt(4) == 0 ) fireTargeted(trans)
+            if (Random.nextInt(4) == 0) fireTargeted(trans)
             else fireRandom(trans)
         }
     }
@@ -132,16 +139,11 @@ class Saucer : SpaceObject, Collider {
 //        drawKillRadius(drawer)
         drawer.stroke = ColorRGBa.GREEN
         drawer.scale(U.SAUCER_SCALE, -U.SAUCER_SCALE)
-        drawer.strokeWeight = U.STROKE_ALL/U.SAUCER_SCALE
+        drawer.strokeWeight = U.STROKE_ALL / U.SAUCER_SCALE
         drawer.lineStrip(saucerPoints)
     }
 
     fun getScore() = 200
-
-    fun start(trans: Transaction) {
-        wakeUp()
-        trans.add(this)
-    }
 
 //    private fun drawKillRadius(drawer: Drawer) {
 //        drawer.stroke = ColorRGBa.RED // delete comment even more

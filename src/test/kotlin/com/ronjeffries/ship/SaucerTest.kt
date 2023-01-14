@@ -13,7 +13,6 @@ class SaucerTest {
     @Test
     fun `starts left-right on first start`() {
         val saucer = Saucer()
-        saucer.initialize()
         saucer.start(Transaction())
         assertThat(saucer.velocity.x).isGreaterThan(0.0)
         assertThat(saucer.velocity.y).isEqualTo(0.0)
@@ -22,7 +21,6 @@ class SaucerTest {
     @Test
     fun `right left second start`() {
         val saucer = Saucer()
-        saucer.initialize()
         saucer.start(Transaction())
         saucer.start(Transaction())
         assertThat(saucer.velocity.x).isLessThan(0.0)
@@ -32,7 +30,6 @@ class SaucerTest {
     @Test
     fun `direction changes maintain left-right`() {
         val saucer = Saucer()
-        saucer.initialize()
         saucer.start(Transaction())
         saucer.start(Transaction())
         saucer.zigZag()
