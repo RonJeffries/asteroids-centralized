@@ -66,15 +66,4 @@ class AsteroidTest {
         }
         assertThat(countSplits).describedAs("always two there are").isEqualTo(2)
     }
-
-    @Test
-    fun `ships do not split on finalize`() {
-        val ship = Ship(
-            position = Vector2(100.0, 100.0)
-        )
-        val trans = Transaction()
-        ship.subscriptions.finalize(trans)
-        val didShipSplit = trans.adds
-        assertThat(didShipSplit).isEmpty()
-    }
 }
