@@ -19,6 +19,10 @@ class Interaction(
                 ship.subscriptions.interactWithSaucer(saucer, trans)
                 saucer.subscriptions.interactWithShip(ship, trans)
             }
+            asteroids.forEach { asteroid ->
+                ship.subscriptions.interactWithAsteroid(asteroid, trans)
+                asteroid.subscriptions.interactWithShip(ship, trans)
+            }
         }
     }
 
