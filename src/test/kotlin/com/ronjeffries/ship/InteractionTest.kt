@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class InteractionTest {
+    val target = Point(100.0, 100.0)
+
     @Test
     fun `empty returns empty`() {
         val missiles = mutableListOf<Missile>()
@@ -18,9 +20,9 @@ class InteractionTest {
 
     @Test
     fun `missile and ship`() {
-        val missile = Missile(Point(100.0, 100.0))
-        missile.position = Point(100.0, 100.0)
-        val ship = Ship(Point(100.0, 100.0))
+        val missile = Missile(target)
+        missile.position = target
+        val ship = Ship(target)
         val trans = Transaction()
         Interaction(listOf(missile), listOf(ship), emptyList(), emptyList(), trans)
         assertThat(trans.removes).contains(ship)
@@ -29,8 +31,8 @@ class InteractionTest {
 
     @Test
     fun `missile and saucer`() {
-        val missile = Missile(Point(100.0, 100.0)).also { it.position = Point(100.0, 100.0)}
-        val saucer = Saucer().also { it. position = Point(100.0, 100.0) }
+        val missile = Missile(target).also { it.position = target}
+        val saucer = Saucer().also { it. position = target }
         val trans = Transaction()
         Interaction(listOf(missile), emptyList(), listOf(saucer), emptyList(), trans)
         assertThat(trans.removes).contains(saucer)
@@ -39,8 +41,8 @@ class InteractionTest {
 
     @Test
     fun `missile and asteroid`() {
-        val missile = Missile(Point(100.0, 100.0)).also { it.position = Point(100.0, 100.0)}
-        val asteroid = Asteroid(Point(100.0, 100.0))
+        val missile = Missile(target).also { it.position = target}
+        val asteroid = Asteroid(target)
         val trans = Transaction()
         Interaction(listOf(missile), emptyList(), emptyList(), listOf(asteroid), trans)
         assertThat(trans.removes).contains(asteroid)

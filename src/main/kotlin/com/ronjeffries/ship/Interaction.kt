@@ -1,14 +1,18 @@
 package com.ronjeffries.ship
 
 class Interaction(
-    missiles: List<Missile>,
-    ships: List<Ship>,
-    saucers: List<Saucer>,
-    asteroids: List<Asteroid>,
-    trans: Transaction
+    private val missiles: List<Missile>,
+    private val ships: List<Ship>,
+    private val saucers: List<Saucer>,
+    private val asteroids: List<Asteroid>,
+    private val trans: Transaction
 ) {
 
     init {
+        missilesVsShipSaucerAsteroids()
+    }
+
+    private fun missilesVsShipSaucerAsteroids() {
         missiles.forEach { missile ->
             ships.forEach {  ship ->
                 ship.subscriptions.interactWithMissile(missile, trans)
