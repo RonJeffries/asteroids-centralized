@@ -9,7 +9,7 @@ class Interaction(
 ) {
 
     init {
-        missilesVsShipSaucerAsteroids()
+        missilesVsMissileShipSaucerAsteroids()
         shipVsSaucerAsteroids()
         saucerVsAsteroids()
     }
@@ -36,8 +36,14 @@ class Interaction(
         }
     }
 
-    private fun missilesVsShipSaucerAsteroids() {
+    private fun missilesVsMissileShipSaucerAsteroids() {
         missiles.forEach { missile ->
+            missiles.forEach { other ->
+                if (other != missile ) {
+                    missile.subscriptions.interactWithMissile(other, trans)
+                    other.subscriptions.interactWithMissile(missile, trans)
+                }
+            }
             ships.forEach {  ship ->
                 ship.subscriptions.interactWithMissile(missile, trans)
                 missile.subscriptions.interactWithShip(ship, trans)
@@ -52,5 +58,4 @@ class Interaction(
             }
         }
     }
-
 }

@@ -19,6 +19,16 @@ class InteractionTest {
     }
 
     @Test
+    fun `missile and missile`() {
+        val missile1 = Missile(target).also { it.position = target }
+        val missile2 = Missile(target).also { it.position = target }
+        val trans = Transaction()
+        Interaction(listOf(missile1, missile2), emptyList(), emptyList(), emptyList(), trans)
+        assertThat(trans.removes).contains(missile1)
+        assertThat(trans.removes).contains(missile2)
+    }
+
+    @Test
     fun `missile and ship`() {
         val missile = Missile(target)
         missile.position = target
