@@ -2,7 +2,6 @@ package com.ronjeffries.ship
 
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.openrndr.math.Vector2
 
 class InteractionTest {
     @Test
@@ -35,6 +34,16 @@ class InteractionTest {
         val trans = Transaction()
         Interaction(listOf(missile), emptyList(), listOf(saucer), emptyList(), trans)
         assertThat(trans.removes).contains(saucer)
+        assertThat(trans.removes).contains(missile)
+    }
+
+    @Test
+    fun `missile and asteroid`() {
+        val missile = Missile(Point(100.0, 100.0)).also { it.position = Point(100.0, 100.0)}
+        val asteroid = Asteroid(Point(100.0, 100.0))
+        val trans = Transaction()
+        Interaction(listOf(missile), emptyList(), emptyList(), listOf(asteroid), trans)
+        assertThat(trans.removes).contains(asteroid)
         assertThat(trans.removes).contains(missile)
     }
 }
