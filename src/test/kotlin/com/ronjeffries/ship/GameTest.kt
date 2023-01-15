@@ -63,21 +63,6 @@ class GameTest {
     }
 
     @Test
-    fun `count interactions`() {
-        val game = Game()
-        val n = 12
-        for (i in 1..n) {
-            game.add(
-                Ship(
-                    position = Vector2.ZERO
-                )
-            )
-        }
-        val pairs = game.knownObjects.pairsToCheck()
-        assertThat(pairs.size).isEqualTo(n*(n-1)/2)
-    }
-
-    @Test
     fun `game creation creates ScoreKeeper`() {
         val game = Game()
         val controls = Controls()

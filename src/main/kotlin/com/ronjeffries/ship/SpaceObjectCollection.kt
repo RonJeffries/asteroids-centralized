@@ -80,16 +80,6 @@ class SpaceObjectCollection {
         return spaceObjects().contains(obj)
     }
 
-    fun pairsToCheck(): List<Pair<SpaceObject, SpaceObject>> {
-        val pairs = mutableListOf<Pair<SpaceObject, SpaceObject>>()
-        spaceObjects().indices.forEach { i ->
-            spaceObjects().indices.minus(0..i).forEach { j ->
-                pairs.add(spaceObjects()[i] to spaceObjects()[j])
-            }
-        }
-        return pairs
-    }
-
     fun performWithTransaction(action: (Transaction) -> Unit ) {
         val trans = Transaction()
         action(trans)
