@@ -8,4 +8,13 @@ class Interaction(
     trans: Transaction
 ) {
 
+    init {
+        missiles.forEach { missile ->
+            ships.forEach {  ship ->
+                ship.subscriptions.interactWithMissile(missile, trans)
+                missile.subscriptions.interactWithShip(ship, trans)
+            }
+        }
+    }
+
 }
