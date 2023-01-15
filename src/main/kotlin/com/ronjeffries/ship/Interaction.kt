@@ -14,6 +14,10 @@ class Interaction(
                 ship.subscriptions.interactWithMissile(missile, trans)
                 missile.subscriptions.interactWithShip(ship, trans)
             }
+            saucers.forEach {  saucer ->
+                saucer.subscriptions.interactWithMissile(missile, trans)
+                missile.subscriptions.interactWithSaucer(saucer, trans)
+            }
         }
     }
 
