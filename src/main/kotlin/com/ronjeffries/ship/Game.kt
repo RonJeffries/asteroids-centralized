@@ -35,9 +35,8 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
 
     fun changesDueToInteractions(): Transaction {
         val trans = Transaction()
-        knownObjects.pairsToCheck().forEach { p ->
-            p.first.callOther(p.second, trans)
-            p.second.callOther(p.first, trans)
+        with (knownObjects) {
+            Interaction(missiles, ships, saucers, asteroids, trans)
         }
         return trans
     }
