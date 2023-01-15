@@ -10,6 +10,16 @@ class Interaction(
 
     init {
         missilesVsShipSaucerAsteroids()
+        shipVsSaucerAsteroids()
+    }
+
+    private fun shipVsSaucerAsteroids() {
+        ships.forEach { ship ->
+            saucers.forEach { saucer ->
+                ship.subscriptions.interactWithSaucer(saucer, trans)
+                saucer.subscriptions.interactWithShip(ship, trans)
+            }
+        }
     }
 
     private fun missilesVsShipSaucerAsteroids() {

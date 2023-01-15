@@ -48,4 +48,14 @@ class InteractionTest {
         assertThat(trans.removes).contains(asteroid)
         assertThat(trans.removes).contains(missile)
     }
+
+    @Test
+    fun `ship and saucer`() {
+        val ship = Ship(target)
+        val saucer = Saucer().also { it.position = target }
+        val trans = Transaction()
+        Interaction(emptyList(), listOf(ship), listOf(saucer), emptyList(), trans)
+        assertThat(trans.removes).contains(saucer)
+        assertThat(trans.removes).contains(ship)
+    }
 }
