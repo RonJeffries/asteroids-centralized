@@ -25,10 +25,18 @@ class Ship(
     var displayAcceleration: Int = 0
 
     override val subscriptions = Subscriptions(
-        interactWithAsteroid = { asteroid, trans -> checkCollision(asteroid, trans) },
-        interactWithSaucer = { saucer, trans -> checkCollision(saucer, trans) },
+        interactWithAsteroid = { asteroid, trans -> interactWithAsteroid(asteroid, trans) },
+        interactWithSaucer = { saucer, trans -> interactWithSaucer(saucer, trans) },
         draw = this::draw,
     )
+
+    fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
+        checkCollision(saucer, trans)
+    }
+
+    fun interactWithAsteroid(asteroid: Asteroid, trans: Transaction) {
+        checkCollision(asteroid, trans)
+    }
 
     fun interactWithMissile(missile: Missile, trans: Transaction) {
         checkCollision(missile, trans)
