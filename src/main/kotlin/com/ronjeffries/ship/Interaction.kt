@@ -26,11 +26,11 @@ class Interaction(
     private fun shipVsSaucerAsteroids() {
         ships.forEach { ship ->
             saucers.forEach { saucer ->
-                ship.interactWithSaucer(saucer, trans)
+                ship.interact(saucer, trans)
                 saucer.interactWithShip(ship, trans)
             }
             asteroids.forEach { asteroid ->
-                ship.interactWithAsteroid(asteroid, trans)
+                ship.interact(asteroid, trans)
                 asteroid.interactWithShip(ship, trans)
             }
         }
@@ -45,7 +45,7 @@ class Interaction(
                 }
             }
             ships.forEach {  ship ->
-                ship.interactWithMissile(missile, trans)
+                ship.interact(missile, trans)
                 missile.interactWithShip(ship, trans)
             }
             saucers.forEach {  saucer ->

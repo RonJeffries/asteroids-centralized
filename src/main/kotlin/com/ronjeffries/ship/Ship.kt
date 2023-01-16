@@ -24,15 +24,15 @@ class Ship(
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
 
-    fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
+    fun interact(saucer: Saucer, trans: Transaction) {
         checkCollision(saucer, trans)
     }
 
-    fun interactWithAsteroid(asteroid: Asteroid, trans: Transaction) {
+    fun interact(asteroid: Asteroid, trans: Transaction) {
         checkCollision(asteroid, trans)
     }
 
-    fun interactWithMissile(missile: Missile, trans: Transaction) {
+    fun interact(missile: Missile, trans: Transaction) {
         checkCollision(missile, trans)
     }
 
