@@ -51,23 +51,23 @@ class Asteroid(
 
     fun interact(missile: Missile, trans: Transaction) {
         if (Collision(missile).hit(this)) {
-            dieDuetoCollision(trans)
+            dieDueToCollision(trans)
         }
     }
 
     fun interact(ship: Ship, trans: Transaction) {
         if (Collision(ship).hit(this)) {
-            dieDuetoCollision(trans)
+            dieDueToCollision(trans)
         }
     }
 
     fun interact(saucer: Saucer, trans: Transaction) {
         if (Collision(saucer).hit(this)) {
-            dieDuetoCollision(trans)
+            dieDueToCollision(trans)
         }
     }
 
-    fun dieDuetoCollision(trans: Transaction) {
+    fun dieDueToCollision(trans: Transaction) {
         trans.remove(this)
         trans.add(Splat(this))
         splitIfPossible(trans)
