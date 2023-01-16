@@ -17,7 +17,7 @@ class Interaction(
     private fun saucerVsAsteroids() {
         saucers.forEach { saucer->
             asteroids.forEach { asteroid ->
-                saucer.subscriptions.interactWithAsteroid(asteroid, trans)
+                saucer.interactWithAsteroid(asteroid, trans)
                 asteroid.subscriptions.interactWithSaucer(saucer, trans)
             }
         }
@@ -27,7 +27,7 @@ class Interaction(
         ships.forEach { ship ->
             saucers.forEach { saucer ->
                 ship.subscriptions.interactWithSaucer(saucer, trans)
-                saucer.subscriptions.interactWithShip(ship, trans)
+                saucer.interactWithShip(ship, trans)
             }
             asteroids.forEach { asteroid ->
                 ship.subscriptions.interactWithAsteroid(asteroid, trans)

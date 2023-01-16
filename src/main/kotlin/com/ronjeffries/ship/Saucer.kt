@@ -58,16 +58,24 @@ class Saucer : SpaceObject, Collider {
 
     override val subscriptions = Subscriptions(
         draw = this::draw,
-        interactWithAsteroid = { asteroid, trans -> checkCollision(asteroid, trans) },
+        interactWithAsteroid = { asteroid, trans -> interactWithAsteroid(asteroid, trans) },
         interactWithShip = { ship, trans ->
-            sawShip = true
-            shipFuturePosition = ship.position + ship.velocity * 1.5
-            checkCollision(ship, trans)
+            interactWithShip(ship, trans)
         },
         interactWithMissile = { missile, trans ->
             interactWithMissile(missile, trans)
         }
     )
+
+    fun interactWithShip(ship: Ship, trans: Transaction) {
+        sawShip = true
+        shipFuturePosition = ship.position + ship.velocity * 1.5
+        checkCollision(ship, trans)
+    }
+
+    fun interactWithAsteroid(asteroid: Asteroid, trans: Transaction) {
+        checkCollision(asteroid, trans)
+    }
 
     fun interactWithMissile(missile: Missile, trans: Transaction) {
         if (missile == currentMissile) missileReady = false
