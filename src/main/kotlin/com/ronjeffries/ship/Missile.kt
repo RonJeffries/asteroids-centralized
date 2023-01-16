@@ -51,19 +51,21 @@ class Missile(
             }
         },
         interactWithSaucer = { saucer, trans ->
-            if (checkCollision(saucer)) {
-                if (missileIsFromShip) trans.addScore(saucer.getScore())
-                terminateMissile(trans)
-            }
-        },
-        interactWithShip = { ship, trans ->
-            if (checkCollision(ship)) terminateMissile(trans)
-        },
-        interactWithMissile = { missile, trans ->
-            interactWithMissile(missile, trans)
+            interactWithSaucer(saucer, trans)
         },
         draw = this::draw,
     )
+
+    fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
+        if (checkCollision(saucer)) {
+            if (missileIsFromShip) trans.addScore(saucer.getScore())
+            terminateMissile(trans)
+        }
+    }
+
+    fun interactWithShip(ship: Ship, trans: Transaction) {
+        if (checkCollision(ship)) terminateMissile(trans)
+    }
 
     fun interactWithMissile(missile: Missile, trans: Transaction) {
         if (checkCollision(missile)) terminateMissile(trans)

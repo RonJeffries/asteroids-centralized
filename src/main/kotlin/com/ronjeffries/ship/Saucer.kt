@@ -65,10 +65,14 @@ class Saucer : SpaceObject, Collider {
             checkCollision(ship, trans)
         },
         interactWithMissile = { missile, trans ->
-            if (missile == currentMissile) missileReady = false
-            checkCollision(missile, trans)
+            interactWithMissile(missile, trans)
         }
     )
+
+    fun interactWithMissile(missile: Missile, trans: Transaction) {
+        if (missile == currentMissile) missileReady = false
+        checkCollision(missile, trans)
+    }
 
     fun beforeInteractions() {
         sawShip = false; missileReady = true

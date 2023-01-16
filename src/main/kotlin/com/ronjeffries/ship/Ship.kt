@@ -27,9 +27,12 @@ class Ship(
     override val subscriptions = Subscriptions(
         interactWithAsteroid = { asteroid, trans -> checkCollision(asteroid, trans) },
         interactWithSaucer = { saucer, trans -> checkCollision(saucer, trans) },
-        interactWithMissile = { missile, trans -> checkCollision(missile, trans) },
         draw = this::draw,
     )
+
+    fun interactWithMissile(missile: Missile, trans: Transaction) {
+        checkCollision(missile, trans)
+    }
 
     private fun checkCollision(other: Collider, trans: Transaction) {
         if (weAreCollidingWith(other)) {

@@ -45,12 +45,12 @@ class Interaction(
                 }
             }
             ships.forEach {  ship ->
-                ship.subscriptions.interactWithMissile(missile, trans)
-                missile.subscriptions.interactWithShip(ship, trans)
+                ship.interactWithMissile(missile, trans)
+                missile.interactWithShip(ship, trans)
             }
             saucers.forEach {  saucer ->
-                saucer.subscriptions.interactWithMissile(missile, trans)
-                missile.subscriptions.interactWithSaucer(saucer, trans)
+                saucer.interactWithMissile(missile, trans)
+                missile.interactWithSaucer(saucer, trans)
             }
             asteroids.forEach {  asteroid ->
                 asteroid.subscriptions.interactWithMissile(missile, trans)
