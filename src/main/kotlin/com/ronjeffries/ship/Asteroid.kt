@@ -50,9 +50,6 @@ class Asteroid(
     fun scale() =2.0.pow(splitCount)
 
     override val subscriptions = Subscriptions(
-        interactWithMissile = { missile, trans -> interactWithMissile(missile, trans) },
-        interactWithShip = { ship, trans -> interactWithShip(ship, trans) },
-        interactWithSaucer = { saucer, trans -> interactWithSaucer(saucer, trans) },
         draw = this::draw,
     )
 

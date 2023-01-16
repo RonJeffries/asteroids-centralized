@@ -44,9 +44,6 @@ class Missile(
     }
 
     override val subscriptions = Subscriptions(
-        interactWithSaucer = { saucer, trans ->
-            interactWithSaucer(saucer, trans)
-        },
         draw = this::draw,
     )
 

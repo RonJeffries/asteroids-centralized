@@ -58,12 +58,6 @@ class Saucer : SpaceObject, Collider {
 
     override val subscriptions = Subscriptions(
         draw = this::draw,
-        interactWithShip = { ship, trans ->
-            interactWithShip(ship, trans)
-        },
-        interactWithMissile = { missile, trans ->
-            interactWithMissile(missile, trans)
-        }
     )
 
     fun interactWithShip(ship: Ship, trans: Transaction) {
