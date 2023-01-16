@@ -60,8 +60,8 @@ class SaucerTest {
         saucer.position = Point(73.0, 0.0)
         val asteroid = Asteroid(Point.ZERO) // kr = 64 tot = 74, test 73
         val trans = Transaction()
-        saucer.subscriptions.interactWithAsteroid(asteroid, trans)
-        asteroid.subscriptions.interactWithSaucer(saucer, trans)
+        saucer.interactWithAsteroid(asteroid, trans)
+        asteroid.interactWithSaucer(saucer, trans)
         assertThat(trans.removes).contains(asteroid)
         assertThat(trans.removes).contains(saucer)
     }
@@ -73,9 +73,9 @@ class SaucerTest {
         val missile = Missile(Point.ZERO)
         missile.position = asteroid.position
         val trans = Transaction()
-        missile.subscriptions.interactWithAsteroid(asteroid, trans)
+        missile.interactWithAsteroid(asteroid, trans)
         assertThat(trans.removes).contains(missile)
-        asteroid.subscriptions.interactWithMissile(missile, trans)
+        asteroid.interactWithMissile(missile, trans)
         assertThat(trans.removes).contains(asteroid)
     }
 
@@ -85,22 +85,10 @@ class SaucerTest {
         val ship = Ship(Point.ZERO)
         ship.position = asteroid.position
         val trans = Transaction()
-        ship.subscriptions.interactWithAsteroid(asteroid, trans)
+        ship.interactWithAsteroid(asteroid, trans)
         assertThat(trans.removes).contains(ship)
-        asteroid.subscriptions.interactWithShip(ship, trans)
+        asteroid.interactWithShip(ship, trans)
         assertThat(trans.removes).contains(asteroid)
-    }
-
-    @Test
-    fun `asteroid asteroid collision`() {
-        val asteroid = Asteroid(Point.ZERO)
-        asteroid.position = Point(249.0, 0.0)
-        val asteroid2 = Asteroid(Point.ZERO)
-        asteroid2.position = asteroid.position
-        val trans = Transaction()
-        asteroid2.subscriptions.interactWithAsteroid(asteroid, trans)
-        asteroid.subscriptions.interactWithAsteroid(asteroid2, trans)
-        assertThat(trans.removes).isEmpty()
     }
 
     @Test
@@ -109,7 +97,7 @@ class SaucerTest {
         saucer.position = Point(900.0,900.0)
         val ship = Ship(Point(100.0, 100.0))
         ship.velocity = Velocity(10.0, 0.0)
-        saucer.subscriptions.interactWithShip(ship, Transaction())
+        saucer.interactWithShip(ship, Transaction())
         assertThat(saucer.shipFuturePosition).isEqualTo(Point(115.0, 100.0))
     }
 
@@ -120,7 +108,7 @@ class SaucerTest {
         val saucer = Saucer()
         saucer.position = Point(900.0,900.0)
         val ship = Ship(Point(x,y))
-        saucer.subscriptions.interactWithShip(ship, Transaction())
+        saucer.interactWithShip(ship, Transaction())
         val target = saucer.getTargetPosition()
         assertThat(target).isEqualTo(Point(x + 1024.0, y + 1024.0))
     }
@@ -148,7 +136,7 @@ class SaucerTest {
         val saucer = Saucer()
         saucer.beforeInteractions()
         assertThat(saucer.sawShip).isEqualTo(false)
-        saucer.subscriptions.interactWithShip(Ship(U.CENTER_OF_UNIVERSE), Transaction())
+        saucer.interactWithShip(Ship(U.CENTER_OF_UNIVERSE), Transaction())
         assertThat(saucer.sawShip).isEqualTo(true)
     }
 
@@ -160,11 +148,10 @@ class SaucerTest {
         saucer.fire(trans)
         val missile: Missile = trans.firstAdd() as Missile
         saucer.beforeInteractions()
-        saucer.subscriptions.interactWithMissile(missile, trans)
+        saucer.interactWithMissile(missile, trans)
         saucer.sawShip = true
         val empty = Transaction()
         saucer.fire(empty)
         assertThat(empty.adds.size).isEqualTo(0)
     }
-
 }

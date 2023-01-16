@@ -25,7 +25,6 @@ class Ship(
     var displayAcceleration: Int = 0
 
     override val subscriptions = Subscriptions(
-        interactWithAsteroid = { asteroid, trans -> interactWithAsteroid(asteroid, trans) },
         interactWithSaucer = { saucer, trans -> interactWithSaucer(saucer, trans) },
         draw = this::draw,
     )

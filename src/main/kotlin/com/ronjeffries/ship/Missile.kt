@@ -44,9 +44,6 @@ class Missile(
     }
 
     override val subscriptions = Subscriptions(
-        interactWithAsteroid = { asteroid, trans ->
-            interactWithAsteroid(asteroid, trans)
-        },
         interactWithSaucer = { saucer, trans ->
             interactWithSaucer(saucer, trans)
         },
