@@ -18,7 +18,7 @@ class Interaction(
         saucers.forEach { saucer->
             asteroids.forEach { asteroid ->
                 saucer.interactWithAsteroid(asteroid, trans)
-                asteroid.subscriptions.interactWithSaucer(saucer, trans)
+                asteroid.interactWithSaucer(saucer, trans)
             }
         }
     }
@@ -31,7 +31,7 @@ class Interaction(
             }
             asteroids.forEach { asteroid ->
                 ship.subscriptions.interactWithAsteroid(asteroid, trans)
-                asteroid.subscriptions.interactWithShip(ship, trans)
+                asteroid.interactWithShip(ship, trans)
             }
         }
     }

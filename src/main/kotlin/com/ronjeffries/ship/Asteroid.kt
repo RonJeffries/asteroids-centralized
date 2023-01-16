@@ -62,13 +62,13 @@ class Asteroid(
         }
     }
 
-    private fun interactWithShip(ship: Ship, trans: Transaction) {
+    fun interactWithShip(ship: Ship, trans: Transaction) {
         if (Collision(ship).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    private fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
+    fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
         if (Collision(saucer).hit(this)) {
             dieDuetoCollision(trans)
         }
