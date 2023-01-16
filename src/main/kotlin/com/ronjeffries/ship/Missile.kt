@@ -82,10 +82,6 @@ class Missile(
 
     private fun checkCollision(other: Collider) = Collision(other).hit(this)
 
-    override fun callOther(other: SpaceObject, trans: Transaction) {
-        other.subscriptions.interactWithMissile(this, trans)
-    }
-
     override fun toString(): String = "Missile $position ($killRadius)"
 
 }

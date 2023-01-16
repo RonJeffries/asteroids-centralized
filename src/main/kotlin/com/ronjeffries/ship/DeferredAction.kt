@@ -24,5 +24,4 @@ class DeferredAction(
     }
 
     override val subscriptions: Subscriptions = Subscriptions()
-    override fun callOther(other: SpaceObject, trans: Transaction) {}
 }

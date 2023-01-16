@@ -30,5 +30,4 @@ class Splat(
     }
 
     override val subscriptions = Subscriptions(draw = this::draw)
-    override fun callOther(other: SpaceObject, trans: Transaction) {}
 }

@@ -79,7 +79,4 @@ class Asteroid(
         trans.add(Splat(this))
         splitIfPossible(trans)
     }
-
-    override fun callOther(other: SpaceObject, trans: Transaction) =
-        other.subscriptions.interactWithAsteroid(this, trans)
 }

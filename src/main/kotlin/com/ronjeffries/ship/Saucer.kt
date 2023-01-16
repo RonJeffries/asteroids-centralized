@@ -93,9 +93,6 @@ class Saucer : SpaceObject, Collider {
         }
     }
 
-    override fun callOther(other: SpaceObject, trans: Transaction) =
-        other.subscriptions.interactWithSaucer(this, trans)
-
     override fun update(deltaTime: Double, trans: Transaction) {
         elapsedTime += deltaTime
         if (elapsedTime > U.SAUCER_LIFETIME) trans.remove(this)

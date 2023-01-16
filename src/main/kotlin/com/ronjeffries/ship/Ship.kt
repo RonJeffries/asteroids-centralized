@@ -48,10 +48,6 @@ class Ship(
         }
     }
 
-    override fun callOther(other: SpaceObject, trans: Transaction) {
-        other.subscriptions.interactWithShip(this, trans)
-    }
-
     override fun update(deltaTime: Double, trans: Transaction) {
         accelerating = false
         dropScale -= U.DROP_SCALE/60.0
