@@ -60,10 +60,14 @@ class Missile(
             if (checkCollision(ship)) terminateMissile(trans)
         },
         interactWithMissile = { missile, trans ->
-            if (checkCollision(missile)) terminateMissile(trans)
+            interactWithMissile(missile, trans)
         },
         draw = this::draw,
     )
+
+    fun interactWithMissile(missile: Missile, trans: Transaction) {
+        if (checkCollision(missile)) terminateMissile(trans)
+    }
 
     private fun terminateMissile(trans: Transaction) {
         timeOut.cancel(trans)

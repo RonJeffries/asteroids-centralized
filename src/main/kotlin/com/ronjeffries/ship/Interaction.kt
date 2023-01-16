@@ -40,8 +40,8 @@ class Interaction(
         missiles.forEach { missile ->
             missiles.forEach { other ->
                 if (other != missile ) {
-                    missile.subscriptions.interactWithMissile(other, trans)
-                    other.subscriptions.interactWithMissile(missile, trans)
+                    missile.interactWithMissile(other, trans)
+                    other.interactWithMissile(missile, trans)
                 }
             }
             ships.forEach {  ship ->
