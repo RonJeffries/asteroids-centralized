@@ -53,8 +53,8 @@ class Interaction(
                 missile.interactWithSaucer(saucer, trans)
             }
             asteroids.forEach {  asteroid ->
-                asteroid.subscriptions.interactWithMissile(missile, trans)
-                missile.subscriptions.interactWithAsteroid(asteroid, trans)
+                asteroid.interactWithMissile(missile, trans)
+                missile.interactWithAsteroid(asteroid, trans)
             }
         }
     }

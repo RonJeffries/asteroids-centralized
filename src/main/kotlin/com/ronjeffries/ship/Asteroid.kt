@@ -51,24 +51,24 @@ class Asteroid(
 
     override val subscriptions = Subscriptions(
         interactWithMissile = { missile, trans -> interactWithMissile(missile, trans) },
-        interactWithShip = { ship, trans -> interactWithMissile(ship, trans) },
-        interactWithSaucer = { saucer, trans -> interactWithMissile(saucer, trans) },
+        interactWithShip = { ship, trans -> interactWithShip(ship, trans) },
+        interactWithSaucer = { saucer, trans -> interactWithSaucer(saucer, trans) },
         draw = this::draw,
     )
 
-    private fun interactWithMissile(missile: Missile, trans: Transaction) {
+    fun interactWithMissile(missile: Missile, trans: Transaction) {
         if (Collision(missile).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    private fun interactWithMissile(ship: Ship, trans: Transaction) {
+    private fun interactWithShip(ship: Ship, trans: Transaction) {
         if (Collision(ship).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    private fun interactWithMissile(saucer: Saucer, trans: Transaction) {
+    private fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
         if (Collision(saucer).hit(this)) {
             dieDuetoCollision(trans)
         }
