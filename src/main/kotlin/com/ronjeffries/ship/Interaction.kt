@@ -7,7 +7,6 @@ class Interaction(
     private val asteroids: List<Asteroid>,
     private val trans: Transaction
 ) {
-
     init {
         missilesVsMissileShipSaucerAsteroids()
         shipVsSaucerAsteroids()
@@ -17,8 +16,8 @@ class Interaction(
     private fun saucerVsAsteroids() {
         saucers.forEach { saucer->
             asteroids.forEach { asteroid ->
-                saucer.interactWithAsteroid(asteroid, trans)
-                asteroid.interactWithSaucer(saucer, trans)
+                saucer.interact(asteroid, trans)
+                asteroid.interact(saucer, trans)
             }
         }
     }
@@ -27,11 +26,11 @@ class Interaction(
         ships.forEach { ship ->
             saucers.forEach { saucer ->
                 ship.interact(saucer, trans)
-                saucer.interactWithShip(ship, trans)
+                saucer.interact(ship, trans)
             }
             asteroids.forEach { asteroid ->
                 ship.interact(asteroid, trans)
-                asteroid.interactWithShip(ship, trans)
+                asteroid.interact(ship, trans)
             }
         }
     }
@@ -40,21 +39,21 @@ class Interaction(
         missiles.forEach { missile ->
             missiles.forEach { other ->
                 if (other != missile ) {
-                    missile.interactWithMissile(other, trans)
-                    other.interactWithMissile(missile, trans)
+                    missile.interact(other, trans)
+                    other.interact(missile, trans)
                 }
             }
             ships.forEach {  ship ->
                 ship.interact(missile, trans)
-                missile.interactWithShip(ship, trans)
+                missile.interact(ship, trans)
             }
             saucers.forEach {  saucer ->
-                saucer.interactWithMissile(missile, trans)
-                missile.interactWithSaucer(saucer, trans)
+                saucer.interact(missile, trans)
+                missile.interact(saucer, trans)
             }
             asteroids.forEach {  asteroid ->
-                asteroid.interactWithMissile(missile, trans)
-                missile.interactWithAsteroid(asteroid, trans)
+                asteroid.interact(missile, trans)
+                missile.interact(asteroid, trans)
             }
         }
     }

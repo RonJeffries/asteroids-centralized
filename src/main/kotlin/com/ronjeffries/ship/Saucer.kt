@@ -56,17 +56,17 @@ class Saucer : SpaceObject, Collider {
         elapsedTime = 0.0
     }
 
-    fun interactWithShip(ship: Ship, trans: Transaction) {
+    fun interact(ship: Ship, trans: Transaction) {
         sawShip = true
         shipFuturePosition = ship.position + ship.velocity * 1.5
         checkCollision(ship, trans)
     }
 
-    fun interactWithAsteroid(asteroid: Asteroid, trans: Transaction) {
+    fun interact(asteroid: Asteroid, trans: Transaction) {
         checkCollision(asteroid, trans)
     }
 
-    fun interactWithMissile(missile: Missile, trans: Transaction) {
+    fun interact(missile: Missile, trans: Transaction) {
         if (missile == currentMissile) missileReady = false
         checkCollision(missile, trans)
     }

@@ -49,19 +49,19 @@ class Asteroid(
 
     fun scale() =2.0.pow(splitCount)
 
-    fun interactWithMissile(missile: Missile, trans: Transaction) {
+    fun interact(missile: Missile, trans: Transaction) {
         if (Collision(missile).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    fun interactWithShip(ship: Ship, trans: Transaction) {
+    fun interact(ship: Ship, trans: Transaction) {
         if (Collision(ship).hit(this)) {
             dieDuetoCollision(trans)
         }
     }
 
-    fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
+    fun interact(saucer: Saucer, trans: Transaction) {
         if (Collision(saucer).hit(this)) {
             dieDuetoCollision(trans)
         }
