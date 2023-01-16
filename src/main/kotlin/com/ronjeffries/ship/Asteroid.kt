@@ -17,7 +17,7 @@ class Asteroid(
         position = (position + velocity * deltaTime).cap()
     }
 
-    fun draw(drawer: Drawer) {
+    override fun draw(drawer: Drawer) {
         drawer.fill = null
         drawer.translate(position)
         drawer.scale(U.DRAW_SCALE, U.DRAW_SCALE)
@@ -48,10 +48,6 @@ class Asteroid(
     }
 
     fun scale() =2.0.pow(splitCount)
-
-    override val subscriptions = Subscriptions(
-        draw = this::draw,
-    )
 
     fun interactWithMissile(missile: Missile, trans: Transaction) {
         if (Collision(missile).hit(this)) {

@@ -24,10 +24,8 @@ class Splat(
         position = (position + velocity * deltaTime).cap()
     }
 
-    fun draw(drawer: Drawer) {
+    override fun draw(drawer: Drawer) {
         drawer.translate(position)
         view.draw(this, drawer)
     }
-
-    override val subscriptions = Subscriptions(draw = this::draw)
 }

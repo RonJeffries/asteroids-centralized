@@ -56,10 +56,6 @@ class Saucer : SpaceObject, Collider {
         elapsedTime = 0.0
     }
 
-    override val subscriptions = Subscriptions(
-        draw = this::draw,
-    )
-
     fun interactWithShip(ship: Ship, trans: Transaction) {
         sawShip = true
         shipFuturePosition = ship.position + ship.velocity * 1.5
@@ -132,7 +128,7 @@ class Saucer : SpaceObject, Collider {
 
     fun newDirection(direction: Int): Velocity = directions[min(max(0, direction), 3)]
 
-    fun draw(drawer: Drawer) {
+    override fun draw(drawer: Drawer) {
         drawer.translate(position)
 //        drawKillRadius(drawer)
         drawer.stroke = ColorRGBa.GREEN

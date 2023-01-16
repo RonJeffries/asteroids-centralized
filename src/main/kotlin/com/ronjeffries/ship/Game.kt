@@ -116,7 +116,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun beforeInteractions() = knownObjects.saucers.forEach { it.beforeInteractions() }
 
     private fun draw(drawer: Drawer) {
-        knownObjects.forEachInteracting { drawer.isolated { it.subscriptions.draw(drawer) } }
+        knownObjects.forEachInteracting { drawer.isolated { it.draw(drawer) } }
         knownObjects.scoreKeeper.draw(drawer)
     }
 

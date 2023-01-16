@@ -36,16 +36,12 @@ class Missile(
         position = (position + velocity * deltaTime).cap()
     }
 
-    fun draw(drawer: Drawer) {
+    override fun draw(drawer: Drawer) {
         drawer.translate(position)
         drawer.stroke = color
         drawer.fill = color
         drawer.circle(Point.ZERO, killRadius * 2.0)
     }
-
-    override val subscriptions = Subscriptions(
-        draw = this::draw,
-    )
 
     fun interactWithAsteroid(asteroid: Asteroid, trans: Transaction) {
         if (checkCollision(asteroid)) {

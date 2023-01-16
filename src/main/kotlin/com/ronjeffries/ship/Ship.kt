@@ -24,10 +24,6 @@ class Ship(
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
 
-    override val subscriptions = Subscriptions(
-        draw = this::draw,
-    )
-
     fun interactWithSaucer(saucer: Saucer, trans: Transaction) {
         checkCollision(saucer, trans)
     }
@@ -85,7 +81,7 @@ class Ship(
         dropScale = U.DROP_SCALE
     }
 
-    fun draw(drawer: Drawer) {
+    override fun draw(drawer: Drawer) {
         drawer.translate(position)
 //        drawKillRadius(drawer)
         drawer.strokeWeight = U.STROKE_ALL

@@ -1,5 +1,7 @@
 package com.ronjeffries.ship
 
+import org.openrndr.draw.Drawer
+
 class DeferredAction(
     val delay: Double,
     val cond: () -> Boolean,
@@ -15,6 +17,8 @@ class DeferredAction(
         initialTransaction.add(this)
     }
 
+    override fun draw(drawer: Drawer) {}
+
     override fun update(deltaTime: Double, trans: Transaction) {
         elapsedTime += deltaTime
         if (elapsedTime >= delay && cond() ) {
@@ -22,6 +26,4 @@ class DeferredAction(
             trans.remove(this)
         }
     }
-
-    override val subscriptions: Subscriptions = Subscriptions()
 }

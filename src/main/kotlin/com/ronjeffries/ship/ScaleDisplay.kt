@@ -48,25 +48,25 @@ fun main() = application {
             drawer.scale(worldScale, worldScale)
             drawer.isolated {
                 a2.position = Point(7000.0, 5000.0)
-                a2.subscriptions.draw(drawer)
+                a2.draw(drawer)
             }
             drawer.isolated {
-                a1.subscriptions.draw(drawer)
+                a1.draw(drawer)
             }
             drawer.isolated {
-                a0.subscriptions.draw(drawer)
+                a0.draw(drawer)
             }
             drawer.isolated {
                 ship.position = Point(3000.0, 4000.0)
-                ship.subscriptions.draw(drawer)
+                ship.draw(drawer)
             }
             drawer.isolated {
                 ship.position = Point(5000.0, 4000.0)
-                ship.subscriptions.draw(drawer)
+                ship.draw(drawer)
             }
             drawer.isolated {
                 ship.position = Point(7000.0, 4000.0)
-                ship.subscriptions.draw(drawer)
+                ship.draw(drawer)
             }
             for (i in 0..9) {
                 val width = 8.0
@@ -76,7 +76,7 @@ fun main() = application {
                 val x = netScale*i + netScale/2.0
                 a0.position = Point(x, 1000.0)
                 a0.heading = 0.0
-                drawer.isolated { a0.subscriptions.draw(drawer) }
+                drawer.isolated { a0.draw(drawer) }
             }
             for (i in 1..10) {
                 var x = i*1000.0
@@ -92,7 +92,7 @@ fun main() = application {
                     ship.position = Point(scale* i + scale/2.0, 1200.0)
                     ship.accelerating = true
                     ship.displayAcceleration = 2
-                    ship.subscriptions.draw(drawer)
+                    ship.draw(drawer)
                 }
         }
     }
