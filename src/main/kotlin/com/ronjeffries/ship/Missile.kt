@@ -44,29 +44,29 @@ class Missile(
     }
 
     fun interact(asteroid: Asteroid, trans: Transaction) {
-        checkCollisionAndOptionallyScore(asteroid, trans) {
+        checkCollisionAndDoIfColliding(asteroid, trans) {
             if (missileIsFromShip) trans.addScore(asteroid.getScore())
         }
     }
 
     fun interact(saucer: Saucer, trans: Transaction) {
-        checkCollisionAndOptionallyScore(saucer, trans) {
+        checkCollisionAndDoIfColliding(saucer, trans) {
             if (missileIsFromShip) trans.addScore(saucer.getScore())
         }
     }
 
     fun interact(ship: Ship, trans: Transaction) {
-        checkCollisionAndOptionallyScore(ship, trans) {}
+        checkCollisionAndDoIfColliding(ship, trans) {}
     }
 
     fun interact(missile: Missile, trans: Transaction) {
-        checkCollisionAndOptionallyScore(missile, trans) {}
+        checkCollisionAndDoIfColliding(missile, trans) {}
     }
 
-    private fun checkCollisionAndOptionallyScore(other: Collider, trans: Transaction, action: (Transaction) -> Unit){
+    private fun checkCollisionAndDoIfColliding(other: Collider, trans: Transaction, action: () -> Unit){
         if ( checkCollision(other)) {
             terminateMissile(trans)
-            action(trans)
+            action()
         }
     }
 
