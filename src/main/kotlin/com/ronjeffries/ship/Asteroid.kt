@@ -62,7 +62,7 @@ class Asteroid(
     }
 
     private fun checkCollision(other: Collider, trans: Transaction) {
-        if (Collision(other).hit(this)) {
+        Collision(this).executeOnHit(other) {
             dieDueToCollision(trans)
         }
     }
