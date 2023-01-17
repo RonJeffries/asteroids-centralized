@@ -31,8 +31,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     // all OneShot instances go here:
     private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 
-    fun add(newObject: SpaceObject) = knownObjects.add(newObject)
-
     fun changesDueToInteractions(): Transaction {
         val trans = Transaction()
         with (knownObjects) {

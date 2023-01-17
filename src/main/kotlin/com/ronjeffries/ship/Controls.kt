@@ -6,7 +6,6 @@ class Controls {
     var right = false
     var fire = false
     var hyperspace = false
-    var quarter = false
 
     fun control(ship: Ship, deltaTime: Double, trans: Transaction) {
         if (hyperspace) {
@@ -15,7 +14,7 @@ class Controls {
         }
         turn(ship, deltaTime)
         accelerate(ship, deltaTime)
-        trans.addAll(fire(ship))
+        fire(ship).forEach { trans.add(it) }
     }
 
     private fun accelerate(ship:Ship, deltaTime: Double) {
@@ -25,11 +24,10 @@ class Controls {
         }
     }
 
-    private fun fire(obj: Ship): List<SpaceObject> = missilesToFire(obj).also { fire = false }
+    private fun fire(obj: Ship): List<Missile> = missilesToFire(obj).also { fire = false }
 
-    private fun missilesToFire(obj: Ship): List<SpaceObject> {
+    private fun missilesToFire(obj: Ship): List<Missile> {
         return if (fire) {
-//            listOf(SolidObject.missile(obj))
             listOf(Missile(obj))
         } else {
             emptyList()

@@ -9,7 +9,7 @@ class FinalizerTest {
         val asteroid = Asteroid(Point.ZERO)
         val trans = Transaction()
         asteroid.dieDueToCollision(trans)
-        val splits = trans.adds
-        assertThat(splits.size).isEqualTo(3) // split guys and splat
+        val splits = trans.asteroids
+        assertThat(splits.size).isEqualTo(2)
     }
 }

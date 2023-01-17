@@ -21,11 +21,11 @@ class SpaceObjectCollectionTest {
     fun `collision detection`() {
         val game = Game()
         val a = Asteroid(Vector2(100.0, 100.0))
-        game.add(a)
+        game.knownObjects.add(a)
         val s = Ship(
             position = Vector2(100.0, 150.0)
         )
-        game.add(s)
+        game.knownObjects.add(s)
         assertThat(game.knownObjects.size).isEqualTo(2)
         val colliders = game.changesDueToInteractions()
         assertThat(colliders.removes.size).isEqualTo(2)
@@ -37,17 +37,17 @@ class SpaceObjectCollectionTest {
         val p2 = Vector2(1250.0, 100.0)
         val game = Game()
         val a0 = Asteroid(p1) // yes
-        game.add(a0)
+        game.knownObjects.add(a0)
         val m1 = Ship(position = p1, killRadius = 10.0) // yes
-        game.add(m1)
+        game.knownObjects.add(m1)
         val s2 = Ship(
             position = p1
         ) // yes kr=150
-        game.add(s2)
+        game.knownObjects.add(s2)
         val a3 = Asteroid(p2) // no
-        game.add(a3)
+        game.knownObjects.add(a3)
         val a4 = Asteroid(p2) // no
-        game.add(a4)
+        game.knownObjects.add(a4)
         val colliders = game.changesDueToInteractions()
         assertThat(colliders.removes.size).isEqualTo(3)
     }

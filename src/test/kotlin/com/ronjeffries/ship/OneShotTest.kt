@@ -11,7 +11,7 @@ class OneShotTest {
         val once = OneShot(2.0) { count += 1}
         assertThat(count).isEqualTo(0)
         once.execute(trans)
-        val defer = trans.deferredActionAdds.first() as DeferredAction
+        val defer = trans.deferredActionAdds.first()
         defer.update(0.1, trans)
         assertThat(count).isEqualTo(0)
         defer.update(2.2, trans)
@@ -26,7 +26,7 @@ class OneShotTest {
         val once = OneShot(2.0, { ready }) { count += 1}
         assertThat(count).isEqualTo(0)
         once.execute(trans)
-        val defer = trans.deferredActionAdds.first() as DeferredAction
+        val defer = trans.deferredActionAdds.first()
         defer.update(0.1, trans)
         assertThat(count).describedAs("not yet").isEqualTo(0)
         defer.update(2.2, trans)
@@ -46,7 +46,7 @@ class OneShotTest {
         val defer = trans.deferredActionAdds.first()
         val empty = Transaction()
         once.execute(empty)
-        assertThat(empty.adds).isEmpty()
+        assertThat(empty.deferredActionAdds).isEmpty()
     }
 
     @Test
@@ -56,7 +56,7 @@ class OneShotTest {
         val once = OneShot(2.0) { count += 1}
         assertThat(count).isEqualTo(0)
         once.execute(trans)
-        val defer = trans.deferredActionAdds.first() as DeferredAction
+        val defer = trans.deferredActionAdds.first()
         val removeTrans = Transaction()
         defer.update(2.1, removeTrans)
         assertThat(count).isEqualTo(1)

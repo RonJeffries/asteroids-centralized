@@ -121,7 +121,7 @@ class SolidObjectTest {
         controls.fire = true
         val newMissiles = Transaction()
         ship.update(tick, newMissiles)
-        assertThat(newMissiles.adds.size).isEqualTo(1) // does not return itself
+        assertThat(newMissiles.missiles.size).isEqualTo(1) // does not return itself
     }
 
     @Test
@@ -134,17 +134,17 @@ class SolidObjectTest {
         controls.fire = true
         val oneMissile = Transaction()
         ship.update(tick, oneMissile)
-        assertThat(oneMissile.adds.size).isEqualTo(1)
+        assertThat(oneMissile.missiles.size).isEqualTo(1)
         val noMissiles = Transaction()
         ship.update(tick, noMissiles)
-        assertThat(noMissiles.adds.size).isEqualTo(0) // no firing
+        assertThat(noMissiles.missiles.size).isEqualTo(0) // no firing
         controls.fire = false
         val newMissiles = Transaction()
         ship.update(tick, newMissiles)
-        assertThat(newMissiles.adds.size).isEqualTo(0)
+        assertThat(newMissiles.missiles.size).isEqualTo(0)
         controls.fire = true
         ship.update(tick, newMissiles)
-        assertThat(newMissiles.adds.size).isEqualTo(1)
+        assertThat(newMissiles.missiles.size).isEqualTo(1)
     }
 
     @Test
@@ -222,7 +222,7 @@ class SolidObjectTest {
         // fire missile and check it
         val additions = Transaction()
         ship.update(sixtieth, additions)
-        val missile = additions.firstAdd() as Missile
+        val missile = additions.missiles.first()
         assertThat(missile.position).isEqualTo(expectedPosition)
     }
 
@@ -244,7 +244,7 @@ class SolidObjectTest {
         val expectedPosition = ship.position + missileOffset.rotate(ship.heading)
         val additions = Transaction()
         ship.update(sixtieth, additions)
-        val missile = additions.firstAdd() as Missile
+        val missile = additions.missiles.first()
         assertThat(missile.position).isEqualTo(expectedPosition)
     }
 
@@ -259,7 +259,7 @@ class SolidObjectTest {
         controls.fire = false
         val noMissile = Transaction()
         ship.update(sixtieth, noMissile)
-        assertThat(noMissile.adds).isEmpty()
+        assertThat(noMissile.missiles).isEmpty()
     }
 }
 

@@ -14,7 +14,6 @@ class InteractionTest {
         val asteroids = mutableListOf<Asteroid>()
         val trans = Transaction()
         Interaction(missiles, ships, saucers, asteroids, trans)
-        assertThat(trans.adds).isEmpty()
         assertThat(trans.removes).isEmpty()
     }
 

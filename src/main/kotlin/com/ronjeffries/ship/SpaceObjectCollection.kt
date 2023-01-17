@@ -20,11 +20,7 @@ class SpaceObjectCollection {
         deferredActions.add(deferredAction)
     }
 
-    fun add(spaceObject: SpaceObject) {
-        addActualSpaceObjects(spaceObject)
-    }
-
-    private fun add(asteroid: Asteroid) {
+    fun add(asteroid: Asteroid) {
         asteroids.add(asteroid)
     }
 
@@ -42,16 +38,6 @@ class SpaceObjectCollection {
 
     fun add(splat: Splat) {
         splats.add(splat)
-    }
-
-    private fun addActualSpaceObjects(spaceObject: SpaceObject) {
-        when (spaceObject) {
-            is Missile -> add(spaceObject)
-            is Asteroid -> add(spaceObject)
-            is Ship -> add(spaceObject)
-            is Saucer -> add(spaceObject)
-            is Splat -> add(spaceObject)
-        }
     }
 
     fun addScore(score: Int) {

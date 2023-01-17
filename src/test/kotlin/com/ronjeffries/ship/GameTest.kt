@@ -12,8 +12,8 @@ class GameTest {
         val ship = Ship(
             position = Vector2(1000.0, 1000.0)
         )
-        game.add(asteroid)
-        game.add(ship)
+        game.knownObjects.add(asteroid)
+        game.knownObjects.add(ship)
         val trans = game.changesDueToInteractions()
         assertThat(trans.removes.size).isEqualTo(0)
         val steps = (1000 - 100) / 50
@@ -54,8 +54,8 @@ class GameTest {
         val ship = Ship(
             position = Vector2(1000.0, 1000.0)
         )
-        game.add(asteroid)
-        game.add(ship)
+        game.knownObjects.add(asteroid)
+        game.knownObjects.add(ship)
         assertThat(game.knownObjects.size).isEqualTo(2)
         assertThat(ship).isIn(game.knownObjects.spaceObjects())
         game.processInteractions()
@@ -106,10 +106,10 @@ class GameTest {
         game.createInitialContents(Controls())
         val transForFour = Transaction()
         game.makeWave(transForFour)
-        assertThat(transForFour.adds.size).isEqualTo(4)
+        assertThat(transForFour.asteroids.size).isEqualTo(4)
         val transForSix = Transaction()
         game.makeWave(transForSix)
-        assertThat(transForSix.adds.size).isEqualTo(6)
+        assertThat(transForSix.asteroids.size).isEqualTo(6)
     }
 
     @Test

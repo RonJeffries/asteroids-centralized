@@ -1,12 +1,22 @@
 package com.ronjeffries.ship
 
 class Transaction {
-    val adds = mutableSetOf<SpaceObject>()
+    val asteroids = mutableListOf<Asteroid>()
+    val missiles = mutableListOf<Missile>()
+    val saucers = mutableListOf<Saucer>()
+    val ships = mutableListOf<Ship>()
+    val splats = mutableListOf<Splat>()
     val removes = mutableSetOf<SpaceObject>()
     val deferredActionAdds = mutableSetOf<DeferredAction>()
     val deferredActionRemoves = mutableSetOf<DeferredAction>()
     var shouldClear = false
     var score = 0
+
+    fun add(asteroid: Asteroid) {asteroids.add(asteroid)}
+    fun add(missile: Missile) {missiles.add(missile)}
+    fun add(saucer: Saucer) {saucers.add(saucer)}
+    fun add(ship: Ship) {ships.add(ship)}
+    fun add(splat: Splat) {splats.add(splat)}
 
     fun add(deferredAction: DeferredAction) {
         deferredActionAdds.add(deferredAction)
@@ -14,14 +24,6 @@ class Transaction {
 
     fun remove(deferredAction: DeferredAction) {
         deferredActionRemoves.add(deferredAction)
-    }
-
-    fun add(spaceObject: SpaceObject) {
-        adds.add(spaceObject)
-    }
-
-    fun addAll(adds: List<SpaceObject>) {
-        adds.forEach { add(it) }
     }
 
     fun addScore(scoreToAdd: Int) {
@@ -33,7 +35,11 @@ class Transaction {
         spaceObjectCollection.addScore(score)
         removes.forEach { spaceObjectCollection.remove(it)}
         deferredActionRemoves.forEach { spaceObjectCollection.remove(it)}
-        adds.forEach { spaceObjectCollection.add(it)}
+        asteroids.forEach { spaceObjectCollection.add(it)}
+        missiles.forEach { spaceObjectCollection.add(it)}
+        saucers.forEach { spaceObjectCollection.add(it)}
+        ships.forEach { spaceObjectCollection.add(it)}
+        splats.forEach { spaceObjectCollection.add(it)}
         deferredActionAdds.forEach { spaceObjectCollection.add(it)}
     }
 
@@ -46,6 +52,5 @@ class Transaction {
     }
 
     // testing
-    fun firstAdd(): SpaceObject = adds.toList()[0]
     fun firstRemove(): SpaceObject = removes.toList()[0]
 }

@@ -26,20 +26,21 @@ class AsteroidTest {
         val radius = full.killRadius
         val trans = Transaction()
         full.dieDueToCollision(trans)
-        val halfAdds = trans.adds
-        assertThat(halfAdds.size).isEqualTo(3) // two asteroids and a splat
+        val halfAdds = trans.asteroids
+        assertThat(halfAdds.size).isEqualTo(2) // two asteroids and a splat
+        assertThat(trans.splats.size).isEqualTo(1)
         val half = halfAdds.last()
-        assertThat((half as Asteroid).killRadius).describedAs("half").isEqualTo(radius/2.0)
+        assertThat((half).killRadius).describedAs("half").isEqualTo(radius/2.0)
         val trans2 = Transaction()
         half.dieDueToCollision(trans2)
-        val quarterAdds = trans2.adds
-        assertThat(quarterAdds.size).isEqualTo(3)
+        val quarterAdds = trans2.asteroids
+        assertThat(quarterAdds.size).isEqualTo(2)
         val quarter = quarterAdds.last()
-        assertThat((quarter as Asteroid).killRadius).describedAs("quarter").isEqualTo(radius/4.0)
+        assertThat((quarter).killRadius).describedAs("quarter").isEqualTo(radius/4.0)
         val trans3 = Transaction()
         quarter.dieDueToCollision(trans3)
-        val eighthAdds = trans3.adds
-        assertThat(eighthAdds.size).describedAs("should not split third time").isEqualTo(1) // just splat
+        val eighthAdds = trans3.asteroids
+        assertThat(eighthAdds.size).describedAs("should not split third time").isEqualTo(0)
     }
 
     @Test
@@ -54,15 +55,13 @@ class AsteroidTest {
         assertThat(fullV).isEqualTo(startingV)
         val trans = Transaction()
         full.dieDueToCollision(trans)
-        val halfSize = trans.adds
+        val halfSize = trans.asteroids
         var countSplits = 0
         halfSize.forEach {
-            if ( it is Asteroid) {
-                countSplits += 1
-                val halfV = it.velocity
-                assertThat(halfV.length).isEqualTo(U.ASTEROID_SPEED, within(1.0))
-                assertThat(halfV).isNotEqualTo(startingV)
-            }
+            countSplits += 1
+            val halfV = it.velocity
+            assertThat(halfV.length).isEqualTo(U.ASTEROID_SPEED, within(1.0))
+            assertThat(halfV).isNotEqualTo(startingV)
         }
         assertThat(countSplits).describedAs("always two there are").isEqualTo(2)
     }
