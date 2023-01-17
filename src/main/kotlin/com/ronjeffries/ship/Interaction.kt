@@ -38,7 +38,7 @@ class Interaction(
     private fun missilesVsMissileShipSaucerAsteroids() {
         missiles.forEach { missile ->
             missiles.forEach { other ->
-                if (other != missile ) {
+                if (other !== missile ) {
                     missile.interact(other, trans)
                     other.interact(missile, trans)
                 }
