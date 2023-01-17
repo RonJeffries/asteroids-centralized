@@ -37,8 +37,9 @@ class Ship(
     }
 
     private fun checkCollision(other: Collider, trans: Transaction) {
-        if (weAreCollidingWith(other)) {
-            collision(trans)
+        Collision(other).executeOnHit(this) {
+            trans.add(Splat(this))
+            trans.remove(this)
         }
     }
 
@@ -66,11 +67,6 @@ class Ship(
     // allegedly the original arcade rule
     fun hyperspaceFailure(random0thru62: Int, asteroidTally: Int): Boolean
             = random0thru62 >= (asteroidTally + 44)
-
-    fun collision(trans: Transaction) {
-        trans.add(Splat(this))
-        trans.remove(this)
-    }
 
     fun accelerate(deltaV: Acceleration) {
         accelerating = true
@@ -105,8 +101,6 @@ class Ship(
 //        drawer.fill = null
 //        drawer.circle(0.0, 0.0, killRadius)
 //    }
-
-    private fun weAreCollidingWith(other: Collider): Boolean = Collision(other).hit(this)
 
     fun setToHome() {
         position = U.CENTER_OF_UNIVERSE

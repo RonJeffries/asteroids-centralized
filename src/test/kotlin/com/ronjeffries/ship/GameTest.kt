@@ -16,7 +16,7 @@ class GameTest {
         game.add(ship)
         val trans = game.changesDueToInteractions()
         assertThat(trans.removes.size).isEqualTo(0)
-        val steps = (1000-100)/50
+        val steps = (1000 - 100) / 50
         for (i in 1..steps * 60) game.tick(1.0 / 60.0)
         val x = asteroid.position.x
         val y = asteroid.position.y
@@ -36,7 +36,8 @@ class GameTest {
         game.cycle(3.1)
         val ship = game.knownObjects.ships.first()
         ship.position = Point(100.0, 100.0)
-        ship.collision(trans)
+        trans.add(Splat(ship))
+        trans.remove(ship)
         assertThat(trans.firstRemove()).isEqualTo(ship)
         game.knownObjects.applyChanges(trans)
         assertThat(ship.position).isNotEqualTo(U.CENTER_OF_UNIVERSE)
@@ -116,7 +117,7 @@ class GameTest {
         val mix = SpaceObjectCollection()
         val game = Game(mix)
         assertThat(game.canShipEmerge()).isEqualTo(true)
-        val saucer= Saucer()
+        val saucer = Saucer()
         mix.add(saucer)
         assertThat(game.canShipEmerge()).isEqualTo(false)
     }
@@ -126,7 +127,7 @@ class GameTest {
         val mix = SpaceObjectCollection()
         val game = Game(mix)
         assertThat(game.canShipEmerge()).isEqualTo(true)
-        val asteroid= Asteroid(Point(100.0, 100.0))
+        val asteroid = Asteroid(Point(100.0, 100.0))
         mix.add(asteroid)
         assertThat(game.canShipEmerge()).isEqualTo(true)
         val dangerousAsteroid = Asteroid(U.CENTER_OF_UNIVERSE + Point(50.0, 50.0))
@@ -139,7 +140,7 @@ class GameTest {
         val mix = SpaceObjectCollection()
         val game = Game(mix)
         assertThat(game.canShipEmerge()).isEqualTo(true)
-        val missile= Missile(Point(100.0, 100.0))
+        val missile = Missile(Point(100.0, 100.0))
         mix.add(missile)
         assertThat(game.canShipEmerge()).isEqualTo(false)
     }
