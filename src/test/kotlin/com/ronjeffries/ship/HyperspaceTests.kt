@@ -3,7 +3,7 @@ package com.ronjeffries.ship
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class ShipCheckerAndMakerTest {
+class HyperspaceTests {
     @Test
     fun `ship randomizes position on hyperspace entry`() {
         val ship = Ship(U.CENTER_OF_UNIVERSE)
