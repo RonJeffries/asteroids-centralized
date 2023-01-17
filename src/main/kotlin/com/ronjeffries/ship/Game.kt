@@ -98,17 +98,13 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
 
     private fun createNewWaveIfNeeded() {
         if ( U.AsteroidTally == 0 ) {
-            val trans = Transaction()
-            waveOneShot.execute(trans)
-            knownObjects.applyChanges(trans)
+            knownObjects.performWithTransaction { waveOneShot.execute(it) }
         }
     }
 
     private fun createSaucerIfNeeded() {
         if ( knownObjects.saucerIsMissing() ) {
-            val trans = Transaction()
-            saucerOneShot.execute(trans)
-            knownObjects.applyChanges(trans)
+            knownObjects.performWithTransaction { saucerOneShot.execute(it) }
         }
     }
 
