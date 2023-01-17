@@ -76,7 +76,7 @@ class Saucer : SpaceObject, Collider {
     }
 
     private fun checkCollision(collider: Collider, trans: Transaction) {
-        if (Collision(collider).hit(this)) {
+        Collision(collider).executeOnHit(this) {
             trans.add(Splat(this))
             trans.remove(this)
         }
