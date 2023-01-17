@@ -59,10 +59,10 @@ class Missile(
         checkAndScoreCollision(missile, trans, 0)
     }
 
-    private fun checkAndScoreCollision(other: Collider, trans: Transaction, score: Int){
-        if ( checkCollision(other)) {
+    private fun checkAndScoreCollision(other: Collider, trans: Transaction, score: Int) {
+        Collision(other).executeOnHit(this) {
             terminateMissile(trans)
-            if ( missileIsFromShip ) trans.addScore(score)
+            if (missileIsFromShip) trans.addScore(score)
         }
     }
 
@@ -70,8 +70,6 @@ class Missile(
         timeOut.cancel(trans)
         trans.remove(this)
     }
-
-    private fun checkCollision(other: Collider) = Collision(other).hit(this)
 
     override fun toString(): String = "Missile $position ($killRadius)"
 
