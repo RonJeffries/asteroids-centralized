@@ -91,10 +91,9 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     private fun createShipIfNeeded() {
-        if ( knownObjects.shipIsPresent() ) return
-        val trans = Transaction()
-        shipOneShot.execute(trans)
-        knownObjects.applyChanges(trans)
+        if ( knownObjects.shipIsMissing() ) {
+            knownObjects.performWithTransaction { shipOneShot.execute(it) }
+        }
     }
 
     private fun createNewWaveIfNeeded() {
