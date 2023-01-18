@@ -113,7 +113,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         knownObjects.scoreKeeper.draw(drawer)
     }
 
-    private fun howMany(): Int {
+    fun howMany(): Int {
         return numberOfAsteroidsToCreate.also {
             numberOfAsteroidsToCreate += 2
             if (numberOfAsteroidsToCreate > 11) numberOfAsteroidsToCreate = 11
