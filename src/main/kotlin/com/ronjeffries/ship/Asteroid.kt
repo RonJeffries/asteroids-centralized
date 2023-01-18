@@ -49,21 +49,17 @@ class Asteroid(
 
     fun scale() =2.0.pow(splitCount)
 
-    fun interact(missile: Collider, trans: Transaction) {
+    fun interact(missile: Missile, trans: Transaction) {
         checkCollision(missile, trans)
     }
 
-//    fun interact(missile: Missile, trans: Transaction) {
-//        checkCollision(missile, trans)
-//    }
-//
-//    fun interact(ship: Ship, trans: Transaction) {
-//        checkCollision(ship, trans)
-//    }
-//
-//    fun interact(saucer: Saucer, trans: Transaction) {
-//        checkCollision(saucer, trans)
-//    }
+    fun interact(ship: Ship, trans: Transaction) {
+        checkCollision(ship, trans)
+    }
+
+    fun interact(saucer: Saucer, trans: Transaction) {
+        checkCollision(saucer, trans)
+    }
 
     private fun checkCollision(other: Collider, trans: Transaction) {
         Collision(this).executeOnHit(other) {
