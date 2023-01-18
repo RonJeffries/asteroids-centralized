@@ -144,4 +144,16 @@ class GameTest {
         mix.add(missile)
         assertThat(game.canShipEmerge()).isEqualTo(false)
     }
+
+    @Test
+    fun `how many asteroids per wave`() {
+        val game = Game()
+        game.insertQuarter(Controls())
+        assertThat(game.howMany()).isEqualTo(4)
+        assertThat(game.howMany()).isEqualTo(6)
+        assertThat(game.howMany()).isEqualTo(8)
+        assertThat(game.howMany()).isEqualTo(10)
+        assertThat(game.howMany()).isEqualTo(11)
+        assertThat(game.howMany()).isEqualTo(11)
+    }
 }
