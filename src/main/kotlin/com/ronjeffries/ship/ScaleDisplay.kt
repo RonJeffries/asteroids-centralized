@@ -75,7 +75,7 @@ fun main() = application {
                 val netScale = width*baseScale*bigScale
                 val x = netScale*i + netScale/2.0
                 a0.position = Point(x, 1000.0)
-                a0.heading = 0.0
+//                a0.heading = 0.0
                 drawer.isolated { a0.draw(drawer) }
             }
             for (i in 1..10) {

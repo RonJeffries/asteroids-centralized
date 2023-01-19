@@ -11,7 +11,7 @@ class Asteroid(
     private val splitCount: Int = 2
 ) : SpaceObject, Collider {
     private val view = AsteroidView()
-    var heading: Double = Random.nextDouble(360.0)
+    val heading: Double = Random.nextDouble(360.0)
 
     override fun update(deltaTime: Double, trans: Transaction) {
         position = (position + velocity * deltaTime).cap()
