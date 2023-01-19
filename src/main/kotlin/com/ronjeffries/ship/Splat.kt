@@ -5,8 +5,8 @@ import org.openrndr.draw.Drawer
 
 class Splat(
     var position: Point,
-    var scale: Double = 1.0,
-    var color: ColorRGBa = ColorRGBa.WHITE,
+    val scale: Double = 1.0,
+    val color: ColorRGBa = ColorRGBa.WHITE,
     val velocity: Velocity = Velocity.ZERO
 ) : SpaceObject {
     constructor(ship: Ship) : this(ship.position, 2.0, ColorRGBa.WHITE, ship.velocity*0.5)
@@ -16,7 +16,7 @@ class Splat(
 
     var elapsedTime = 0.0
     private val lifetime = U.SPLAT_LIFETIME
-    private var view = SplatView(lifetime)
+    private val view = SplatView(lifetime)
 
     override fun update(deltaTime: Double, trans: Transaction) {
         elapsedTime += deltaTime
