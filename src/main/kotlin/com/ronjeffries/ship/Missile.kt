@@ -47,16 +47,20 @@ class Missile(
         checkAndScoreCollision(asteroid, trans, asteroid.getScore())
     }
 
-    fun interact(saucer: Saucer, trans: Transaction) {
+    override fun interact(missile: Missile, trans: Transaction) {
+        checkAndScoreCollision(missile, trans, 0)
+    }
+
+    override fun interact(saucer: Saucer, trans: Transaction) {
         checkAndScoreCollision(saucer, trans,saucer.getScore())
     }
 
-    fun interact(ship: Ship, trans: Transaction) {
+    override fun interact(ship: Ship, trans: Transaction) {
         checkAndScoreCollision(ship, trans, 0)
     }
 
-    override fun interact(missile: Missile, trans: Transaction) {
-        checkAndScoreCollision(missile, trans, 0)
+    fun interactWith(other: Collider, trans: Transaction) {
+        other.interact(this, trans)
     }
 
     private fun checkAndScoreCollision(other: Collider, trans: Transaction, score: Int) {
@@ -73,9 +77,5 @@ class Missile(
 
 
     override fun toString(): String = "Missile $position ($killRadius)"
-
-    fun interactWith(other: Collider, trans: Transaction) {
-        other.interact(this, trans)
-    }
 
 }

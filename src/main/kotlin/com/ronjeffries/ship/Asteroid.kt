@@ -55,12 +55,16 @@ class Asteroid(
         checkCollision(missile, trans)
     }
 
-    fun interact(ship: Ship, trans: Transaction) {
+    override fun interact(saucer: Saucer, trans: Transaction) {
+        checkCollision(saucer, trans)
+    }
+
+    override fun interact(ship: Ship, trans: Transaction) {
         checkCollision(ship, trans)
     }
 
-    fun interact(saucer: Saucer, trans: Transaction) {
-        checkCollision(saucer, trans)
+    fun interactWithOther(other: Collider, trans: Transaction) {
+        other.interact(this, trans)
     }
 
     private fun checkCollision(other: Collider, trans: Transaction) {
@@ -73,9 +77,5 @@ class Asteroid(
         trans.remove(this)
         trans.add(Splat(this))
         splitIfPossible(trans)
-    }
-
-    fun interactWithOther(other: Collider, trans: Transaction) {
-        other.interact(this, trans)
     }
 }

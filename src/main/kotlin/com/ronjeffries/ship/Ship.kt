@@ -24,10 +24,6 @@ class Ship(
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
 
-    fun interact(saucer: Saucer, trans: Transaction) {
-        checkCollision(saucer, trans)
-    }
-
     override fun interact(asteroid: Asteroid, trans: Transaction) {
         checkCollision(asteroid, trans)
     }
@@ -35,6 +31,12 @@ class Ship(
     override fun interact(missile: Missile, trans: Transaction) {
         checkCollision(missile, trans)
     }
+
+    override fun interact(saucer: Saucer, trans: Transaction) {
+        checkCollision(saucer, trans)
+    }
+
+    override fun interact(ship: Ship, trans: Transaction) { }
 
     private fun checkCollision(other: Collider, trans: Transaction) {
         Collision(other).executeOnHit(this) {
