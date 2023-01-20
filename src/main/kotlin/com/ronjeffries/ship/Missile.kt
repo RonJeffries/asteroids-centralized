@@ -59,7 +59,7 @@ class Missile(
         checkAndScoreCollision(ship, trans, 0)
     }
 
-    fun interactWith(other: Collider, trans: Transaction) {
+    override fun interactWith(other: Collider, trans: Transaction) {
         other.interact(this, trans)
     }
 

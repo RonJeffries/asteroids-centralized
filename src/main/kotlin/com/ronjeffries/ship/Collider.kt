@@ -7,4 +7,5 @@ interface Collider {
     fun interact(missile: Missile, trans: Transaction)
     fun interact(saucer: Saucer, trans: Transaction)
     fun interact(ship: Ship, trans: Transaction)
+    fun interactWith(other: Collider, trans: Transaction)
 }

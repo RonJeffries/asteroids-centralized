@@ -38,6 +38,10 @@ class Ship(
 
     override fun interact(ship: Ship, trans: Transaction) { }
 
+    override fun interactWith(other: Collider, trans: Transaction) {
+       other.interact(this, trans)
+    }
+
     private fun checkCollision(other: Collider, trans: Transaction) {
         Collision(other).executeOnHit(this) {
             trans.add(Splat(this))

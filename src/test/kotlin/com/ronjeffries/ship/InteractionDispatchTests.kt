@@ -11,7 +11,7 @@ class InteractionDispatchTests {
         val missile = Missile(Point(0.0, 0.0))
         missile.position = U.CENTER_OF_UNIVERSE
         val removeMissile = Transaction()
-        asteroid.interactWithOther(missile, removeMissile)
+        asteroid.interactWith(missile, removeMissile)
         assertThat(removeMissile.removes).contains(missile)
         val addAsteroids = Transaction()
         missile.interactWith(asteroid, addAsteroids)

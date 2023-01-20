@@ -63,7 +63,7 @@ class Asteroid(
         checkCollision(ship, trans)
     }
 
-    fun interactWithOther(other: Collider, trans: Transaction) {
+    override fun interactWith(other: Collider, trans: Transaction) {
         other.interact(this, trans)
     }
 
