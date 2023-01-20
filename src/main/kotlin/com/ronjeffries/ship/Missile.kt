@@ -43,7 +43,7 @@ class Missile(
         drawer.circle(Point.ZERO, killRadius * 2.0)
     }
 
-    fun interact(asteroid: Asteroid, trans: Transaction) {
+    override fun interact(asteroid: Asteroid, trans: Transaction) {
         checkAndScoreCollision(asteroid, trans, asteroid.getScore())
     }
 
@@ -55,7 +55,7 @@ class Missile(
         checkAndScoreCollision(ship, trans, 0)
     }
 
-    fun interact(missile: Missile, trans: Transaction) {
+    override fun interact(missile: Missile, trans: Transaction) {
         checkAndScoreCollision(missile, trans, 0)
     }
 
@@ -73,5 +73,9 @@ class Missile(
 
 
     override fun toString(): String = "Missile $position ($killRadius)"
+
+    fun interactWith(other: Collider, trans: Transaction) {
+        other.interact(this, trans)
+    }
 
 }

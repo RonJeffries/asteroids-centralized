@@ -49,7 +49,9 @@ class Asteroid(
 
     fun scale() =2.0.pow(splitCount)
 
-    fun interact(missile: Missile, trans: Transaction) {
+    override fun interact(asteroid: Asteroid, trans: Transaction) {}
+
+    override fun interact(missile: Missile, trans: Transaction) {
         checkCollision(missile, trans)
     }
 
@@ -71,5 +73,9 @@ class Asteroid(
         trans.remove(this)
         trans.add(Splat(this))
         splitIfPossible(trans)
+    }
+
+    fun interactWithOther(other: Collider, trans: Transaction) {
+        other.interact(this, trans)
     }
 }

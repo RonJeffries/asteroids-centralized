@@ -28,11 +28,11 @@ class Ship(
         checkCollision(saucer, trans)
     }
 
-    fun interact(asteroid: Asteroid, trans: Transaction) {
+    override fun interact(asteroid: Asteroid, trans: Transaction) {
         checkCollision(asteroid, trans)
     }
 
-    fun interact(missile: Missile, trans: Transaction) {
+    override fun interact(missile: Missile, trans: Transaction) {
         checkCollision(missile, trans)
     }
 

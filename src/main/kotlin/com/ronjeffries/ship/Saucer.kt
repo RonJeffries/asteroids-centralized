@@ -62,11 +62,11 @@ class Saucer : SpaceObject, Collider {
         checkCollision(ship, trans)
     }
 
-    fun interact(asteroid: Asteroid, trans: Transaction) {
+    override fun interact(asteroid: Asteroid, trans: Transaction) {
         checkCollision(asteroid, trans)
     }
 
-    fun interact(missile: Missile, trans: Transaction) {
+    override fun interact(missile: Missile, trans: Transaction) {
         if (missile == currentMissile) missileReady = false
         checkCollision(missile, trans)
     }
