@@ -28,6 +28,21 @@ class GameTest {
     }
 
     @Test
+    fun `count interactions`() {
+        val objects = SpaceObjectCollection()
+        val n = 12
+        for (i in 1..n) {
+            objects.add(
+                Ship(
+                    position = Vector2.ZERO
+                )
+            )
+        }
+        val pairs = objects.pairsToCheck()
+        assertThat(pairs.size).isEqualTo(n*(n-1)/2)
+    }
+
+    @Test
     fun `ship goes to center when game starts it`() {
         val game = Game()
         game.insertQuarter(Controls())
