@@ -139,7 +139,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     fun canShipEmerge(): Boolean {
         if (knownObjects.saucerIsPresent()) return false
         if (knownObjects.missiles.size > 0) return false
-        for ( asteroid in knownObjects.asteroids ) {
+        for ( asteroid in knownObjects.asteroids() ) {
             val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
             if ( distance < U.SAFE_SHIP_DISTANCE ) return false
         }

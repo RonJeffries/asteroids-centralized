@@ -3,15 +3,17 @@ package com.ronjeffries.ship
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
-    val asteroids = mutableListOf<Asteroid>()
-    val colliders = mutableListOf<Collider>()
+    private val asteroids = mutableListOf<Asteroid>()
+    private val colliders = mutableListOf<Collider>()
     val deferredActions = mutableListOf<DeferredAction>()
     val missiles = mutableListOf<Missile>()
     val saucers = mutableListOf<Saucer>()
     val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
 
-    fun spaceObjects():List<SpaceObject> = asteroids + missiles + saucers + ships + splats
+    private val spaceObjects = mutableListOf<SpaceObject>()
+
+    fun spaceObjects():List<SpaceObject> = spaceObjects
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
         return listOf (asteroids, deferredActions, missiles, saucers, ships, splats)
@@ -24,25 +26,30 @@ class SpaceObjectCollection {
     fun add(asteroid: Asteroid) {
         asteroids.add(asteroid)
         colliders.add(asteroid)
+        spaceObjects.add(asteroid)
     }
 
     fun add(missile: Missile) {
         missiles.add(missile)
         colliders.add(missile)
+        spaceObjects.add(missile)
     }
 
     fun add(saucer: Saucer) {
         saucers.add(saucer)
         colliders.add(saucer)
+        spaceObjects.add(saucer)
     }
 
     fun add(ship: Ship) {
         ships.add(ship)
         colliders.add(ship)
+        spaceObjects.add(ship)
     }
 
     fun add(splat: Splat) {
         splats.add(splat)
+        spaceObjects.add(splat)
     }
 
     fun addScore(score: Int) {
@@ -55,13 +62,17 @@ class SpaceObjectCollection {
 
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
-    fun asteroidCount(): Int = asteroids.size
+    fun asteroids() = spaceObjects().filterIsInstance<Asteroid>()
+
+    fun asteroidCount(): Int = asteroids().size
 
     fun clear() {
         scoreKeeper.clear()
         for ( coll in allCollections()) {
             coll.clear()
         }
+        spaceObjects.clear()
+        colliders.clear()
     }
 
     fun forEachInteracting(action: (SpaceObject)->Unit) =
@@ -95,6 +106,7 @@ class SpaceObjectCollection {
         for ( coll in allCollections()) {
             coll.remove(spaceObject)
         }
+        spaceObjects.remove(spaceObject)
         if (spaceObject is Collider ) colliders.remove(spaceObject)
     }
 
