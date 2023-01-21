@@ -3,11 +3,10 @@ package com.ronjeffries.ship
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
-    private val asteroids = mutableListOf<Asteroid>()
     private val colliders = mutableListOf<Collider>()
     val deferredActions = mutableListOf<DeferredAction>()
-    val missiles = mutableListOf<Missile>()
-    val saucers = mutableListOf<Saucer>()
+//    val missiles = mutableListOf<Missile>()
+//    val saucers = mutableListOf<Saucer>()
     val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
 
@@ -16,7 +15,7 @@ class SpaceObjectCollection {
     fun spaceObjects():List<SpaceObject> = spaceObjects
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
-        return listOf (asteroids, deferredActions, missiles, saucers, ships, splats)
+        return listOf (deferredActions, ships, splats)
     }
 
     fun add(deferredAction: DeferredAction) {
@@ -24,19 +23,16 @@ class SpaceObjectCollection {
     }
 
     fun add(asteroid: Asteroid) {
-        asteroids.add(asteroid)
         colliders.add(asteroid)
         spaceObjects.add(asteroid)
     }
 
     fun add(missile: Missile) {
-        missiles.add(missile)
         colliders.add(missile)
         spaceObjects.add(missile)
     }
 
     fun add(saucer: Saucer) {
-        saucers.add(saucer)
         colliders.add(saucer)
         spaceObjects.add(saucer)
     }
@@ -63,6 +59,10 @@ class SpaceObjectCollection {
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
     fun asteroids() = spaceObjects().filterIsInstance<Asteroid>()
+    fun missiles() = spaceObjects.filterIsInstance<Missile>()
+    fun saucers() = spaceObjects.filterIsInstance<Saucer>()
+    fun ships() = spaceObjects.filterIsInstance<Ship>()
+    fun splats() = spaceObjects.filterIsInstance<Splat>()
 
     fun asteroidCount(): Int = asteroids().size
 
@@ -111,11 +111,11 @@ class SpaceObjectCollection {
     }
 
     fun saucerIsPresent(): Boolean {
-        return saucers.isNotEmpty()
+        return saucers().isNotEmpty()
     }
 
     fun saucerIsMissing(): Boolean {
-        return saucers.isEmpty()
+        return saucers().isEmpty()
     }
 
     fun shipIsPresent(): Boolean {

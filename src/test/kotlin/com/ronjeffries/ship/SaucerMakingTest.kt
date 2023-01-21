@@ -17,7 +17,7 @@ class SaucerMakingTest {
         val deferred = mix.deferredActions.find { it.delay == 7.0 }
         assertThat(deferred).isNotNull
         game.cycle(7.2) //ELAPSED seconds
-        val saucer = mix.saucers.first()
+        val saucer = mix.saucers().first()
         assertThat(saucer).isNotNull
     }
 }
