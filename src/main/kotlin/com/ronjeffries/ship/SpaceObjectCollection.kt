@@ -45,6 +45,11 @@ class SpaceObjectCollection {
         colliders.clear()
     }
 
+    fun forEach(action: (SpaceObject)->Unit) {
+        deferredActions().forEach(action)
+        spaceObjects().forEach(action)
+    }
+
     fun forEachInteracting(action: (SpaceObject)->Unit) =
         spaceObjects().forEach(action)
 
