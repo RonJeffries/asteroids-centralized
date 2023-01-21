@@ -103,9 +103,9 @@ class SpaceObjectCollectionTest {
         val deferredAction = DeferredAction(3.0, Transaction()) {}
         s.add(deferredAction)
         s.clear()
-        for ( coll in s.allCollections()) {
-            assertThat(coll).isEmpty()
-        }
+        assertThat(s.spaceObjects()).isEmpty()
+        assertThat(s.deferredActions()).isEmpty()
+        assertThat(s.colliders()).isEmpty()
     }
 
     @Test
