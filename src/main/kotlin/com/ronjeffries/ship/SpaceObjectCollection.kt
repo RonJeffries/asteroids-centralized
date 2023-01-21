@@ -4,6 +4,7 @@ class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
     val asteroids = mutableListOf<Asteroid>()
+    val colliders = mutableListOf<Collider>()
     val deferredActions = mutableListOf<DeferredAction>()
     val missiles = mutableListOf<Missile>()
     val saucers = mutableListOf<Saucer>()
@@ -22,18 +23,22 @@ class SpaceObjectCollection {
 
     fun add(asteroid: Asteroid) {
         asteroids.add(asteroid)
+        colliders.add(asteroid)
     }
 
     fun add(missile: Missile) {
         missiles.add(missile)
+        colliders.add(missile)
     }
 
     fun add(saucer: Saucer) {
         saucers.add(saucer)
+        colliders.add(saucer)
     }
 
     fun add(ship: Ship) {
         ships.add(ship)
+        colliders.add(ship)
     }
 
     fun add(splat: Splat) {
@@ -66,13 +71,7 @@ class SpaceObjectCollection {
         return spaceObjects().contains(obj)
     }
 
-    private fun colliders(): List<Collider> {
-        val candidates = spaceObjects().filter { it is Collider }
-        return candidates.map { it as Collider}
-    }
-
     fun pairsToCheck(): List<Pair<Collider, Collider>> {
-        val colliders = colliders()
         val pairs = mutableListOf<Pair<Collider, Collider>>()
         colliders.indices.forEach { i ->
             colliders.indices.minus(0..i).forEach { j ->
@@ -96,6 +95,7 @@ class SpaceObjectCollection {
         for ( coll in allCollections()) {
             coll.remove(spaceObject)
         }
+        if (spaceObject is Collider ) colliders.remove(spaceObject)
     }
 
     fun saucerIsPresent(): Boolean {
