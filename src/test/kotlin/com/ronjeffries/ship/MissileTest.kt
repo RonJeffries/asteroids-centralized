@@ -16,7 +16,7 @@ class MissileTest {
         assertThat(mix.contains(missile)).isEqualTo(true)
         assertThat(mix.missiles()).contains(missile)
         game.cycle(0.0)
-        assertThat(mix.deferredActions.any { it is DeferredAction }).describedAs("deferred action should be present").isEqualTo(true)
+        assertThat(mix.deferredActions().any { it is DeferredAction }).describedAs("deferred action should be present").isEqualTo(true)
         game.cycle(U.MISSILE_LIFETIME + 0.1)
         assertThat(mix.contains(missile)).describedAs("missile should be dead").isEqualTo(false)
         assertThat(mix.missiles()).doesNotContain(missile)

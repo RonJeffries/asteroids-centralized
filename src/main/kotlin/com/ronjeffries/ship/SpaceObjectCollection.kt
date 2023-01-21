@@ -4,11 +4,9 @@ class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
     private val colliders = mutableListOf<Collider>()
-    val deferredActions = mutableListOf<DeferredAction>()
-
+    private val deferredActions = mutableListOf<DeferredAction>()
     private val spaceObjects = mutableListOf<SpaceObject>()
 
-    fun spaceObjects():List<SpaceObject> = spaceObjects
     // update function below if you add to these
     fun allCollections(): List<MutableList<out SpaceObject>> {
         return listOf (deferredActions)
@@ -53,9 +51,11 @@ class SpaceObjectCollection {
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
     fun asteroids() = spaceObjects().filterIsInstance<Asteroid>()
+    fun deferredActions() = deferredActions
     fun missiles() = spaceObjects.filterIsInstance<Missile>()
     fun saucers() = spaceObjects.filterIsInstance<Saucer>()
     fun ships() = spaceObjects.filterIsInstance<Ship>()
+    fun spaceObjects():List<SpaceObject> = spaceObjects
     fun splats() = spaceObjects.filterIsInstance<Splat>()
 
     fun asteroidCount(): Int = asteroids().size
