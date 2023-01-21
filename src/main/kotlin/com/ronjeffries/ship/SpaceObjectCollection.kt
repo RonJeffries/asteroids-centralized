@@ -66,12 +66,17 @@ class SpaceObjectCollection {
         return spaceObjects().contains(obj)
     }
 
-    fun pairsToCheck(): List<Pair<SpaceObject, SpaceObject>> {
-        val spaceObjects = spaceObjects()
-        val pairs = mutableListOf<Pair<SpaceObject, SpaceObject>>()
-        spaceObjects.indices.forEach { i ->
-            spaceObjects.indices.minus(0..i).forEach { j ->
-                pairs.add(spaceObjects[i] to spaceObjects[j])
+    private fun colliders(): List<Collider> {
+        val candidates = spaceObjects().filter { it is Collider }
+        return candidates.map { it as Collider}
+    }
+
+    fun pairsToCheck(): List<Pair<Collider, Collider>> {
+        val colliders = colliders()
+        val pairs = mutableListOf<Pair<Collider, Collider>>()
+        colliders.indices.forEach { i ->
+            colliders.indices.minus(0..i).forEach { j ->
+                pairs.add(colliders[i] to colliders[j])
             }
         }
         return pairs
