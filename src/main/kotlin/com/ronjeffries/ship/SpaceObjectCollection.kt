@@ -12,28 +12,9 @@ class SpaceObjectCollection {
         deferredActions.add(deferredAction)
     }
 
-    fun add(asteroid: Asteroid) {
-        colliders.add(asteroid)
-        spaceObjects.add(asteroid)
-    }
-
-    fun add(missile: Missile) {
-        colliders.add(missile)
-        spaceObjects.add(missile)
-    }
-
-    fun add(saucer: Saucer) {
-        colliders.add(saucer)
-        spaceObjects.add(saucer)
-    }
-
-    fun add(ship: Ship) {
-        colliders.add(ship)
-        spaceObjects.add(ship)
-    }
-
-    fun add(splat: Splat) {
-        spaceObjects.add(splat)
+    fun add (spaceObject: SpaceObject) {
+        spaceObjects.add(spaceObject)
+        if (spaceObject is Collider) colliders.add(spaceObject)
     }
 
     fun addScore(score: Int) {
