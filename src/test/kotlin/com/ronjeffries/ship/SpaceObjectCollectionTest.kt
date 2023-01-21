@@ -58,7 +58,7 @@ class SpaceObjectCollectionTest {
         val saucer = Saucer()
         val ship = Ship(Point.ZERO)
         s.performWithTransaction { trans-> trans.add(saucer); trans.add(ship) }
-        assertThat(s.ships).contains(ship)
+        assertThat(s.ships()).contains(ship)
         assertThat(s.saucers()).contains(saucer)
     }
 
@@ -145,9 +145,9 @@ class SpaceObjectCollectionTest {
         val s = SpaceObjectCollection()
         val ship = Ship(U.CENTER_OF_UNIVERSE)
         s.add(ship)
-        assertThat(s.ships.size).isEqualTo(1)
+        assertThat(s.ships().size).isEqualTo(1)
         s.remove(ship)
-        assertThat(s.ships.size).isEqualTo(0)
+        assertThat(s.ships().size).isEqualTo(0)
     }
 
     @Test
