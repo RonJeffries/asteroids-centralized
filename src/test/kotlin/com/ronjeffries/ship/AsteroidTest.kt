@@ -28,7 +28,7 @@ class AsteroidTest {
         full.dieDueToCollision(trans)
         val halfAdds = trans.asteroids()
         assertThat(halfAdds.size).isEqualTo(2) // two asteroids and a splat
-        assertThat(trans.splats.size).isEqualTo(1)
+        assertThat(trans.splats().size).isEqualTo(1)
         val half = halfAdds.last()
         assertThat((half).killRadius).describedAs("half").isEqualTo(radius/2.0)
         val trans2 = Transaction()
