@@ -3,7 +3,7 @@ package com.ronjeffries.ship
 class Transaction {
     private val asteroids = mutableListOf<Asteroid>()
     private val missiles = mutableListOf<Missile>()
-    val saucers = mutableListOf<Saucer>()
+    private val saucers = mutableListOf<Saucer>()
     val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
     val removes = mutableSetOf<SpaceObject>()

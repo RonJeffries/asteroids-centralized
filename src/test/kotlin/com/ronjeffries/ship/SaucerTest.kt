@@ -128,7 +128,7 @@ class SaucerTest {
         saucer.sawShip = false
         val trans = Transaction()
         saucer.fire(trans)
-        assertThat(trans.saucers.size).isEqualTo(0)
+        assertThat(trans.saucers().size).isEqualTo(0)
     }
 
     @Test
