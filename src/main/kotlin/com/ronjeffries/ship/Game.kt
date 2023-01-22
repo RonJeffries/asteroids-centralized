@@ -130,9 +130,22 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
 
     fun tick(deltaTime: Double) {
+        updateTimersFirst(deltaTime)
+        thenUpdateSpaceObjects(deltaTime)
+    }
+
+    private fun updateTimersFirst(deltaTime: Double) {
         with (knownObjects) {
             performWithTransaction { trans ->
-               forEach { it.update(deltaTime, trans) }
+                deferredActions().forEach { it.update(deltaTime, trans) }
+            }
+        }
+    }
+
+    private fun thenUpdateSpaceObjects(deltaTime: Double) {
+        with (knownObjects) {
+            performWithTransaction { trans ->
+                spaceObjects().forEach { it.update(deltaTime, trans) }
             }
         }
     }

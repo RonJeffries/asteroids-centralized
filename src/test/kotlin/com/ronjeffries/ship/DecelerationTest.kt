@@ -9,10 +9,8 @@ class DecelerationTest {
         var speed = 1.0
         val speedAfterOneSecond = 0.5
         val acceleration = speedAfterOneSecond - 1
-        println("  $speedAfterOneSecond")
         for (i in 0..5) {
-            println("$i $speed")
-            speed = speed + acceleration
+            speed += acceleration
         }
     }
 

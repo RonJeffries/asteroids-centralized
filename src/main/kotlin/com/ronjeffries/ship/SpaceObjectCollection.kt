@@ -45,11 +45,6 @@ class SpaceObjectCollection {
         colliders.clear()
     }
 
-    fun forEach(action: (SpaceObject)->Unit) {
-        deferredActions().forEach(action)
-        spaceObjects().forEach(action)
-    }
-
     fun forEachInteracting(action: (SpaceObject)->Unit) =
         spaceObjects().forEach(action)
 
@@ -78,6 +73,7 @@ class SpaceObjectCollection {
     }
 
     fun remove(spaceObject: SpaceObject) {
+        println("SOC remove $spaceObject")
         deferredActions.remove(spaceObject)
         spaceObjects.remove(spaceObject)
         if (spaceObject is Collider ) colliders.remove(spaceObject)
