@@ -4,7 +4,7 @@ class Transaction {
     private val asteroids = mutableListOf<Asteroid>()
     private val missiles = mutableListOf<Missile>()
     private val saucers = mutableListOf<Saucer>()
-    val ships = mutableListOf<Ship>()
+    private val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
     val removes = mutableSetOf<SpaceObject>()
     val deferredActionAdds = mutableSetOf<DeferredAction>()
