@@ -1,8 +1,8 @@
 package com.ronjeffries.ship
 
 class Transaction {
-    val asteroids = mutableListOf<Asteroid>()
-    val missiles = mutableListOf<Missile>()
+    private val asteroids = mutableListOf<Asteroid>()
+    private val missiles = mutableListOf<Missile>()
     val saucers = mutableListOf<Saucer>()
     val ships = mutableListOf<Ship>()
     val splats = mutableListOf<Splat>()
@@ -21,6 +21,8 @@ class Transaction {
     fun add(deferredAction: DeferredAction) {
         deferredActionAdds.add(deferredAction)
     }
+
+    fun spaceObjects() = asteroids+missiles+saucers+ships+splats
 
     fun remove(deferredAction: DeferredAction) {
         deferredActionRemoves.add(deferredAction)

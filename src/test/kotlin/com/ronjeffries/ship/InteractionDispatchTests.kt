@@ -15,6 +15,6 @@ class InteractionDispatchTests {
         assertThat(removeMissile.removes).contains(missile)
         val addAsteroids = Transaction()
         missile.interactWith(asteroid, addAsteroids)
-        assertThat(addAsteroids.asteroids.size).isEqualTo(2)
+        assertThat(addAsteroids.asteroids().size).isEqualTo(2)
     }
 }

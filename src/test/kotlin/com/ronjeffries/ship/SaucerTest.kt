@@ -119,7 +119,7 @@ class SaucerTest {
         saucer.sawShip = true
         val trans = Transaction()
         saucer.fire(trans)
-        assertThat(trans.missiles.size).isEqualTo(1)
+        assertThat(trans.missiles().size).isEqualTo(1)
     }
 
     @Test
@@ -146,12 +146,12 @@ class SaucerTest {
         val trans = Transaction()
         saucer.sawShip = true
         saucer.fire(trans)
-        val missile: Missile = trans.missiles.first()
+        val missile: Missile = trans.missiles().first()
         saucer.beforeInteractions()
         saucer.interact(missile, trans)
         saucer.sawShip = true
         val empty = Transaction()
         saucer.fire(empty)
-        assertThat(empty.missiles.size).isEqualTo(0)
+        assertThat(empty.missiles().size).isEqualTo(0)
     }
 }

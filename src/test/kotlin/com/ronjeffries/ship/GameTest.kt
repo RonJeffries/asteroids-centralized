@@ -121,10 +121,10 @@ class GameTest {
         game.createInitialContents(Controls())
         val transForFour = Transaction()
         game.makeWave(transForFour)
-        assertThat(transForFour.asteroids.size).isEqualTo(4)
+        assertThat(transForFour.asteroids().size).isEqualTo(4)
         val transForSix = Transaction()
         game.makeWave(transForSix)
-        assertThat(transForSix.asteroids.size).isEqualTo(6)
+        assertThat(transForSix.asteroids().size).isEqualTo(6)
     }
 
     @Test
