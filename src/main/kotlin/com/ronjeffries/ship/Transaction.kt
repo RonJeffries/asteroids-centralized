@@ -1,32 +1,18 @@
 package com.ronjeffries.ship
 
 class Transaction {
-    private val asteroids = mutableListOf<Asteroid>()
-    private val missiles = mutableListOf<Missile>()
-    private val saucers = mutableListOf<Saucer>()
-    private val ships = mutableListOf<Ship>()
-    private val splats = mutableListOf<Splat>()
+    private val spaceObjects = mutableListOf<SpaceObject>()
     val removes = mutableSetOf<SpaceObject>()
     val deferredActionAdds = mutableSetOf<DeferredAction>()
     val deferredActionRemoves = mutableSetOf<DeferredAction>()
-    var shouldClear = false
-    var score = 0
-
-    fun add(asteroid: Asteroid) {asteroids.add(asteroid)}
-    fun add(missile: Missile) {missiles.add(missile)}
-    fun add(saucer: Saucer) {saucers.add(saucer)}
-    fun add(ship: Ship) {ships.add(ship)}
-    fun add(splat: Splat) {splats.add(splat)}
+    private var shouldClear = false
+    private var score = 0
 
     fun add(deferredAction: DeferredAction) {
         deferredActionAdds.add(deferredAction)
     }
 
-    fun spaceObjects() = asteroids+missiles+saucers+ships+splats
-
-    fun remove(deferredAction: DeferredAction) {
-        deferredActionRemoves.add(deferredAction)
-    }
+    fun add(spaceObject: SpaceObject) { spaceObjects.add(spaceObject) }
 
     fun addScore(scoreToAdd: Int) {
         score += scoreToAdd
@@ -37,11 +23,7 @@ class Transaction {
         spaceObjectCollection.addScore(score)
         removes.forEach { spaceObjectCollection.remove(it)}
         deferredActionRemoves.forEach { spaceObjectCollection.remove(it)}
-        asteroids.forEach { spaceObjectCollection.add(it)}
-        missiles.forEach { spaceObjectCollection.add(it)}
-        saucers.forEach { spaceObjectCollection.add(it)}
-        ships.forEach { spaceObjectCollection.add(it)}
-        splats.forEach { spaceObjectCollection.add(it)}
+        spaceObjects.forEach { spaceObjectCollection.add(it)}
         deferredActionAdds.forEach { spaceObjectCollection.add(it)}
     }
 
@@ -49,9 +31,15 @@ class Transaction {
         shouldClear = true
     }
 
+    fun remove(deferredAction: DeferredAction) {
+        deferredActionRemoves.add(deferredAction)
+    }
+
     fun remove(spaceObject: SpaceObject) {
         removes.add(spaceObject)
     }
+
+    fun spaceObjects() = spaceObjects
 
     // testing
     fun firstRemove(): SpaceObject = removes.toList()[0]
