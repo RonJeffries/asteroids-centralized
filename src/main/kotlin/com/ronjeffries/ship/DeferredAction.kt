@@ -10,7 +10,7 @@ class DeferredAction(
 ) : SpaceObject {
     constructor(delay: Double, initialTransaction: Transaction, action: (Transaction) -> Unit):
             this(delay, { true }, initialTransaction, action)
-    var elapsedTime = 0.0
+    private var elapsedTime = 0.0
 
     init {
         elapsedTime = 0.0
