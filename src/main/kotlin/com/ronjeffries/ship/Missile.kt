@@ -75,7 +75,5 @@ class Missile(
         trans.remove(this)
     }
 
-
     override fun toString(): String = "Missile $position ($killRadius)"
-
 }
