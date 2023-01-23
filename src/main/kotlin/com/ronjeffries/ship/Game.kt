@@ -23,7 +23,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
        }
     }
 
-    fun startShipAtHome(trans: Transaction) {
+    private fun startShipAtHome(trans: Transaction) {
         ship.setToHome()
         trans.add(ship)
     }
