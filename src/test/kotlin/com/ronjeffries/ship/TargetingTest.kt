@@ -14,12 +14,12 @@ class TargetingTest {
 
     @Test
     fun `left better`() {
-        assertThat(ShotOptimizer.preferred(100, 900)).isEqualTo(-124.0)
+        assertThat(ShotOptimizer.preferred(100.0, 900.0)).isEqualTo(-124.0)
     }
 
     @Test
     fun `right better`() {
-        assertThat(ShotOptimizer.preferred(1000, 100)).isEqualTo(1124.0)
+        assertThat(ShotOptimizer.preferred(1000.0, 100.0)).isEqualTo(1124.0)
     }
 
     @Test

@@ -19,8 +19,4 @@ object ShotOptimizer {
     fun optimizeShot(shooter: Point, target: Point): Point {
         return Point(preferred(shooter.x, target.x), preferred(shooter.y, target.y))
     }
-
-    fun preferred(shooter: Int, target: Int): Double {
-        return preferred(shooter.toDouble(), target.toDouble())
-    }
 }
