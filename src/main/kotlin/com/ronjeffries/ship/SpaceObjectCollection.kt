@@ -73,7 +73,6 @@ class SpaceObjectCollection {
     }
 
     fun remove(spaceObject: SpaceObject) {
-        println("SOC remove $spaceObject")
         deferredActions.remove(spaceObject)
         spaceObjects.remove(spaceObject)
         if (spaceObject is Collider ) colliders.remove(spaceObject)
