@@ -79,12 +79,12 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
-        stranglerCycle(elapsedSeconds, drawer)
-    }
-
-    fun stranglerCycle(elapsedSeconds: Double, drawer: Drawer?) {
         val deltaTime = elapsedSeconds - lastTime
         lastTime = elapsedSeconds
+        stranglerCycle(deltaTime, drawer)
+    }
+
+    fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
         tick(deltaTime)
         beforeInteractions()
         processInteractions()
