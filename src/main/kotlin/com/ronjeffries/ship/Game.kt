@@ -6,6 +6,7 @@ import org.openrndr.draw.isolated
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
+    private lateinit var cycler: GameCycler
     private var saucer = Saucer()
     private lateinit var ship: Ship
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
@@ -67,6 +68,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         val shipPosition = U.CENTER_OF_UNIVERSE
         ship = Ship(shipPosition, controls)
         saucer = Saucer()
+        cycler = GameCycler(knownObjects, numberOfAsteroidsToCreate, ship, saucer)
     }
 
     private fun cancelAllOneShots() {
