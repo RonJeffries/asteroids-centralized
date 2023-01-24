@@ -85,7 +85,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        tick(deltaTime)
         beforeInteractions()
         processInteractions()
         U.AsteroidTally = knownObjects.asteroidCount()
@@ -135,27 +134,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
 
     fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
 
-    fun tick(deltaTime: Double) {
-        updateTimersFirst(deltaTime)
-        thenUpdateSpaceObjects(deltaTime)
-    }
-
-    private fun updateTimersFirst(deltaTime: Double) {
-        with (knownObjects) {
-            performWithTransaction { trans ->
-                deferredActions().forEach { it.update(deltaTime, trans) }
-            }
-        }
-    }
-
-    private fun thenUpdateSpaceObjects(deltaTime: Double) {
-        with (knownObjects) {
-            performWithTransaction { trans ->
-                spaceObjects().forEach { it.update(deltaTime, trans) }
-            }
-        }
-    }
-
     fun canShipEmerge(): Boolean {
         if (knownObjects.saucerIsPresent()) return false
         if (knownObjects.missiles().isNotEmpty()) return false
@@ -164,5 +142,8 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
             if ( distance < U.SAFE_SHIP_DISTANCE ) return false
         }
         return true
+    }
+
+    fun tick(deltaTime: Double) {
     }
 }
