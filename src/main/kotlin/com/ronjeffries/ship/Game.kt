@@ -51,14 +51,15 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         shipCount: Int,
         controls: Controls
     ) {
-        cancelAllOneShots()
-        trans.clear()
         scoreKeeper = ScoreKeeper(shipCount)
         knownObjects.scoreKeeper = scoreKeeper
         val shipPosition = U.CENTER_OF_UNIVERSE
         ship = Ship(shipPosition, controls)
         saucer = Saucer()
         cycler = makeCycler()
+        cycler.cancelAllOneShots()
+        cancelAllOneShots()
+        trans.clear()
     }
 
     fun makeCycler() = GameCycler(this, knownObjects, numberOfAsteroidsToCreate, ship, saucer)

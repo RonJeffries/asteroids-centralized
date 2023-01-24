@@ -6,6 +6,7 @@ class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCo
 
     var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
+    private val allOneShots = listOf(waveOneShot)
 
     fun cycle(deltaTime: Double, drawer: Drawer?) {
         tick(deltaTime)
@@ -14,6 +15,13 @@ class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCo
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         game.stranglerCycle(deltaTime, drawer)
+    }
+
+    fun cancelAllOneShots() {
+        val ignored = Transaction()
+        for (oneShot in allOneShots) {
+            oneShot.cancel(ignored)
+        }
     }
 
     private fun createNewWaveIfNeeded() {
