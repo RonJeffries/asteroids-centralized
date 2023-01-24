@@ -8,7 +8,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var numberOfAsteroidsToCreate = 0
     private var saucer = Saucer()
     private lateinit var ship: Ship
-    private var cycler: GameCycler = GameCycler(knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
+    private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
@@ -68,7 +68,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         val shipPosition = U.CENTER_OF_UNIVERSE
         ship = Ship(shipPosition, controls)
         saucer = Saucer()
-        cycler = GameCycler(knownObjects, numberOfAsteroidsToCreate, ship, saucer)
+        cycler = GameCycler(this, knownObjects, numberOfAsteroidsToCreate, ship, saucer)
     }
 
     private fun cancelAllOneShots() {
@@ -81,7 +81,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
         val deltaTime = elapsedSeconds - lastTime
         lastTime = elapsedSeconds
-        cycler.cycle(this, deltaTime, drawer)
+        cycler.cycle(deltaTime, drawer)
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {

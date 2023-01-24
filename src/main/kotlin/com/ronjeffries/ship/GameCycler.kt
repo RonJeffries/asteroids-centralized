@@ -2,8 +2,8 @@ package com.ronjeffries.ship
 
 import org.openrndr.draw.Drawer
 
-class GameCycler(private val knownObjects: SpaceObjectCollection, numberOfAsteroidsToCreate: Int, ship: Ship, saucer: Saucer) {
-    fun cycle(game: Game, deltaTime: Double, drawer: Drawer?) {
+class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCollection, numberOfAsteroidsToCreate: Int, ship: Ship, saucer: Saucer) {
+    fun cycle(deltaTime: Double, drawer: Drawer?) {
         tick(deltaTime)
         beforeInteractions()
         game.stranglerCycle(deltaTime, drawer)
