@@ -79,6 +79,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
+        stranglerCycle(elapsedSeconds, drawer)
+    }
+
+    fun stranglerCycle(elapsedSeconds: Double, drawer: Drawer?) {
         val deltaTime = elapsedSeconds - lastTime
         lastTime = elapsedSeconds
         tick(deltaTime)
