@@ -1,6 +1,7 @@
 package com.ronjeffries.ship
 
 import org.openrndr.draw.Drawer
+import org.openrndr.draw.isolated
 
 class GameCycler(
     private val game: Game,
@@ -47,7 +48,12 @@ class GameCycler(
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
         createShipIfNeeded()
-        game.stranglerCycle(deltaTime, drawer)
+        drawer?.let { draw(drawer) }
+    }
+
+    private fun draw(drawer: Drawer) {
+        knownObjects.forEachInteracting { drawer.isolated { it.draw(drawer) } }
+        knownObjects.scoreKeeper.draw(drawer)
     }
 
     private fun createShipIfNeeded() {

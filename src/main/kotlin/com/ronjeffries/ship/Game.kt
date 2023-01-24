@@ -61,11 +61,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        drawer?.let { draw(drawer) }
     }
 
-    private fun draw(drawer: Drawer) {
-        knownObjects.forEachInteracting { drawer.isolated { it.draw(drawer) } }
-        knownObjects.scoreKeeper.draw(drawer)
-    }
 }
