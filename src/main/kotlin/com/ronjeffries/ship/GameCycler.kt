@@ -13,7 +13,27 @@ class GameCycler(
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
     private val saucerOneShot = OneShot( 7.0) { startSaucer(it) }
-    private val allOneShots = listOf(waveOneShot, saucerOneShot)
+    private val shipOneShot = OneShot(U.SHIP_MAKER_DELAY, { canShipEmerge() }) {
+        if ( knownObjects.scoreKeeper.takeShip() ) {
+            startShipAtHome(it)
+        }
+    }
+    private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
+
+    fun canShipEmerge(): Boolean {
+        if (knownObjects.saucerIsPresent()) return false
+        if (knownObjects.missiles().isNotEmpty()) return false
+        for ( asteroid in knownObjects.asteroids() ) {
+            val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
+            if ( distance < U.SAFE_SHIP_DISTANCE ) return false
+        }
+        return true
+    }
+
+    private fun startShipAtHome(trans: Transaction) {
+        ship.setToHome()
+        trans.add(ship)
+    }
 
     private fun startSaucer(trans: Transaction) {
         saucer.start(trans)
@@ -26,7 +46,14 @@ class GameCycler(
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
+        createShipIfNeeded()
         game.stranglerCycle(deltaTime, drawer)
+    }
+
+    private fun createShipIfNeeded() {
+        if ( knownObjects.shipIsMissing() ) {
+            knownObjects.performWithTransaction { shipOneShot.execute(it) }
+        }
     }
 
     fun cancelAllOneShots() {
