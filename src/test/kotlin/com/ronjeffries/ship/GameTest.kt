@@ -68,11 +68,12 @@ class GameTest {
         val ship = Ship(
             position = Vector2(1000.0, 1000.0)
         )
+        game.ship = ship // crock
         game.knownObjects.add(asteroid)
         game.knownObjects.add(ship)
         assertThat(game.knownObjects.spaceObjects().size).isEqualTo(2)
         assertThat(ship).isIn(game.knownObjects.spaceObjects())
-        game.processInteractions()
+        game.makeCycler().processInteractions()
         assertThat(ship).isNotIn(game.knownObjects.spaceObjects())
         assertThat(game.knownObjects.asteroidCount()).isEqualTo(2)
     }

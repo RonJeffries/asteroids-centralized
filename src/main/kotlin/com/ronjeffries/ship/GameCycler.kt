@@ -7,11 +7,13 @@ class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCo
     fun cycle(deltaTime: Double, drawer: Drawer?) {
         tick(deltaTime)
         beforeInteractions()
-        game.processInteractions()
+        processInteractions()
         game.stranglerCycle(deltaTime, drawer)
     }
 
     private fun beforeInteractions() = knownObjects.saucers().forEach { it.beforeInteractions() }
+
+    fun processInteractions() = knownObjects.applyChanges(game.changesDueToInteractions())
 
     private fun tick(deltaTime: Double) {
         updateTimersFirst(deltaTime)

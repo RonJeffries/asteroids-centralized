@@ -7,7 +7,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
     private var saucer = Saucer()
-    private lateinit var ship: Ship
+    lateinit var ship: Ship
     private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
@@ -68,8 +68,10 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         val shipPosition = U.CENTER_OF_UNIVERSE
         ship = Ship(shipPosition, controls)
         saucer = Saucer()
-        cycler = GameCycler(this, knownObjects, numberOfAsteroidsToCreate, ship, saucer)
+        cycler = makeCycler()
     }
+
+    fun makeCycler() = GameCycler(this, knownObjects, numberOfAsteroidsToCreate, ship, saucer)
 
     private fun cancelAllOneShots() {
         val ignored = Transaction()
@@ -110,8 +112,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         }
     }
 
-    private fun beforeInteractions() = knownObjects.saucers().forEach { it.beforeInteractions() }
-
     private fun draw(drawer: Drawer) {
         knownObjects.forEachInteracting { drawer.isolated { it.draw(drawer) } }
         knownObjects.scoreKeeper.draw(drawer)
@@ -129,8 +129,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
             it.add(Asteroid(U.randomEdgePoint()))
         }
     }
-
-    fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
 
     fun canShipEmerge(): Boolean {
         if (knownObjects.saucerIsPresent()) return false
