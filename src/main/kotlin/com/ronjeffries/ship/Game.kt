@@ -11,12 +11,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
-    private val saucerOneShot = OneShot( 7.0) { startSaucer(it) }
-
-    private fun startSaucer(trans: Transaction) {
-        saucer.start(trans)
-    }
-
     private val shipOneShot = OneShot(U.SHIP_MAKER_DELAY, { canShipEmerge() }) {
        if ( scoreKeeper.takeShip() ) {
            startShipAtHome(it)
@@ -29,7 +23,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     // all OneShot instances go here:
-    private val allOneShots = listOf(saucerOneShot, shipOneShot)
+    private val allOneShots = listOf(shipOneShot)
 
     fun createInitialContents(controls: Controls) {
         initializeGame(controls, -1)
@@ -78,7 +72,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        createSaucerIfNeeded()
         createShipIfNeeded()
         drawer?.let { draw(drawer) }
     }
@@ -86,12 +79,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun createShipIfNeeded() {
         if ( knownObjects.shipIsMissing() ) {
             knownObjects.performWithTransaction { shipOneShot.execute(it) }
-        }
-    }
-
-    private fun createSaucerIfNeeded() {
-        if ( knownObjects.saucerIsMissing() ) {
-            knownObjects.performWithTransaction { saucerOneShot.execute(it) }
         }
     }
 

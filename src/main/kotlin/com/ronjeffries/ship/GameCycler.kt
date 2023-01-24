@@ -2,11 +2,22 @@ package com.ronjeffries.ship
 
 import org.openrndr.draw.Drawer
 
-class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCollection, val initialNumberOfAsteroidsToCreate: Int, ship: Ship, saucer: Saucer) {
-
+class GameCycler(
+    private val game: Game,
+    private val knownObjects: SpaceObjectCollection,
+    val initialNumberOfAsteroidsToCreate: Int,
+    val ship: Ship,
+    val saucer: Saucer
+) {
     var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate
+
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
-    private val allOneShots = listOf(waveOneShot)
+    private val saucerOneShot = OneShot( 7.0) { startSaucer(it) }
+    private val allOneShots = listOf(waveOneShot, saucerOneShot)
+
+    private fun startSaucer(trans: Transaction) {
+        saucer.start(trans)
+    }
 
     fun cycle(deltaTime: Double, drawer: Drawer?) {
         tick(deltaTime)
@@ -14,6 +25,7 @@ class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCo
         processInteractions()
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
+        createSaucerIfNeeded()
         game.stranglerCycle(deltaTime, drawer)
     }
 
@@ -21,6 +33,12 @@ class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCo
         val ignored = Transaction()
         for (oneShot in allOneShots) {
             oneShot.cancel(ignored)
+        }
+    }
+
+    private fun createSaucerIfNeeded() {
+        if ( knownObjects.saucerIsMissing() ) {
+            knownObjects.performWithTransaction { saucerOneShot.execute(it) }
         }
     }
 
