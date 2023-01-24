@@ -70,7 +70,7 @@ class GameTest {
         )
         game.knownObjects.add(asteroid)
         game.knownObjects.add(ship)
-        assertThat(game.knownObjects.size).isEqualTo(2)
+        assertThat(game.knownObjects.spaceObjects().size).isEqualTo(2)
         assertThat(ship).isIn(game.knownObjects.spaceObjects())
         game.processInteractions()
         assertThat(ship).isNotIn(game.knownObjects.spaceObjects())

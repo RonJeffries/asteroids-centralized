@@ -12,7 +12,7 @@ class SaucerMakingTest {
         mix.add(Asteroid(Point(100.0,100.0)))
         val game = Game(mix) // makes game without the standard init
         game.cycle(0.1) // ELAPSED seconds
-        assertThat(mix.size).describedAs("mix size").isEqualTo(2)
+        assertThat(mix.spaceObjects().size).describedAs("mix size").isEqualTo(2)
         assertThat(mix.deferredActions().size).describedAs("deferred size").isEqualTo(1)
         val deferred = mix.deferredActions().find { it.delay == 7.0 }
         assertThat(deferred).isNotNull
