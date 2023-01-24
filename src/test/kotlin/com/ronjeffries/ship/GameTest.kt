@@ -120,10 +120,11 @@ class GameTest {
         val game = Game()
         game.createInitialContents(Controls())
         val transForFour = Transaction()
-        game.makeWave(transForFour)
+        val cycler = game.makeCycler()
+        cycler.makeWave(transForFour)
         assertThat(transForFour.asteroids().size).isEqualTo(4)
         val transForSix = Transaction()
-        game.makeWave(transForSix)
+        cycler.makeWave(transForSix)
         assertThat(transForSix.asteroids().size).isEqualTo(6)
     }
 
@@ -164,11 +165,12 @@ class GameTest {
     fun `how many asteroids per wave`() {
         val game = Game()
         game.insertQuarter(Controls())
-        assertThat(game.howMany()).isEqualTo(4)
-        assertThat(game.howMany()).isEqualTo(6)
-        assertThat(game.howMany()).isEqualTo(8)
-        assertThat(game.howMany()).isEqualTo(10)
-        assertThat(game.howMany()).isEqualTo(11)
-        assertThat(game.howMany()).isEqualTo(11)
+        val cycler = game.makeCycler()
+        assertThat(cycler.howMany()).isEqualTo(4)
+        assertThat(cycler.howMany()).isEqualTo(6)
+        assertThat(cycler.howMany()).isEqualTo(8)
+        assertThat(cycler.howMany()).isEqualTo(10)
+        assertThat(cycler.howMany()).isEqualTo(11)
+        assertThat(cycler.howMany()).isEqualTo(11)
     }
 }

@@ -11,7 +11,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
-    private val waveOneShot = OneShot(4.0) { makeWave(it) }
     private val saucerOneShot = OneShot( 7.0) { startSaucer(it) }
 
     private fun startSaucer(trans: Transaction) {
@@ -30,7 +29,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     // all OneShot instances go here:
-    private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
+    private val allOneShots = listOf(saucerOneShot, shipOneShot)
 
     fun createInitialContents(controls: Controls) {
         initializeGame(controls, -1)
@@ -78,7 +77,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        createNewWaveIfNeeded()
         createSaucerIfNeeded()
         createShipIfNeeded()
         drawer?.let { draw(drawer) }
@@ -87,12 +85,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun createShipIfNeeded() {
         if ( knownObjects.shipIsMissing() ) {
             knownObjects.performWithTransaction { shipOneShot.execute(it) }
-        }
-    }
-
-    private fun createNewWaveIfNeeded() {
-        if ( U.AsteroidTally == 0 ) {
-            knownObjects.performWithTransaction { waveOneShot.execute(it) }
         }
     }
 
@@ -105,19 +97,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private fun draw(drawer: Drawer) {
         knownObjects.forEachInteracting { drawer.isolated { it.draw(drawer) } }
         knownObjects.scoreKeeper.draw(drawer)
-    }
-
-    fun howMany(): Int {
-        return numberOfAsteroidsToCreate.also {
-            numberOfAsteroidsToCreate += 2
-            if (numberOfAsteroidsToCreate > 11) numberOfAsteroidsToCreate = 11
-        }
-    }
-
-    fun makeWave(it: Transaction) {
-        for (i in 1..howMany()) {
-            it.add(Asteroid(U.randomEdgePoint()))
-        }
     }
 
     fun canShipEmerge(): Boolean {
