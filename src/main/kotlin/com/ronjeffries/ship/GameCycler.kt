@@ -5,10 +5,13 @@ import org.openrndr.draw.Drawer
 class GameCycler(private val knownObjects: SpaceObjectCollection, numberOfAsteroidsToCreate: Int, ship: Ship, saucer: Saucer) {
     fun cycle(game: Game, deltaTime: Double, drawer: Drawer?) {
         tick(deltaTime)
+        beforeInteractions()
         game.stranglerCycle(deltaTime, drawer)
     }
 
-    fun tick(deltaTime: Double) {
+    private fun beforeInteractions() = knownObjects.saucers().forEach { it.beforeInteractions() }
+
+    private fun tick(deltaTime: Double) {
         updateTimersFirst(deltaTime)
         thenUpdateSpaceObjects(deltaTime)
     }

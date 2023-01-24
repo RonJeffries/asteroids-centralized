@@ -85,7 +85,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        beforeInteractions()
         processInteractions()
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
@@ -142,8 +141,5 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
             if ( distance < U.SAFE_SHIP_DISTANCE ) return false
         }
         return true
-    }
-
-    fun tick(deltaTime: Double) {
     }
 }
