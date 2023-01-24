@@ -8,12 +8,22 @@ class GameCycler(private val game: Game, private val knownObjects: SpaceObjectCo
         tick(deltaTime)
         beforeInteractions()
         processInteractions()
+        U.AsteroidTally = knownObjects.asteroidCount()
         game.stranglerCycle(deltaTime, drawer)
     }
 
     private fun beforeInteractions() = knownObjects.saucers().forEach { it.beforeInteractions() }
 
-    fun processInteractions() = knownObjects.applyChanges(game.changesDueToInteractions())
+    fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
+
+    fun changesDueToInteractions(): Transaction {
+        val trans = Transaction()
+        knownObjects.pairsToCheck().forEach {
+            it.first.interactWith(it.second, trans)
+            it.second.interactWith(it.first, trans)
+        }
+        return trans
+    }
 
     private fun tick(deltaTime: Double) {
         updateTimersFirst(deltaTime)

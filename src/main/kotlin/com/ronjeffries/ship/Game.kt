@@ -32,15 +32,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     // all OneShot instances go here:
     private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 
-    fun changesDueToInteractions(): Transaction {
-        val trans = Transaction()
-        knownObjects.pairsToCheck().forEach {
-            it.first.interactWith(it.second, trans)
-            it.second.interactWith(it.first, trans)
-        }
-        return trans
-    }
-
     fun createInitialContents(controls: Controls) {
         initializeGame(controls, -1)
     }
@@ -87,7 +78,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
         createShipIfNeeded()
