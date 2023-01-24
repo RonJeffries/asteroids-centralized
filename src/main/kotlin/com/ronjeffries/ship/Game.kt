@@ -85,7 +85,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
-        processInteractions()
         U.AsteroidTally = knownObjects.asteroidCount()
         createNewWaveIfNeeded()
         createSaucerIfNeeded()
