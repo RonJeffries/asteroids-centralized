@@ -6,9 +6,9 @@ import org.openrndr.draw.isolated
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
-    private lateinit var cycler: GameCycler
     private var saucer = Saucer()
     private lateinit var ship: Ship
+    private var cycler: GameCycler = GameCycler(knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
     private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
@@ -81,7 +81,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
         val deltaTime = elapsedSeconds - lastTime
         lastTime = elapsedSeconds
-        stranglerCycle(deltaTime, drawer)
+        cycler.cycle(this, deltaTime, drawer)
     }
 
     fun stranglerCycle(deltaTime: Double, drawer: Drawer?) {
