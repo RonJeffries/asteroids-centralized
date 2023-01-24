@@ -93,4 +93,6 @@ class SpaceObjectCollection {
     fun shipIsMissing(): Boolean {
         return ships().isEmpty()
     }
+
+    val size get() = spaceObjects().size
 }
