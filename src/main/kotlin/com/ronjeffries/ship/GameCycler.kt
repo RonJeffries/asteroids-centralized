@@ -4,7 +4,6 @@ import org.openrndr.draw.Drawer
 import org.openrndr.draw.isolated
 
 class GameCycler(
-    private val game: Game,
     private val knownObjects: SpaceObjectCollection,
     initialNumberOfAsteroidsToCreate: Int,
     private val controls: Controls,
