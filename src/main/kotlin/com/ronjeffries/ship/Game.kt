@@ -7,7 +7,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var numberOfAsteroidsToCreate = 0
     private var saucer = Saucer()
     lateinit var ship: Ship
-    private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
+    private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Controls(), saucer)
 
     fun createInitialContents(controls: Controls) {
         initializeGame(controls, -1)
@@ -33,12 +33,12 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         val shipPosition = U.CENTER_OF_UNIVERSE
         ship = Ship(shipPosition, controls)
         saucer = Saucer()
-        cycler = makeCycler()
+        cycler = makeCycler(controls)
         cycler.cancelAllOneShots()
         trans.clear()
     }
 
-    fun makeCycler() = GameCycler(this, knownObjects, numberOfAsteroidsToCreate, ship, saucer)
+    fun makeCycler(controls: Controls = Controls()) = GameCycler(this, knownObjects, numberOfAsteroidsToCreate, controls, saucer)
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
         val deltaTime = elapsedSeconds - lastTime

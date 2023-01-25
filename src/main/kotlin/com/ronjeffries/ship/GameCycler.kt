@@ -7,7 +7,7 @@ class GameCycler(
     private val game: Game,
     private val knownObjects: SpaceObjectCollection,
     initialNumberOfAsteroidsToCreate: Int,
-    val ship: Ship,
+    private val controls: Controls,
     val saucer: Saucer
 ) {
     private var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate
@@ -22,17 +22,11 @@ class GameCycler(
     private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 
     fun canShipEmerge(): Boolean {
-        if (knownObjects.saucerIsPresent()) return false
-        if (knownObjects.missiles().isNotEmpty()) return false
-        for ( asteroid in knownObjects.asteroids() ) {
-            val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
-            if ( distance < U.SAFE_SHIP_DISTANCE ) return false
-        }
-        return true
+        return knownObjects.canShipEmerge()
     }
 
     private fun startShipAtHome(trans: Transaction) {
-        ship.setToHome()
+        val ship = Ship(U.CENTER_OF_UNIVERSE,controls)
         trans.add(ship)
     }
 

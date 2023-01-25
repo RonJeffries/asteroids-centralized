@@ -131,37 +131,34 @@ class GameTest {
     @Test
     fun `saucer makes it unsafe for ship`() {
         val mix = SpaceObjectCollection()
-        val game = Game(mix)
-        game.ship = Ship(U.CENTER_OF_UNIVERSE)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(true)
+        mix.add(Ship(U.CENTER_OF_UNIVERSE))
+        assertThat(mix.canShipEmerge()).isEqualTo(true)
         val saucer = Saucer()
         mix.add(saucer)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(false)
+        assertThat(mix.canShipEmerge()).isEqualTo(false)
     }
 
     @Test
     fun `asteroid too close makes it unsafe for ship`() {
         val mix = SpaceObjectCollection()
-        val game = Game(mix)
-        game.ship = Ship(U.CENTER_OF_UNIVERSE)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(true)
+        mix.add(Ship(U.CENTER_OF_UNIVERSE))
+        assertThat(mix.canShipEmerge()).isEqualTo(true)
         val asteroid = Asteroid(Point(100.0, 100.0))
         mix.add(asteroid)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(true)
+        assertThat(mix.canShipEmerge()).isEqualTo(true)
         val dangerousAsteroid = Asteroid(U.CENTER_OF_UNIVERSE + Point(50.0, 50.0))
         mix.add(dangerousAsteroid)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(false)
+        assertThat(mix.canShipEmerge()).isEqualTo(false)
     }
 
     @Test
     fun `missile makes it unsafe for ship`() {
         val mix = SpaceObjectCollection()
-        val game = Game(mix)
-        game.ship = Ship(U.CENTER_OF_UNIVERSE)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(true)
+        mix.add(Ship(U.CENTER_OF_UNIVERSE))
+        assertThat(mix.canShipEmerge()).isEqualTo(true)
         val missile = Missile(Point(100.0, 100.0))
         mix.add(missile)
-        assertThat(game.makeCycler().canShipEmerge()).isEqualTo(false)
+        assertThat(mix.canShipEmerge()).isEqualTo(false)
     }
 
     @Test

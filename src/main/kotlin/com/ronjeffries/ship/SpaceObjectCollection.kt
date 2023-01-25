@@ -38,6 +38,16 @@ class SpaceObjectCollection {
 
     fun asteroidCount(): Int = asteroids().size
 
+    fun canShipEmerge(): Boolean {
+        if (saucerIsPresent()) return false
+        if (missiles().isNotEmpty()) return false
+        for ( asteroid in asteroids() ) {
+            val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
+            if ( distance < U.SAFE_SHIP_DISTANCE ) return false
+        }
+        return true
+    }
+
     fun clear() {
         scoreKeeper.clear()
         deferredActions.clear()
