@@ -9,7 +9,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var saucer = Saucer()
     lateinit var ship: Ship
     private var cycler: GameCycler = GameCycler(this, knownObjects, 0, Ship(U.CENTER_OF_UNIVERSE), saucer)
-    private var scoreKeeper: ScoreKeeper = ScoreKeeper(-1)
 
     fun createInitialContents(controls: Controls) {
         initializeGame(controls, -1)
@@ -31,8 +30,7 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         shipCount: Int,
         controls: Controls
     ) {
-        scoreKeeper = ScoreKeeper(shipCount)
-        knownObjects.scoreKeeper = scoreKeeper
+        knownObjects.scoreKeeper = ScoreKeeper(shipCount)
         val shipPosition = U.CENTER_OF_UNIVERSE
         ship = Ship(shipPosition, controls)
         saucer = Saucer()
