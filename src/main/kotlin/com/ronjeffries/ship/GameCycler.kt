@@ -32,7 +32,7 @@ class GameCycler(
         saucer.start(trans)
     }
 
-    fun cycle(deltaTime: Double, drawer: Drawer?) {
+    fun cycle(deltaTime: Double, drawer: Drawer?= null) {
         tick(deltaTime)
         beforeInteractions()
         processInteractions()

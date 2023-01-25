@@ -12,19 +12,19 @@ class MissileTest {
         )
         val missile = Missile(ship)
         mix.add(missile)
-        val game = Game(mix)
+        val cycler = GameCycler(mix)
         assertThat(mix.contains(missile)).isEqualTo(true)
         assertThat(mix.missiles()).contains(missile)
-        game.cycle(0.0)
+        cycler.cycle(0.1)
         assertThat(mix.deferredActions().any { it is DeferredAction }).describedAs("deferred action should be present").isEqualTo(true)
-        game.cycle(U.MISSILE_LIFETIME - 0.1)
-        game.cycle(U.MISSILE_LIFETIME + 0.1)
+        cycler.cycle(U.MISSILE_LIFETIME - 0.1)
+        cycler.cycle( 0.2)
         assertThat(mix.contains(missile)).describedAs("missile should be dead").isEqualTo(false)
         assertThat(mix.missiles()).doesNotContain(missile)
         assertThat(mix.splats()).describedAs("splat should be present").isNotEmpty()
         assertThat(mix.any { it is Splat }).describedAs("splat should be present").isEqualTo(true)
-        game.cycle(U.MISSILE_LIFETIME + 0.2) // needs a tick to init
-        game.cycle(U.MISSILE_LIFETIME + 2.3) // Splat lifetime is 2.0
+        cycler.cycle(0.2) // needs a tick to init
+        cycler.cycle(2.3) // Splat lifetime is 2.0
         assertThat(mix.splats()).describedAs("splat should be gone").isEmpty()
     }
 }
