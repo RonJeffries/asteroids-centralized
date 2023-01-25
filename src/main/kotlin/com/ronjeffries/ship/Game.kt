@@ -29,7 +29,6 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         controls: Controls
     ) {
         knownObjects.scoreKeeper = ScoreKeeper(shipCount)
-        val shipPosition = U.CENTER_OF_UNIVERSE
         cycler = makeCycler(controls)
         cycler.cancelAllOneShots()
         trans.clear()
