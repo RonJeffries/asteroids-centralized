@@ -7,8 +7,8 @@ class GameCycler(
     private val knownObjects: SpaceObjectCollection,
     initialNumberOfAsteroidsToCreate: Int,
     private val controls: Controls,
-    val saucer: Saucer
 ) {
+    val saucer = Saucer()
     private var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
