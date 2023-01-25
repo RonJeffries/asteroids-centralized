@@ -5,7 +5,6 @@ import org.openrndr.draw.Drawer
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
-    lateinit var ship: Ship
     private var cycler: GameCycler = GameCycler(knownObjects, 0, Controls())
 
     fun createInitialContents(controls: Controls) {

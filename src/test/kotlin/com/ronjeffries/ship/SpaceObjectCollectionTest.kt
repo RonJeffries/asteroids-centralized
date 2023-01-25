@@ -26,7 +26,6 @@ class SpaceObjectCollectionTest {
             position = Vector2(100.0, 150.0)
         )
         game.knownObjects.add(s)
-        game.ship = s
         assertThat(game.knownObjects.size).isEqualTo(2)
         val colliders = game.makeCycler().changesDueToInteractions()
         assertThat(colliders.removes.size).isEqualTo(2)
@@ -45,7 +44,6 @@ class SpaceObjectCollectionTest {
             position = p1
         ) // yes kr=150
         game.knownObjects.add(s2)
-        game.ship = s2
         val a3 = Asteroid(p2) // no
         game.knownObjects.add(a3)
         val a4 = Asteroid(p2) // no

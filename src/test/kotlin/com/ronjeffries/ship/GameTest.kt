@@ -68,7 +68,6 @@ class GameTest {
         val ship = Ship(
             position = Vector2(1000.0, 1000.0)
         )
-        game.ship = ship // crock
         game.knownObjects.add(asteroid)
         game.knownObjects.add(ship)
         assertThat(game.knownObjects.spaceObjects().size).isEqualTo(2)
