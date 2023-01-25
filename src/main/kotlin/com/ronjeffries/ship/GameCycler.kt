@@ -6,11 +6,11 @@ import org.openrndr.draw.isolated
 class GameCycler(
     private val game: Game,
     private val knownObjects: SpaceObjectCollection,
-    val initialNumberOfAsteroidsToCreate: Int,
+    initialNumberOfAsteroidsToCreate: Int,
     val ship: Ship,
     val saucer: Saucer
 ) {
-    var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate
+    private var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate
 
     private val waveOneShot = OneShot(4.0) { makeWave(it) }
     private val saucerOneShot = OneShot( 7.0) { startSaucer(it) }
