@@ -18,7 +18,6 @@ class GameCycler(
             startShipAtHome(it)
         }
     }
-    private val allOneShots = listOf(waveOneShot, saucerOneShot, shipOneShot)
 
     fun canShipEmerge(): Boolean {
         return knownObjects.canShipEmerge()
@@ -52,13 +51,6 @@ class GameCycler(
     private fun createShipIfNeeded() {
         if ( knownObjects.shipIsMissing() ) {
             knownObjects.performWithTransaction { shipOneShot.execute(it) }
-        }
-    }
-
-    fun cancelAllOneShots() {
-        val ignored = Transaction()
-        for (oneShot in allOneShots) {
-            oneShot.cancel(ignored)
         }
     }
 

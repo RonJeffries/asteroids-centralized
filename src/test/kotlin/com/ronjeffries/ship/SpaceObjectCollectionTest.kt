@@ -27,7 +27,7 @@ class SpaceObjectCollectionTest {
         )
         game.knownObjects.add(s)
         assertThat(game.knownObjects.size).isEqualTo(2)
-        val colliders = game.makeCycler(game.knownObjects).changesDueToInteractions()
+        val colliders = GameCycler(game.knownObjects).changesDueToInteractions()
         assertThat(colliders.removes.size).isEqualTo(2)
     }
 
@@ -48,7 +48,7 @@ class SpaceObjectCollectionTest {
         game.knownObjects.add(a3)
         val a4 = Asteroid(p2) // no
         game.knownObjects.add(a4)
-        val colliders = game.makeCycler(game.knownObjects).changesDueToInteractions()
+        val colliders = GameCycler(game.knownObjects).changesDueToInteractions()
         assertThat(colliders.removes.size).isEqualTo(3)
     }
 
