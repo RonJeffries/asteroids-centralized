@@ -1,7 +1,6 @@
 package com.ronjeffries.ship
 
 import org.openrndr.draw.Drawer
-import org.openrndr.draw.isolated
 
 class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
     private var lastTime = 0.0
