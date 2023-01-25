@@ -63,18 +63,18 @@ class GameTest {
 
     @Test
     fun `colliding ship and asteroid splits asteroid, loses ship`() {
-        val game = Game()
         val asteroid = Asteroid(Vector2(1000.0, 1000.0))
         val ship = Ship(
             position = Vector2(1000.0, 1000.0)
         )
-        game.knownObjects.add(asteroid)
-        game.knownObjects.add(ship)
-        assertThat(game.knownObjects.spaceObjects().size).isEqualTo(2)
-        assertThat(ship).isIn(game.knownObjects.spaceObjects())
-        game.makeCycler().processInteractions()
-        assertThat(ship).isNotIn(game.knownObjects.spaceObjects())
-        assertThat(game.knownObjects.asteroidCount()).isEqualTo(2)
+        val knownObjects = SpaceObjectCollection()
+        knownObjects.add(asteroid)
+        knownObjects.add(ship)
+        assertThat(knownObjects.spaceObjects().size).isEqualTo(2)
+        assertThat(ship).isIn(knownObjects.spaceObjects())
+        GameCycler(knownObjects).processInteractions()
+        assertThat(ship).isNotIn(knownObjects.spaceObjects())
+        assertThat(knownObjects.asteroidCount()).isEqualTo(2)
     }
 
     @Test
@@ -119,7 +119,7 @@ class GameTest {
         val game = Game()
         game.createInitialContents(Controls())
         val transForFour = Transaction()
-        val cycler = game.makeCycler()
+        val cycler = game.makeCycler(game.knownObjects, 4)
         cycler.makeWave(transForFour)
         assertThat(transForFour.asteroids().size).isEqualTo(4)
         val transForSix = Transaction()
@@ -164,7 +164,7 @@ class GameTest {
     fun `how many asteroids per wave`() {
         val game = Game()
         game.insertQuarter(Controls())
-        val cycler = game.makeCycler()
+        val cycler = game.makeCycler(game.knownObjects, 4)
         assertThat(cycler.howMany()).isEqualTo(4)
         assertThat(cycler.howMany()).isEqualTo(6)
         assertThat(cycler.howMany()).isEqualTo(8)

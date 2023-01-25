@@ -5,8 +5,8 @@ import org.openrndr.draw.isolated
 
 class GameCycler(
     private val knownObjects: SpaceObjectCollection,
-    initialNumberOfAsteroidsToCreate: Int,
-    private val controls: Controls,
+    initialNumberOfAsteroidsToCreate: Int = -1,
+    private val controls: Controls = Controls(),
 ) {
     val saucer = Saucer()
     private var numberOfAsteroidsToCreate = initialNumberOfAsteroidsToCreate

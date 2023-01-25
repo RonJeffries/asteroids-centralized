@@ -28,12 +28,16 @@ class Game(val knownObjects:SpaceObjectCollection = SpaceObjectCollection()) {
         controls: Controls
     ) {
         knownObjects.scoreKeeper = ScoreKeeper(shipCount)
-        cycler = makeCycler(controls)
+        cycler = makeCycler(knownObjects, numberOfAsteroidsToCreate, controls)
         cycler.cancelAllOneShots()
         trans.clear()
     }
 
-    fun makeCycler(controls: Controls = Controls()) = GameCycler(knownObjects, numberOfAsteroidsToCreate, controls)
+    fun makeCycler(
+        knownObjects: SpaceObjectCollection,
+        numberOfAsteroidsToCreate: Int = -1,
+        controls: Controls = Controls()
+    ) = GameCycler(knownObjects, numberOfAsteroidsToCreate, controls)
 
     fun cycle(elapsedSeconds: Double, drawer: Drawer? = null) {
         val deltaTime = elapsedSeconds - lastTime
