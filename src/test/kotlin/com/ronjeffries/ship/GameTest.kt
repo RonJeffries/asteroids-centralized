@@ -88,14 +88,14 @@ class GameTest {
 
     @Test
     fun `game creates asteroids after a while`() {
-        val game = Game()
         val controls = Controls()
-        game.createInitialContents(controls)
-        assertThat(game.knownObjects.asteroidCount()).isEqualTo(0)
-        game.cycle(0.2)
-        game.cycle(0.3)
-        game.cycle(4.2)
-        assertThat(game.knownObjects.asteroidCount()).isEqualTo(4)
+        val mix = SpaceObjectCollection()
+        val cycler = GameCycler(mix, 4, controls)
+        assertThat(mix.asteroidCount()).isEqualTo(0)
+        cycler.cycle(0.2)
+        cycler.cycle(0.3)
+        cycler.cycle(4.2)
+        assertThat(mix.asteroidCount()).isEqualTo(4)
     }
 
     @Test
