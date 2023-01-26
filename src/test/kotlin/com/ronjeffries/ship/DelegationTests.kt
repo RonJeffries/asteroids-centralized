@@ -10,7 +10,6 @@ interface DoSomething {
 
 class BasicDoer: DoSomething {
     override fun doingIt(input: Int): Int = input
-
     override fun doingOtherThing(input: Int): Int = input + 7
 }
 
