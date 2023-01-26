@@ -162,9 +162,7 @@ class GameTest {
 
     @Test
     fun `how many asteroids per wave`() {
-        val game = Game()
-        game.insertQuarter(Controls())
-        val cycler = GameCycler(game.knownObjects, 4)
+        val cycler = GameCycler(SpaceObjectCollection(), 4)
         assertThat(cycler.howMany()).isEqualTo(4)
         assertThat(cycler.howMany()).isEqualTo(6)
         assertThat(cycler.howMany()).isEqualTo(8)

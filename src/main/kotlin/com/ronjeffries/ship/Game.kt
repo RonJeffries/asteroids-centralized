@@ -5,7 +5,7 @@ import org.openrndr.draw.Drawer
 class Game() {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
-    val knownObjects:SpaceObjectCollection = SpaceObjectCollection()
+    private val knownObjects:SpaceObjectCollection = SpaceObjectCollection()
     private var cycler: GameCycler = GameCycler(knownObjects, 0, Controls())
 
     fun currentMix(): SpaceObjectCollection = cycler.currentMix()
