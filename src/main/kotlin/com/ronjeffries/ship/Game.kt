@@ -8,6 +8,8 @@ class Game() {
     val knownObjects:SpaceObjectCollection = SpaceObjectCollection()
     private var cycler: GameCycler = GameCycler(knownObjects, 0, Controls())
 
+    fun currentMix(): SpaceObjectCollection = cycler.currentMix()
+
     fun createInitialContents(controls: Controls) {
         initializeGame(controls, -1)
     }

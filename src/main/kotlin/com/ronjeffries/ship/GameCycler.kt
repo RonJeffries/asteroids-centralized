@@ -112,4 +112,6 @@ class GameCycler(
             }
         }
     }
+
+    fun currentMix(): SpaceObjectCollection = knownObjects
 }

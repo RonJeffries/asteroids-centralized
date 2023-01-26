@@ -48,16 +48,16 @@ class GameTest {
         val trans = Transaction()
         game.cycle(0.1)
         game.cycle(3.1)
-        val ship = game.knownObjects.ships().first()
+        val ship = game.currentMix().ships().first()
         ship.position = Point(100.0, 100.0)
         trans.add(Splat(ship))
         trans.remove(ship)
         assertThat(trans.firstRemove()).isEqualTo(ship)
-        game.knownObjects.applyChanges(trans)
+        game.currentMix().applyChanges(trans)
         assertThat(ship.position).isNotEqualTo(U.CENTER_OF_UNIVERSE)
         game.cycle(3.2)
         game.cycle(6.2)
-        val shipAgain = game.knownObjects.ships().first()
+        val shipAgain = game.currentMix().ships().first()
         assertThat(shipAgain.position).isEqualTo(U.CENTER_OF_UNIVERSE)
     }
 
@@ -82,7 +82,7 @@ class GameTest {
         val game = Game()
         val controls = Controls()
         game.insertQuarter(controls)
-        val keeper: ScoreKeeper = game.knownObjects.scoreKeeper
+        val keeper: ScoreKeeper = game.currentMix().scoreKeeper
         assertThat(keeper.shipCount).isEqualTo(U.SHIPS_PER_QUARTER)
     }
 
@@ -103,15 +103,15 @@ class GameTest {
         val game = Game()
         val controls = Controls()
         game.createInitialContents(controls)
-        assertThat(game.knownObjects.asteroidCount()).isEqualTo(0)
+        assertThat(game.currentMix().asteroidCount()).isEqualTo(0)
         game.cycle(0.2)
         game.cycle(0.3)
         game.insertQuarter(controls)
         game.cycle(0.2)
         game.cycle(0.3)
-        assertThat(game.knownObjects.asteroidCount()).isEqualTo(0)
+        assertThat(game.currentMix().asteroidCount()).isEqualTo(0)
         game.cycle(4.2)
-        assertThat(game.knownObjects.asteroidCount()).isEqualTo(4)
+        assertThat(game.currentMix().asteroidCount()).isEqualTo(4)
     }
 
     @Test
@@ -119,7 +119,7 @@ class GameTest {
         val game = Game()
         game.createInitialContents(Controls())
         val transForFour = Transaction()
-        val cycler = GameCycler(game.knownObjects, 4)
+        val cycler = GameCycler(game.currentMix(), 4)
         cycler.makeWave(transForFour)
         assertThat(transForFour.asteroids().size).isEqualTo(4)
         val transForSix = Transaction()
