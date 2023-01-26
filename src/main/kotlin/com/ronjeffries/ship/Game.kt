@@ -5,8 +5,7 @@ import org.openrndr.draw.Drawer
 class Game() {
     private var lastTime = 0.0
     private var numberOfAsteroidsToCreate = 0
-    private val knownObjects:SpaceObjectCollection = SpaceObjectCollection()
-    private var cycler: GameCycler = GameCycler(knownObjects, 0, Controls())
+    private var cycler: GameCycler = GameCycler(SpaceObjectCollection(), 0, Controls())
 
     fun currentMix(): SpaceObjectCollection = cycler.currentMix()
 
@@ -20,15 +19,17 @@ class Game() {
 
     private fun initializeGame(controls: Controls, shipCount: Int) {
         numberOfAsteroidsToCreate = U.ASTEROID_STARTING_COUNT
+        val knownObjects = SpaceObjectCollection()
         knownObjects.performWithTransaction { trans ->
-            createInitialObjects(trans,shipCount, controls)
+            createInitialObjects(trans,shipCount, controls, knownObjects)
         }
     }
 
     private fun createInitialObjects(
         trans: Transaction,
         shipCount: Int,
-        controls: Controls
+        controls: Controls,
+        knownObjects: SpaceObjectCollection
     ) {
         knownObjects.scoreKeeper = ScoreKeeper(shipCount)
         cycler = GameCycler(knownObjects, numberOfAsteroidsToCreate, controls)
