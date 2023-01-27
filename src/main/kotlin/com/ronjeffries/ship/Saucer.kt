@@ -56,9 +56,7 @@ class Saucer : SpaceObject, Collider {
         elapsedTime = 0.0
     }
 
-    override fun interact(asteroid: Asteroid, trans: Transaction) {
-        checkCollision(asteroid, trans)
-    }
+    override fun interact(asteroid: Asteroid, trans: Transaction) = checkCollision(asteroid, trans)
 
     override fun interact(missile: Missile, trans: Transaction) {
         if (missile == currentMissile) missileReady = false
@@ -73,9 +71,7 @@ class Saucer : SpaceObject, Collider {
         checkCollision(ship, trans)
     }
 
-    override fun interactWith(other: Collider, trans: Transaction) {
-        other.interact(this, trans)
-    }
+    override fun interactWith(other: Collider, trans: Transaction) = other.interact(this, trans)
 
     fun beforeInteractions() {
         sawShip = false; missileReady = true

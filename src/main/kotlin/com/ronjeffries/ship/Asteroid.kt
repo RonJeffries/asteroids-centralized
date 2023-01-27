@@ -50,22 +50,11 @@ class Asteroid(
     fun scale() =2.0.pow(splitCount)
 
     override fun interact(asteroid: Asteroid, trans: Transaction) {}
+    override fun interact(missile: Missile, trans: Transaction) = checkCollision(missile, trans)
+    override fun interact(saucer: Saucer, trans: Transaction) = checkCollision(saucer, trans)
+    override fun interact(ship: Ship, trans: Transaction) = checkCollision(ship, trans)
 
-    override fun interact(missile: Missile, trans: Transaction) {
-        checkCollision(missile, trans)
-    }
-
-    override fun interact(saucer: Saucer, trans: Transaction) {
-        checkCollision(saucer, trans)
-    }
-
-    override fun interact(ship: Ship, trans: Transaction) {
-        checkCollision(ship, trans)
-    }
-
-    override fun interactWith(other: Collider, trans: Transaction) {
-        other.interact(this, trans)
-    }
+    override fun interactWith(other: Collider, trans: Transaction) = other.interact(this, trans)
 
     private fun checkCollision(other: Collider, trans: Transaction) {
         Collision(this).executeOnHit(other) {
