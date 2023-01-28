@@ -62,7 +62,7 @@ class Missile(
     }
 
     override fun interactWith(other: Collider, trans: Transaction) {
-        other.interact(this, trans)
+        other.strategy.interact(this, trans)
     }
 
     private fun checkAndScoreCollision(other: Collider, trans: Transaction, score: Int) {
