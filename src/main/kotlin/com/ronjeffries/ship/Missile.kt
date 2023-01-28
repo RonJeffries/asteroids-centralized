@@ -12,7 +12,7 @@ class Missile(
     val color: ColorRGBa = ColorRGBa.WHITE,
     private val missileIsFromShip: Boolean = false
 ): SpaceObject, Collider {
-    override val strategy: Collider
+    override val collisionStrategy: Collider
         get() = this
     constructor(ship: Ship): this(ship.position, ship.heading, ship.killRadius, ship.velocity, ColorRGBa.WHITE, true)
     constructor(saucer: Saucer): this(saucer.position, Random.nextDouble(360.0), saucer.killRadius, saucer.velocity, ColorRGBa.GREEN)
@@ -62,7 +62,7 @@ class Missile(
     }
 
     override fun interactWith(other: Collider, trans: Transaction) {
-        other.strategy.interact(this, trans)
+        other.collisionStrategy.interact(this, trans)
     }
 
     private fun checkAndScoreCollision(other: Collider, trans: Transaction, score: Int) {

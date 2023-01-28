@@ -21,7 +21,7 @@ private val directions = listOf(
 )
 
 class Saucer : SpaceObject, Collider {
-    override val strategy: Collider
+    override val collisionStrategy: Collider
         get() = this
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
@@ -74,7 +74,7 @@ class Saucer : SpaceObject, Collider {
     }
 
     override fun interactWith(other: Collider, trans: Transaction)
-        = other.strategy.interact(this, trans)
+        = other.collisionStrategy.interact(this, trans)
 
     fun beforeInteractions() {
         sawShip = false; missileReady = true

@@ -18,7 +18,7 @@ class Ship(
     val controls: Controls = Controls(),
     override val killRadius: Double = U.SHIP_KILL_RADIUS
 ) : SpaceObject, Collider {
-    override val strategy: Collider
+    override val collisionStrategy: Collider
         get() = this
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
@@ -32,7 +32,7 @@ class Ship(
     override fun interact(ship: Ship, trans: Transaction) { }
 
     override fun interactWith(other: Collider, trans: Transaction)
-        = other.strategy.interact(this, trans)
+        = other.collisionStrategy.interact(this, trans)
 
     private fun checkCollision(other: Collider, trans: Transaction) {
         Collision(other).executeOnHit(this) {
