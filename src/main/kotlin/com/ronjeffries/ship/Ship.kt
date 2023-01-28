@@ -18,14 +18,14 @@ class Ship(
     val controls: Controls = Controls(),
     override val killRadius: Double = U.SHIP_KILL_RADIUS
 ) : SpaceObject, Collidable {
-    override val collisionStrategy: Collider
-        get() = ShipCollisionStrategy(this)
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
     private var dropScale = U.DROP_SCALE
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
 
+    override val collisionStrategy: Collider
+        get() = ShipCollisionStrategy(this)
     override fun interactWith(other: Collidable, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
 
@@ -88,7 +88,7 @@ class Ship(
 //        drawer.circle(0.0, 0.0, killRadius)
 //    }
 
-    fun accelerateToNewSpeedInOneSecond(vNew:Velocity, vCurrent: Velocity): Velocity {
+    private fun accelerateToNewSpeedInOneSecond(vNew:Velocity, vCurrent: Velocity): Velocity {
 //        vNew = vCurrent + a*t
 //        t = 1
 //        a = vNew - vCurrent

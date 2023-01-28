@@ -23,22 +23,23 @@ class AsteroidTest {
             position = Point.ZERO,
             velocity = Velocity.ZERO
         )
+        val ship = Ship(Point.ZERO)
         val radius = full.killRadius
         val trans = Transaction()
-        full.dieDueToCollision(trans)
+        full.collisionStrategy.interact(ship, trans)
         val halfAdds = trans.asteroids()
         assertThat(halfAdds.size).isEqualTo(2) // two asteroids and a splat
         assertThat(trans.splats().size).isEqualTo(1)
         val half = halfAdds.last()
         assertThat((half).killRadius).describedAs("half").isEqualTo(radius/2.0)
         val trans2 = Transaction()
-        half.dieDueToCollision(trans2)
+        half.collisionStrategy.interact(ship, trans2)
         val quarterAdds = trans2.asteroids()
         assertThat(quarterAdds.size).isEqualTo(2)
         val quarter = quarterAdds.last()
         assertThat((quarter).killRadius).describedAs("quarter").isEqualTo(radius/4.0)
         val trans3 = Transaction()
-        quarter.dieDueToCollision(trans3)
+        quarter.collisionStrategy.interact(ship, trans3)
         val eighthAdds = trans3.asteroids()
         assertThat(eighthAdds.size).describedAs("should not split third time").isEqualTo(0)
     }
@@ -47,14 +48,15 @@ class AsteroidTest {
     fun `new split asteroids get new directions`() {
         val startingV = Vector2(U.ASTEROID_SPEED,0.0)
         val full = Asteroid(
-            position = Vector2.ZERO,
+            position = Point.ZERO,
             velocity = startingV
         )
+        val ship = Ship(Point.ZERO)
         val fullV = full.velocity
         assertThat(fullV.length).isEqualTo(U.ASTEROID_SPEED, within(1.0))
         assertThat(fullV).isEqualTo(startingV)
         val trans = Transaction()
-        full.dieDueToCollision(trans)
+        full.collisionStrategy.interact(ship, trans)
         val halfSize = trans.asteroids()
         var countSplits = 0
         halfSize.forEach {
@@ -69,8 +71,9 @@ class AsteroidTest {
     @Test
     fun `asteroid dieOnCollision`() {
         val asteroid = Asteroid(Point.ZERO)
+        val ship = Ship(Point.ZERO)
         val trans = Transaction()
-        asteroid.dieDueToCollision(trans)
+        asteroid.collisionStrategy.interact(ship, trans)
         val splits = trans.asteroids()
         assertThat(splits.size).isEqualTo(2)
     }
