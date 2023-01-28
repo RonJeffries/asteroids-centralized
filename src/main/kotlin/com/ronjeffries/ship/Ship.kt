@@ -19,27 +19,20 @@ class Ship(
     override val killRadius: Double = U.SHIP_KILL_RADIUS
 ) : SpaceObject, Collider {
     override val collisionStrategy: Collider
-        get() = this
+        get() = ShipCollisionStrategy(this)
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
     private var dropScale = U.DROP_SCALE
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
 
-    override fun interact(asteroid: Asteroid, trans: Transaction) = checkCollision(asteroid, trans)
-    override fun interact(missile: Missile, trans: Transaction) = checkCollision(missile, trans)
-    override fun interact(saucer: Saucer, trans: Transaction) = checkCollision(saucer, trans)
-    override fun interact(ship: Ship, trans: Transaction) { }
+    override fun interact(asteroid: Asteroid, trans: Transaction) {}
+    override fun interact(missile: Missile, trans: Transaction) {}
+    override fun interact(saucer: Saucer, trans: Transaction) {}
+    override fun interact(ship: Ship, trans: Transaction) {}
 
     override fun interactWith(other: Collider, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
-
-    private fun checkCollision(other: Collider, trans: Transaction) {
-        Collision(other).executeOnHit(this) {
-            trans.add(Splat(this))
-            trans.remove(this)
-        }
-    }
 
     override fun update(deltaTime: Double, trans: Transaction) {
         accelerating = false
@@ -99,12 +92,6 @@ class Ship(
 //        drawer.fill = null
 //        drawer.circle(0.0, 0.0, killRadius)
 //    }
-
-    fun setToHome() {
-        position = U.CENTER_OF_UNIVERSE
-        velocity = Velocity.ZERO
-        heading = 0.0
-    }
 
     fun accelerateToNewSpeedInOneSecond(vNew:Velocity, vCurrent: Velocity): Velocity {
 //        vNew = vCurrent + a*t

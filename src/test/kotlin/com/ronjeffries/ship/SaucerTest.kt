@@ -85,7 +85,7 @@ class SaucerTest {
         val ship = Ship(Point.ZERO)
         ship.position = asteroid.position
         val trans = Transaction()
-        ship.interact(asteroid, trans)
+        ship.collisionStrategy.interact(asteroid, trans)
         assertThat(trans.removes).contains(ship)
         asteroid.interact(ship, trans)
         assertThat(trans.removes).contains(asteroid)
