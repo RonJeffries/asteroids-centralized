@@ -9,7 +9,7 @@ class Asteroid(
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
     override val killRadius: Double = U.ASTEROID_KILL_RADIUS,
     private val splitCount: Int = 2
-) : SpaceObject, Collider {
+) : SpaceObject, Collidable, Collider {
     override val collisionStrategy: Collider
         get() = this
     private val view = AsteroidView()
@@ -56,10 +56,10 @@ class Asteroid(
     override fun interact(saucer: Saucer, trans: Transaction) = checkCollision(saucer, trans)
     override fun interact(ship: Ship, trans: Transaction) = checkCollision(ship, trans)
 
-    override fun interactWith(other: Collider, trans: Transaction)
+    override fun interactWith(other: Collidable, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
 
-    private fun checkCollision(other: Collider, trans: Transaction) {
+    private fun checkCollision(other: Collidable, trans: Transaction) {
         Collision(this).executeOnHit(other) {
             dieDueToCollision(trans)
         }

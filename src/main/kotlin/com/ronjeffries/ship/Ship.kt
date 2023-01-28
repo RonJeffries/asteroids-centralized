@@ -17,7 +17,7 @@ class Ship(
     override var position: Point,
     val controls: Controls = Controls(),
     override val killRadius: Double = U.SHIP_KILL_RADIUS
-) : SpaceObject, Collider {
+) : SpaceObject, Collidable {
     override val collisionStrategy: Collider
         get() = ShipCollisionStrategy(this)
     var velocity:  Velocity = Velocity.ZERO
@@ -26,12 +26,7 @@ class Ship(
     var accelerating: Boolean = false
     var displayAcceleration: Int = 0
 
-    override fun interact(asteroid: Asteroid, trans: Transaction) {}
-    override fun interact(missile: Missile, trans: Transaction) {}
-    override fun interact(saucer: Saucer, trans: Transaction) {}
-    override fun interact(ship: Ship, trans: Transaction) {}
-
-    override fun interactWith(other: Collider, trans: Transaction)
+    override fun interactWith(other: Collidable, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
 
     override fun update(deltaTime: Double, trans: Transaction) {

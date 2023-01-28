@@ -3,7 +3,7 @@ package com.ronjeffries.ship
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
-    private val colliders = mutableListOf<Collider>()
+    private val colliders = mutableListOf<Collidable>()
     private val deferredActions = mutableListOf<DeferredAction>()
     private val spaceObjects = mutableListOf<SpaceObject>()
 
@@ -14,7 +14,7 @@ class SpaceObjectCollection {
 
     fun add (spaceObject: SpaceObject) {
         spaceObjects.add(spaceObject)
-        if (spaceObject is Collider) colliders.add(spaceObject)
+        if (spaceObject is Collidable) colliders.add(spaceObject)
     }
 
     fun addScore(score: Int) {
@@ -62,8 +62,8 @@ class SpaceObjectCollection {
         return spaceObjects().contains(obj)
     }
 
-    fun pairsToCheck(): List<Pair<Collider, Collider>> {
-        val pairs = mutableListOf<Pair<Collider, Collider>>()
+    fun pairsToCheck(): List<Pair<Collidable, Collidable>> {
+        val pairs = mutableListOf<Pair<Collidable, Collidable>>()
         colliders.indices.forEach { i ->
             colliders.indices.minus(0..i).forEach { j ->
                 pairs.add(colliders[i] to colliders[j])
@@ -85,7 +85,7 @@ class SpaceObjectCollection {
     fun remove(spaceObject: SpaceObject) {
         deferredActions.remove(spaceObject)
         spaceObjects.remove(spaceObject)
-        if (spaceObject is Collider ) colliders.remove(spaceObject)
+        if (spaceObject is Collidable ) colliders.remove(spaceObject)
     }
 
     fun saucerIsPresent(): Boolean {
