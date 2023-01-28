@@ -21,6 +21,8 @@ private val directions = listOf(
 )
 
 class Saucer : SpaceObject, Collider {
+    override val strategy: Collider
+        get() = this
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 

@@ -10,6 +10,8 @@ class Asteroid(
     override val killRadius: Double = U.ASTEROID_KILL_RADIUS,
     private val splitCount: Int = 2
 ) : SpaceObject, Collider {
+    override val strategy: Collider
+        get() = this
     private val view = AsteroidView()
     val heading: Double = Random.nextDouble(360.0)
 

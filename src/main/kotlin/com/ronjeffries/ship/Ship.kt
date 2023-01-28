@@ -18,6 +18,8 @@ class Ship(
     val controls: Controls = Controls(),
     override val killRadius: Double = U.SHIP_KILL_RADIUS
 ) : SpaceObject, Collider {
+    override val strategy: Collider
+        get() = this
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
     private var dropScale = U.DROP_SCALE
