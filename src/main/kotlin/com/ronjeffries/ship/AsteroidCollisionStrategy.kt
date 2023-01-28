@@ -16,7 +16,7 @@ class AsteroidCollisionStrategy(val asteroid: Asteroid): Collider {
         }
     }
 
-    fun dieDueToCollision(trans: Transaction) {
+    private fun dieDueToCollision(trans: Transaction) {
         trans.remove(asteroid)
         trans.add(Splat(asteroid))
         splitIfPossible(trans)
