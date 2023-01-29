@@ -10,17 +10,17 @@ class Missile(
     shooterKillRadius: Double = U.SHIP_KILL_RADIUS,
     shooterVelocity: Velocity = Velocity.ZERO,
     val color: ColorRGBa = ColorRGBa.WHITE,
-    private val missileIsFromShip: Boolean = false
-): SpaceObject, Collidable, Collider {
+    val missileIsFromShip: Boolean = false
+): SpaceObject, Collidable {
     override val collisionStrategy: Collider
-        get() = this
+        get() = MissileCollisionStrategy(this)
     constructor(ship: Ship): this(ship.position, ship.heading, ship.killRadius, ship.velocity, ColorRGBa.WHITE, true)
     constructor(saucer: Saucer): this(saucer.position, Random.nextDouble(360.0), saucer.killRadius, saucer.velocity, ColorRGBa.GREEN)
 
     override var position: Point = Point.ZERO
     override val killRadius: Double = U.MISSILE_KILL_RADIUS
     val velocity: Velocity
-    private val timeOut = OneShot(U.MISSILE_LIFETIME) {
+    val timeOut = OneShot(U.MISSILE_LIFETIME) {
         it.remove(this)
         it.add(Splat(this))
     }
@@ -45,37 +45,10 @@ class Missile(
         drawer.circle(Point.ZERO, killRadius * 2.0)
     }
 
-    override fun interact(asteroid: Asteroid, trans: Transaction) {
-        checkAndScoreCollision(asteroid, trans, asteroid.getScore())
-    }
-
-    override fun interact(missile: Missile, trans: Transaction) {
-        checkAndScoreCollision(missile, trans, 0)
-    }
-
-    override fun interact(saucer: Saucer, trans: Transaction) {
-        checkAndScoreCollision(saucer, trans,saucer.getScore())
-    }
-
-    override fun interact(ship: Ship, trans: Transaction) {
-        checkAndScoreCollision(ship, trans, 0)
-    }
-
     override fun interactWith(other: Collidable, trans: Transaction) {
         other.collisionStrategy.interact(this, trans)
     }
 
-    private fun checkAndScoreCollision(other: Collidable, trans: Transaction, score: Int) {
-        Collision(other).executeOnHit(this) {
-            terminateMissile(trans)
-            if (missileIsFromShip) trans.addScore(score)
-        }
-    }
-
-    private fun terminateMissile(trans: Transaction) {
-        timeOut.cancel(trans)
-        trans.remove(this)
-    }
 
     override fun toString(): String = "Missile $position ($killRadius)"
 }
