@@ -22,7 +22,7 @@ private val directions = listOf(
 
 class Saucer : SpaceObject, Collidable, Collider {
     override val collisionStrategy: Collider
-        get() = this
+        get() = SaucerCollisionStrategy(this)
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 
@@ -34,8 +34,8 @@ class Saucer : SpaceObject, Collidable, Collider {
     private var timeSinceLastMissileFired = 0.0
     var sawShip = false
     var shipFuturePosition = Point.ZERO
-    private var missileReady = true
-    private var currentMissile: Missile? = null
+    var missileReady = true
+    var currentMissile: Missile? = null
 
     init {
         direction = -1.0
@@ -58,6 +58,13 @@ class Saucer : SpaceObject, Collidable, Collider {
         elapsedTime = 0.0
     }
 
+    override fun interactWith(other: Collidable, trans: Transaction)
+        = other.collisionStrategy.interact(this, trans)
+
+    fun beforeInteractions() {
+        sawShip = false; missileReady = true
+    }
+
     override fun interact(asteroid: Asteroid, trans: Transaction) = checkCollision(asteroid, trans)
 
     override fun interact(missile: Missile, trans: Transaction) {
@@ -71,13 +78,6 @@ class Saucer : SpaceObject, Collidable, Collider {
         sawShip = true
         shipFuturePosition = ship.position + ship.velocity * 1.5
         checkCollision(ship, trans)
-    }
-
-    override fun interactWith(other: Collidable, trans: Transaction)
-        = other.collisionStrategy.interact(this, trans)
-
-    fun beforeInteractions() {
-        sawShip = false; missileReady = true
     }
 
     private fun checkCollision(collider: Collidable, trans: Transaction) {
