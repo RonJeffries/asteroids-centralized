@@ -20,7 +20,7 @@ class Missile(
     override var position: Point = Point.ZERO
     override val killRadius: Double = U.MISSILE_KILL_RADIUS
     val velocity: Velocity
-    val timeOut = OneShot(U.MISSILE_LIFETIME) {
+    private val timeOut = OneShot(U.MISSILE_LIFETIME) {
         it.remove(this)
         it.add(Splat(this))
     }
@@ -48,7 +48,6 @@ class Missile(
     override fun interactWith(other: Collidable, trans: Transaction) {
         other.collisionStrategy.interact(this, trans)
     }
-
 
     override fun toString(): String = "Missile $position ($killRadius)"
 
