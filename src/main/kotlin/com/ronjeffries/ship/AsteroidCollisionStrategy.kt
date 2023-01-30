@@ -23,20 +23,6 @@ class AsteroidCollisionStrategy(val asteroid: Asteroid): Collider {
     private fun dieDueToCollision(trans: Transaction) {
         trans.remove(asteroid)
         trans.add(Splat(asteroid))
-        splitIfPossible(trans)
+        asteroid.splitIfPossible(trans)
     }
-
-    private fun splitIfPossible(trans: Transaction) {
-        if (asteroid.splitCount >= 1) {
-            trans.add(asSplit(asteroid))
-            trans.add(asSplit(asteroid))
-        }
-    }
-
-    private fun asSplit(asteroid: Asteroid): Asteroid =
-        Asteroid(
-            position = asteroid.position,
-            killRadius = asteroid.killRadius / 2.0,
-            splitCount = asteroid.splitCount - 1
-        )
 }

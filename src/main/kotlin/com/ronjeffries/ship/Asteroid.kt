@@ -41,4 +41,17 @@ class Asteroid(
     override fun interactWith(other: Collidable, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
 
+    fun splitIfPossible(trans: Transaction) {
+        if (splitCount >= 1) {
+            trans.add(asSplit(this))
+            trans.add(asSplit(this))
+        }
+    }
+
+    private fun asSplit(asteroid: Asteroid): Asteroid =
+        Asteroid(
+            position = asteroid.position,
+            killRadius = asteroid.killRadius / 2.0,
+            splitCount = asteroid.splitCount - 1
+        )
 }
