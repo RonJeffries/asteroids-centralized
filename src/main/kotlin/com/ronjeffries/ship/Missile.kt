@@ -51,4 +51,12 @@ class Missile(
 
 
     override fun toString(): String = "Missile $position ($killRadius)"
+
+    fun score(trans: Transaction, score: Int) {
+        if (missileIsFromShip) trans.addScore(score)
+    }
+
+    fun prepareToDie(trans: Transaction) {
+        timeOut.cancel(trans)
+    }
 }

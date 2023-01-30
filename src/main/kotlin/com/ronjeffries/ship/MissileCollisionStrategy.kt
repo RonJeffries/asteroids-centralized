@@ -17,13 +17,13 @@ class MissileCollisionStrategy(val missile: Missile): Collider {
 
     private fun checkAndScoreCollision(other: Collidable, trans: Transaction, score: Int) {
         Collision(other).executeOnHit(missile) {
+            missile.score(trans, score)
             terminateMissile(trans)
-            if (missile.missileIsFromShip) trans.addScore(score)
         }
     }
 
     private fun terminateMissile(trans: Transaction) {
-        missile.timeOut.cancel(trans)
+        missile.prepareToDie(trans)
         trans.remove(missile)
     }
 }
