@@ -12,7 +12,8 @@ class ShipCollisionStrategy(val ship: Ship): Collider {
         checkCollision(missile, trans)
     override fun interact(saucer: Saucer, trans: Transaction) =
         checkCollision(saucer, trans)
-    override fun interact(ship: Ship, trans: Transaction) { }
+    override fun interact(ship: Ship, trans: Transaction) =
+        Unit
 
     private fun checkCollision(other: Collidable, trans: Transaction) {
         Collision(other).executeOnHit(ship) {

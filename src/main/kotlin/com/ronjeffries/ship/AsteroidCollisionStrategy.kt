@@ -6,7 +6,8 @@ class AsteroidCollisionStrategy(val asteroid: Asteroid): Collider {
     override val killRadius: Double
         get() = asteroid.killRadius
 
-    override fun interact(asteroid: Asteroid, trans: Transaction) {}
+    override fun interact(asteroid: Asteroid, trans: Transaction) =
+        Unit
     override fun interact(missile: Missile, trans: Transaction) =
         checkCollision(missile, trans)
     override fun interact(saucer: Saucer, trans: Transaction) =
