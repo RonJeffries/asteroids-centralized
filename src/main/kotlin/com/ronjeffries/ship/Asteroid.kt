@@ -7,9 +7,15 @@ import kotlin.random.Random
 class Asteroid(
     override var position: Point,
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
-    override val killRadius: Double = U.ASTEROID_KILL_RADIUS,
     val splitCount: Int = 2
 ) : SpaceObject, Collidable {
+    override val killRadius: Double =
+        when (splitCount) {
+            2 -> U.ASTEROID_KILL_RADIUS
+            1 -> U.ASTEROID_KILL_RADIUS/2
+            else -> U.ASTEROID_KILL_RADIUS/4
+        }
+
     private val view = AsteroidView()
     val heading: Double = Random.nextDouble(360.0)
 
@@ -51,7 +57,6 @@ class Asteroid(
     private fun asSplit(asteroid: Asteroid): Asteroid =
         Asteroid(
             position = asteroid.position,
-            killRadius = asteroid.killRadius / 2.0,
             splitCount = asteroid.splitCount - 1
         )
 }

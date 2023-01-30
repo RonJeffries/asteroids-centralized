@@ -15,8 +15,8 @@ fun main() = application {
         val controls = Controls()
         val game = Game().also { it.createInitialContents(controls) }
         val a2 = Asteroid(position = Point(7000.0, 5000.0))
-        val a1 = Asteroid(Point(5000.0,5000.0) ,splitCount = 1)
-        val a0 = Asteroid(Point(x = 3000.0, y = 5000.0), splitCount = 0 )
+        val a1 = Asteroid(Point(5000.0,5000.0), splitCount = 1)
+        val a0 = Asteroid(Point(x = 3000.0, y = 5000.0), splitCount = 0)
         val ship = Ship(Point(3000.0,4000.0))
         for ( i in 1..65) ship.update(0.1, Transaction())
         keyboard.keyDown.listen {

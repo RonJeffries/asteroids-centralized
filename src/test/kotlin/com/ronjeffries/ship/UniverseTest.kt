@@ -13,8 +13,7 @@ class UniverseTest {
         )
         val asteroid = Asteroid(
             position = Vector2.ZERO,
-            velocity = Vector2.ZERO,
-            killRadius = 1000.0
+            velocity = Vector2.ZERO
         )
         val trans = Transaction()
         ship.collisionStrategy.interact(asteroid, trans)
