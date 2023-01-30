@@ -15,9 +15,9 @@ private val flare = listOf(
 
 class Ship(
     override var position: Point,
-    val controls: Controls = Controls(),
-    override val killRadius: Double = U.SHIP_KILL_RADIUS
+    val controls: Controls = Controls()
 ) : SpaceObject, Collidable {
+    override val killRadius = U.SHIP_KILL_RADIUS
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
     private var dropScale = U.DROP_SCALE

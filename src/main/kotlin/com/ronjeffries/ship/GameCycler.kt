@@ -24,7 +24,7 @@ class GameCycler(
     }
 
     private fun startShipAtHome(trans: Transaction) {
-        val ship = Ship(U.CENTER_OF_UNIVERSE,controls)
+        val ship = Ship(U.CENTER_OF_UNIVERSE, controls)
         trans.add(ship)
     }
 

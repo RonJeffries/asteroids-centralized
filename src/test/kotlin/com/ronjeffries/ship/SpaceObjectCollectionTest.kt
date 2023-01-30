@@ -38,7 +38,7 @@ class SpaceObjectCollectionTest {
         val game = Game()
         val a0 = Asteroid(p1) // yes
         game.currentMix().add(a0)
-        val m1 = Ship(position = p1, killRadius = 10.0) // yes
+        val m1 = Ship(position = p1) // yes
         game.currentMix().add(m1)
         val s2 = Ship(
             position = p1
