@@ -123,6 +123,10 @@ class Saucer : SpaceObject, Collidable {
 
     fun getScore() = 200
 
+    fun inspectMissile(missile: Missile) {
+        if (missile == currentMissile) missileReady = false
+    }
+
 //    private fun drawKillRadius(drawer: Drawer) {
 //        drawer.stroke = ColorRGBa.RED // delete comment even more
 //        drawer.fill =ColorRGBa.RED

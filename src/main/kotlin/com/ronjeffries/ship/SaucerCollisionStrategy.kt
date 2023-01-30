@@ -9,7 +9,7 @@ class SaucerCollisionStrategy(val saucer: Saucer): Collider {
     override fun interact(asteroid: Asteroid, trans: Transaction) =
         checkCollision(asteroid, trans)
     override fun interact(missile: Missile, trans: Transaction) {
-        if (missile == saucer.currentMissile) saucer.missileReady = false
+        saucer.inspectMissile(missile)
         checkCollision(missile, trans)
     }
     override fun interact(saucer: Saucer, trans: Transaction) { }
