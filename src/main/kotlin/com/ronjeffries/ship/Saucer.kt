@@ -127,6 +127,11 @@ class Saucer : SpaceObject, Collidable {
         if (missile == currentMissile) missileReady = false
     }
 
+    fun inspectShip(ship: Ship) {
+        sawShip = true
+        shipFuturePosition = ship.position + ship.velocity * 1.5
+    }
+
 //    private fun drawKillRadius(drawer: Drawer) {
 //        drawer.stroke = ColorRGBa.RED // delete comment even more
 //        drawer.fill =ColorRGBa.RED

@@ -14,8 +14,7 @@ class SaucerCollisionStrategy(val saucer: Saucer): Collider {
     }
     override fun interact(saucer: Saucer, trans: Transaction) { }
     override fun interact(ship: Ship, trans: Transaction) {
-        saucer.sawShip = true
-        saucer.shipFuturePosition = ship.position + ship.velocity * 1.5
+        saucer.inspectShip(ship)
         checkCollision(ship, trans)
     }
 
