@@ -10,20 +10,14 @@ class Missile(
     shooterKillRadius: Double = U.SHIP_KILL_RADIUS,
     shooterVelocity: Velocity = Velocity.ZERO,
     val color: ColorRGBa = ColorRGBa.WHITE,
-    val missileIsFromShip: Boolean = false
+    private val missileIsFromShip: Boolean = false
 ): SpaceObject, Collidable {
-    override val collisionStrategy: Collider
-        get() = MissileCollisionStrategy(this)
     constructor(ship: Ship): this(ship.position, ship.heading, ship.killRadius, ship.velocity, ColorRGBa.WHITE, true)
     constructor(saucer: Saucer): this(saucer.position, Random.nextDouble(360.0), saucer.killRadius, saucer.velocity, ColorRGBa.GREEN)
 
-    override var position: Point = Point.ZERO
+    override lateinit var position: Point
     override val killRadius: Double = U.MISSILE_KILL_RADIUS
     val velocity: Velocity
-    private val timeOut = OneShot(U.MISSILE_LIFETIME) {
-        it.remove(this)
-        it.add(Splat(this))
-    }
 
     init {
         val missileOwnVelocity = Velocity(U.MISSILE_SPEED, 0.0).rotate(shooterHeading)
@@ -31,6 +25,14 @@ class Missile(
         val rotatedOffset = standardOffset.rotate(shooterHeading)
         position = shooterPosition + rotatedOffset
         velocity = shooterVelocity + missileOwnVelocity
+    }
+
+    override val collisionStrategy: Collider
+        get() = MissileCollisionStrategy(this)
+
+    private val timeOut = OneShot(U.MISSILE_LIFETIME) {
+        it.remove(this)
+        it.add(Splat(this))
     }
 
     override fun update(deltaTime: Double, trans: Transaction) {
