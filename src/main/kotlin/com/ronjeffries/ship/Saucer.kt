@@ -34,8 +34,8 @@ class Saucer : SpaceObject, Collidable {
     private var timeSinceLastMissileFired = 0.0
     var sawShip = false
     var shipFuturePosition = Point.ZERO
-    var missileReady = true
-    var currentMissile: Missile? = null
+    private var missileReady = true
+    private var currentMissile: Missile? = null
 
     init {
         direction = -1.0
