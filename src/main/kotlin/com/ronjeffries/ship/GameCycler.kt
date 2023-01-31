@@ -19,6 +19,17 @@ class GameCycler(
         }
     }
 
+    fun cycle(deltaTime: Double, drawer: Drawer?= null) {
+        tick(deltaTime)
+        beforeInteractions()
+        processInteractions()
+        U.AsteroidTally = knownObjects.asteroidCount()
+        createNewWaveIfNeeded()
+        createSaucerIfNeeded()
+        createShipIfNeeded()
+        drawer?.let { draw(drawer) }
+    }
+
     fun canShipEmerge(): Boolean {
         return knownObjects.canShipEmerge()
     }
@@ -30,17 +41,6 @@ class GameCycler(
 
     private fun startSaucer(trans: Transaction) {
         saucer.start(trans)
-    }
-
-    fun cycle(deltaTime: Double, drawer: Drawer?= null) {
-        tick(deltaTime)
-        beforeInteractions()
-        processInteractions()
-        U.AsteroidTally = knownObjects.asteroidCount()
-        createNewWaveIfNeeded()
-        createSaucerIfNeeded()
-        createShipIfNeeded()
-        drawer?.let { draw(drawer) }
     }
 
     private fun draw(drawer: Drawer) {
