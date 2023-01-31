@@ -20,9 +20,10 @@ class Ship(
     override val killRadius = U.SHIP_KILL_RADIUS
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
+
     private var dropScale = U.DROP_SCALE
-    var accelerating: Boolean = false
-    var displayAcceleration: Int = 0
+    private var accelerating: Boolean = false
+    private var displayAcceleration: Int = 0
 
     override val collisionStrategy: Collider
         get() = ShipCollisionStrategy(this)
