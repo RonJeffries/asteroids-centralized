@@ -49,14 +49,14 @@ class Asteroid(
 
     fun splitIfPossible(trans: Transaction) {
         if (splitCount >= 1) {
-            trans.add(asSplit(this))
-            trans.add(asSplit(this))
+            trans.add(this.asSplit())
+            trans.add(this.asSplit())
         }
     }
 
-    private fun asSplit(asteroid: Asteroid): Asteroid =
+    private fun asSplit(): Asteroid =
         Asteroid(
-            position = asteroid.position,
-            splitCount = asteroid.splitCount - 1
+            position = position,
+            splitCount = splitCount - 1
         )
 }
