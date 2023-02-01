@@ -7,7 +7,7 @@ import kotlin.random.Random
 class Asteroid(
     override var position: Point,
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
-    val splitCount: Int = 2
+    private val splitCount: Int = 2
 ) : Collidable {
     override val killRadius: Double =
         when (splitCount) {
