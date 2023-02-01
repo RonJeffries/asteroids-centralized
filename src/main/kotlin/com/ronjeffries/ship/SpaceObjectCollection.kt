@@ -12,7 +12,7 @@ class SpaceObjectCollection {
         deferredActions.add(deferredAction)
     }
 
-    fun add (spaceObject: SpaceObject) {
+    fun add(spaceObject: SpaceObject) {
         spaceObjects.add(spaceObject)
         if (spaceObject is Collidable) colliders.add(spaceObject)
     }
@@ -21,29 +21,29 @@ class SpaceObjectCollection {
         scoreKeeper.addScore(score)
     }
 
-    fun any(predicate: (SpaceObject)-> Boolean): Boolean {
+    fun any(predicate: (SpaceObject) -> Boolean): Boolean {
         return spaceObjects().any(predicate)
     }
 
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
-    fun asteroids() = spaceObjects().filterIsInstance<Asteroid>()
+    val asteroids get() = spaceObjects.filterIsInstance<Asteroid>()
     fun colliders() = colliders
     fun deferredActions() = deferredActions
-    fun missiles() = spaceObjects.filterIsInstance<Missile>()
+    val missiles get() = spaceObjects.filterIsInstance<Missile>()
     fun saucers() = spaceObjects.filterIsInstance<Saucer>()
     fun ships() = spaceObjects.filterIsInstance<Ship>()
-    fun spaceObjects():List<SpaceObject> = spaceObjects
+    fun spaceObjects(): List<SpaceObject> = spaceObjects
     fun splats() = spaceObjects.filterIsInstance<Splat>()
 
-    fun asteroidCount(): Int = asteroids().size
+    fun asteroidCount(): Int = asteroids.size
 
     fun canShipEmerge(): Boolean {
         if (saucerIsPresent()) return false
-        if (missiles().isNotEmpty()) return false
-        for ( asteroid in asteroids() ) {
+        if (missiles.isNotEmpty()) return false
+        for (asteroid in asteroids) {
             val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
-            if ( distance < U.SAFE_SHIP_DISTANCE ) return false
+            if (distance < U.SAFE_SHIP_DISTANCE) return false
         }
         return true
     }
@@ -55,10 +55,10 @@ class SpaceObjectCollection {
         colliders.clear()
     }
 
-    fun forEachInteracting(action: (SpaceObject)->Unit) =
+    fun forEachInteracting(action: (SpaceObject) -> Unit) =
         spaceObjects().forEach(action)
 
-    fun contains(obj:SpaceObject): Boolean {
+    fun contains(obj: SpaceObject): Boolean {
         return spaceObjects().contains(obj)
     }
 
@@ -72,7 +72,7 @@ class SpaceObjectCollection {
         return pairs
     }
 
-    fun performWithTransaction(action: (Transaction) -> Unit ) {
+    fun performWithTransaction(action: (Transaction) -> Unit) {
         val trans = Transaction()
         action(trans)
         applyChanges(trans)
@@ -85,7 +85,7 @@ class SpaceObjectCollection {
     fun remove(spaceObject: SpaceObject) {
         deferredActions.remove(spaceObject)
         spaceObjects.remove(spaceObject)
-        if (spaceObject is Collidable ) colliders.remove(spaceObject)
+        if (spaceObject is Collidable) colliders.remove(spaceObject)
     }
 
     fun saucerIsPresent(): Boolean {

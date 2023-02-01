@@ -113,10 +113,10 @@ class SpaceObjectCollectionTest {
         val s = SpaceObjectCollection()
         val a = Asteroid(U.CENTER_OF_UNIVERSE)
         s.add(a)
-        assertThat(s.asteroids().size).isEqualTo(1)
+        assertThat(s.asteroids.size).isEqualTo(1)
         assertThat(s.contains(a)).isEqualTo(true)
         s.remove(a)
-        assertThat(s.asteroids().size).isEqualTo(0)
+        assertThat(s.asteroids.size).isEqualTo(0)
         assertThat(s.contains(a)).isEqualTo(false)
     }
 
@@ -125,9 +125,9 @@ class SpaceObjectCollectionTest {
         val s = SpaceObjectCollection()
         val m = Missile(U.CENTER_OF_UNIVERSE)
         s.add(m)
-        assertThat(s.missiles().size).isEqualTo(1)
+        assertThat(s.missiles.size).isEqualTo(1)
         s.remove(m)
-        assertThat(s.missiles().size).isEqualTo(0)
+        assertThat(s.missiles.size).isEqualTo(0)
     }
 
     @Test
