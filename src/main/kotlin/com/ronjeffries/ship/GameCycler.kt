@@ -79,7 +79,7 @@ class GameCycler(
         }
     }
 
-    private fun beforeInteractions() = knownObjects.saucers().forEach { it.beforeInteractions() }
+    private fun beforeInteractions() = knownObjects.saucers.forEach { it.beforeInteractions() }
 
     fun processInteractions() = knownObjects.applyChanges(changesDueToInteractions())
 
