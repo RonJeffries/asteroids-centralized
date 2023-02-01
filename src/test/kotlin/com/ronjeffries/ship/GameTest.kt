@@ -48,7 +48,7 @@ class GameTest {
         val trans = Transaction()
         game.cycle(0.1)
         game.cycle(3.1)
-        val ship = game.currentMix().ships().first()
+        val ship = game.currentMix().ships.first()
         ship.position = Point(100.0, 100.0)
         trans.add(Splat(ship))
         trans.remove(ship)
@@ -57,7 +57,7 @@ class GameTest {
         assertThat(ship.position).isNotEqualTo(U.CENTER_OF_UNIVERSE)
         game.cycle(3.2)
         game.cycle(6.2)
-        val shipAgain = game.currentMix().ships().first()
+        val shipAgain = game.currentMix().ships.first()
         assertThat(shipAgain.position).isEqualTo(U.CENTER_OF_UNIVERSE)
     }
 

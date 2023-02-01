@@ -32,7 +32,7 @@ class SpaceObjectCollection {
     fun deferredActions() = deferredActions
     val missiles get() = spaceObjects.filterIsInstance<Missile>()
     val saucers get() = spaceObjects.filterIsInstance<Saucer>()
-    fun ships() = spaceObjects.filterIsInstance<Ship>()
+    val ships get() = spaceObjects.filterIsInstance<Ship>()
     fun spaceObjects(): List<SpaceObject> = spaceObjects
     fun splats() = spaceObjects.filterIsInstance<Splat>()
 
@@ -97,11 +97,11 @@ class SpaceObjectCollection {
     }
 
     fun shipIsPresent(): Boolean {
-        return ships().isNotEmpty()
+        return ships.isNotEmpty()
     }
 
     fun shipIsMissing(): Boolean {
-        return ships().isEmpty()
+        return ships.isEmpty()
     }
 
     val size get() = spaceObjects().size
