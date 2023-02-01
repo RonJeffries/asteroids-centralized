@@ -34,7 +34,7 @@ class SpaceObjectCollection {
     val saucers get() = spaceObjects.filterIsInstance<Saucer>()
     val ships get() = spaceObjects.filterIsInstance<Ship>()
     fun spaceObjects(): List<SpaceObject> = spaceObjects
-    fun splats() = spaceObjects.filterIsInstance<Splat>()
+    val splats get() = spaceObjects.filterIsInstance<Splat>()
 
     fun asteroidCount(): Int = asteroids.size
 

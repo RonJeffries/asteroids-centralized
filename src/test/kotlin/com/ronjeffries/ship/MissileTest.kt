@@ -20,10 +20,10 @@ class MissileTest {
         cycler.cycle( 0.2)
         assertThat(mix.contains(missile)).describedAs("missile should be dead").isEqualTo(false)
         assertThat(mix.missiles).doesNotContain(missile)
-        assertThat(mix.splats()).describedAs("splat should be present").isNotEmpty()
+        assertThat(mix.splats).describedAs("splat should be present").isNotEmpty()
         assertThat(mix.any { it is Splat }).describedAs("splat should be present").isEqualTo(true)
         cycler.cycle(0.2) // needs a tick to init
         cycler.cycle(2.3) // Splat lifetime is 2.0
-        assertThat(mix.splats()).describedAs("splat should be gone").isEmpty()
+        assertThat(mix.splats).describedAs("splat should be gone").isEmpty()
     }
 }

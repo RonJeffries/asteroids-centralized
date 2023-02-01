@@ -135,9 +135,9 @@ class SpaceObjectCollectionTest {
         val s = SpaceObjectCollection()
         val splat = Splat(U.CENTER_OF_UNIVERSE)
         s.add(splat)
-        assertThat(s.splats().size).isEqualTo(1)
+        assertThat(s.splats.size).isEqualTo(1)
         s.remove(splat)
-        assertThat(s.splats().size).isEqualTo(0)
+        assertThat(s.splats.size).isEqualTo(0)
     }
 
     @Test
