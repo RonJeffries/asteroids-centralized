@@ -14,11 +14,7 @@ class SpaceObjectCollection {
 
     fun add (spaceObject: SpaceObject) {
         spaceObjects.add(spaceObject)
-    }
-
-    fun add (collidable: Collidable) {
-        spaceObjects.add(collidable)
-        colliders.add(collidable)
+        if (spaceObject is Collidable) colliders.add(spaceObject)
     }
 
     fun addScore(score: Int) {
