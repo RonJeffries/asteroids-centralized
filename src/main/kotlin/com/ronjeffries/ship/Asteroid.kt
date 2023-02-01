@@ -8,7 +8,7 @@ class Asteroid(
     override var position: Point,
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
     val splitCount: Int = 2
-) : SpaceObject, Collidable {
+) : Collidable {
     override val killRadius: Double =
         when (splitCount) {
             2 -> U.ASTEROID_KILL_RADIUS
