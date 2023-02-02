@@ -8,4 +8,3 @@ interface Collider {
     fun interact(saucer: Saucer, trans: Transaction)
     fun interact(ship: Ship, trans: Transaction)
 }
-
