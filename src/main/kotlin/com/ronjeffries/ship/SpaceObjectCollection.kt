@@ -3,7 +3,6 @@ package com.ronjeffries.ship
 class SpaceObjectCollection {
     var scoreKeeper = ScoreKeeper()
 
-    private val colliders = mutableListOf<Collidable>()
     private val deferredActions = mutableListOf<DeferredAction>()
     private val spaceObjects = mutableListOf<SpaceObject>()
 
@@ -14,7 +13,6 @@ class SpaceObjectCollection {
 
     fun add(spaceObject: SpaceObject) {
         spaceObjects.add(spaceObject)
-        if (spaceObject is Collidable) colliders.add(spaceObject)
     }
 
     fun addScore(score: Int) {
@@ -28,7 +26,6 @@ class SpaceObjectCollection {
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
     val asteroids get() = spaceObjects.filterIsInstance<Asteroid>()
-    fun colliders() = colliders
     fun deferredActions() = deferredActions
     val missiles get() = spaceObjects.filterIsInstance<Missile>()
     val saucers get() = spaceObjects.filterIsInstance<Saucer>()
@@ -52,7 +49,6 @@ class SpaceObjectCollection {
         scoreKeeper.clear()
         deferredActions.clear()
         spaceObjects.clear()
-        colliders.clear()
     }
 
     fun forEachInteracting(action: (SpaceObject) -> Unit) =
@@ -66,7 +62,7 @@ class SpaceObjectCollection {
         val pairs = mutableListOf<Pair<Collidable, Collidable>>()
         spaceObjects.indices.forEach { i ->
             spaceObjects.indices.minus(0..i).forEach { j ->
-                pairs.add(colliders[i] to colliders[j])
+                pairs.add(spaceObjects[i] as Collidable to spaceObjects[j] as Collidable)
             }
         }
         return pairs
@@ -85,7 +81,6 @@ class SpaceObjectCollection {
     fun remove(spaceObject: SpaceObject) {
         deferredActions.remove(spaceObject)
         spaceObjects.remove(spaceObject)
-        if (spaceObject is Collidable) colliders.remove(spaceObject)
     }
 
     fun saucerIsPresent(): Boolean {
@@ -94,10 +89,6 @@ class SpaceObjectCollection {
 
     fun saucerIsMissing(): Boolean {
         return saucers.isEmpty()
-    }
-
-    fun shipIsPresent(): Boolean {
-        return ships.isNotEmpty()
     }
 
     fun shipIsMissing(): Boolean {

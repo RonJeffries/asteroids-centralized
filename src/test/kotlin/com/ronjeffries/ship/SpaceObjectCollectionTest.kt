@@ -105,7 +105,6 @@ class SpaceObjectCollectionTest {
         s.clear()
         assertThat(s.spaceObjects()).isEmpty()
         assertThat(s.deferredActions()).isEmpty()
-        assertThat(s.colliders()).isEmpty()
     }
 
     @Test
