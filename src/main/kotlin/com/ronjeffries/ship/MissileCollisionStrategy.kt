@@ -15,7 +15,7 @@ class MissileCollisionStrategy(val missile: Missile): Collider {
     override fun interact(ship: Ship, trans: Transaction) =
         checkAndScoreCollision(ship, trans, 0)
 
-    private fun checkAndScoreCollision(other: Collidable, trans: Transaction, score: Int) {
+    private fun checkAndScoreCollision(other: SpaceObject, trans: Transaction, score: Int) {
         Collision(other).executeOnHit(missile) {
             missile.score(trans, score)
             terminateMissile(trans)

@@ -19,8 +19,8 @@ class SaucerCollisionStrategy(val saucer: Saucer): Collider {
         checkCollision(ship, trans)
     }
 
-    private fun checkCollision(collider: Collidable, trans: Transaction) {
-        Collision(collider).executeOnHit(saucer) {
+    private fun checkCollision(other: SpaceObject, trans: Transaction) {
+        Collision(other).executeOnHit(saucer) {
             trans.add(Splat(saucer))
             trans.remove(saucer)
         }

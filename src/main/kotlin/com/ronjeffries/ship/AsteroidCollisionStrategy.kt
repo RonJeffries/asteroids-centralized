@@ -15,7 +15,7 @@ class AsteroidCollisionStrategy(val asteroid: Asteroid): Collider {
     override fun interact(ship: Ship, trans: Transaction) =
         checkCollision(ship, trans)
 
-    private fun checkCollision(other: Collidable, trans: Transaction) {
+    private fun checkCollision(other: SpaceObject, trans: Transaction) {
         Collision(asteroid).executeOnHit(other) {
             dieDueToCollision(trans)
         }

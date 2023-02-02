@@ -58,11 +58,11 @@ class SpaceObjectCollection {
         return spaceObjects().contains(obj)
     }
 
-    fun pairsToCheck(): List<Pair<Collidable, Collidable>> {
-        val pairs = mutableListOf<Pair<Collidable, Collidable>>()
+    fun pairsToCheck(): List<Pair<SpaceObject, SpaceObject>> {
+        val pairs = mutableListOf<Pair<SpaceObject, SpaceObject>>()
         spaceObjects.indices.forEach { i ->
             spaceObjects.indices.minus(0..i).forEach { j ->
-                pairs.add(spaceObjects[i] as Collidable to spaceObjects[j] as Collidable)
+                pairs.add(spaceObjects[i] to spaceObjects[j])
             }
         }
         return pairs

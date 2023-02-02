@@ -11,7 +11,7 @@ class Missile(
     shooterVelocity: Velocity = Velocity.ZERO,
     val color: ColorRGBa = ColorRGBa.WHITE,
     private val missileIsFromShip: Boolean = false
-): SpaceObject, Collidable {
+): SpaceObject {
     constructor(ship: Ship): this(ship.position, ship.heading, ship.killRadius, ship.velocity, ColorRGBa.WHITE, true)
     constructor(saucer: Saucer): this(saucer.position, Random.nextDouble(360.0), saucer.killRadius, saucer.velocity, ColorRGBa.GREEN)
 
@@ -47,7 +47,7 @@ class Missile(
         drawer.circle(Point.ZERO, killRadius * 2.0)
     }
 
-    override fun interactWith(other: Collidable, trans: Transaction) {
+    override fun interactWith(other: SpaceObject, trans: Transaction) {
         other.collisionStrategy.interact(this, trans)
     }
 

@@ -8,7 +8,7 @@ class Asteroid(
     override var position: Point,
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
     val splitCount: Int = 2
-) : SpaceObject, Collidable {
+) : SpaceObject {
     override val killRadius: Double =
         when (splitCount) {
             2 -> U.ASTEROID_KILL_RADIUS
@@ -44,7 +44,7 @@ class Asteroid(
     override val collisionStrategy: Collider
         get() = AsteroidCollisionStrategy(this)
 
-    override fun interactWith(other: Collidable, trans: Transaction)
+    override fun interactWith(other: SpaceObject, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
 
     fun splitIfPossible(trans: Transaction) {

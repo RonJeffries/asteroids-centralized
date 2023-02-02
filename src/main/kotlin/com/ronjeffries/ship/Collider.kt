@@ -9,9 +9,3 @@ interface Collider {
     fun interact(ship: Ship, trans: Transaction)
 }
 
-interface Collidable {
-    val position: Point
-    val killRadius: Double
-    fun interactWith(other: Collidable, trans: Transaction)
-    val collisionStrategy: Collider
-}
