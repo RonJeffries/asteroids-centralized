@@ -64,8 +64,8 @@ class SpaceObjectCollection {
 
     fun pairsToCheck(): List<Pair<Collidable, Collidable>> {
         val pairs = mutableListOf<Pair<Collidable, Collidable>>()
-        colliders.indices.forEach { i ->
-            colliders.indices.minus(0..i).forEach { j ->
+        spaceObjects.indices.forEach { i ->
+            spaceObjects.indices.minus(0..i).forEach { j ->
                 pairs.add(colliders[i] to colliders[j])
             }
         }
