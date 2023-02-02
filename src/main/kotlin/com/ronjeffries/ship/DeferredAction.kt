@@ -1,13 +1,11 @@
 package com.ronjeffries.ship
 
-import org.openrndr.draw.Drawer
-
 class DeferredAction(
     val delay: Double,
     val cond: () -> Boolean,
     initialTransaction: Transaction,
     private val action: (Transaction) -> Unit
-) : SpaceObject {
+)  {
     constructor(delay: Double, initialTransaction: Transaction, action: (Transaction) -> Unit):
             this(delay, { true }, initialTransaction, action)
     private var elapsedTime = 0.0
@@ -17,9 +15,8 @@ class DeferredAction(
         initialTransaction.add(this)
     }
 
-    override fun draw(drawer: Drawer) {}
 
-    override fun update(deltaTime: Double, trans: Transaction) {
+    fun update(deltaTime: Double, trans: Transaction) {
         elapsedTime += deltaTime
         if (elapsedTime >= delay && cond() ) {
             action(trans)

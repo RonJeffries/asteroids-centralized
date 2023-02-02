@@ -79,7 +79,6 @@ class SpaceObjectCollection {
     }
 
     fun remove(spaceObject: SpaceObject) {
-        deferredActions.remove(spaceObject)
         spaceObjects.remove(spaceObject)
     }
 
