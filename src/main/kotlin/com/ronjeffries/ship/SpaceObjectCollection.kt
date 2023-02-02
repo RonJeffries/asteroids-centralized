@@ -83,7 +83,7 @@ class SpaceObjectCollection {
         spaceObjects.remove(spaceObject)
     }
 
-    fun saucerIsPresent(): Boolean {
+    private fun saucerIsPresent(): Boolean {
         return saucers.isNotEmpty()
     }
 
