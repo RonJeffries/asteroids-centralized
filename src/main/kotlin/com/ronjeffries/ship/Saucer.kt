@@ -20,9 +20,12 @@ private val directions = listOf(
     Velocity(1.0, 0.0), Velocity(1.0, 0.0), Velocity(0.7071, 0.7071), Velocity(0.7071, -0.7071)
 )
 
-class Saucer : SpaceObject {
+class Saucer (
+    private val strategy: SaucerCollisionStrategy = SaucerCollisionStrategy()
+) : SpaceObject, Collider by strategy {
+    init { strategy.saucer = this }
     override val collisionStrategy: Collider
-        get() = SaucerCollisionStrategy(this)
+        get() = this
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 
