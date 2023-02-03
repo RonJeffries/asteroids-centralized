@@ -1,6 +1,7 @@
 package com.ronjeffries.ship
 
-class MissileCollisionStrategy(val missile: Missile): Collider {
+class MissileCollisionStrategy(): Collider {
+    lateinit var missile: Missile
     override val position: Point
         get() = missile.position
     override val killRadius: Double
