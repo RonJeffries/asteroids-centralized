@@ -16,18 +16,18 @@ class UniverseTest {
             velocity = Vector2.ZERO
         )
         val trans = Transaction()
-        ship.collisionStrategy.interact(asteroid, trans)
+        ship.interact(asteroid, trans)
         assertThat(trans.removes.size).describedAs("on top").isEqualTo(1)
         val tooFar = Vector2(ship.killRadius + asteroid.killRadius + 1, 0.0)
         var rotated = tooFar.rotate(37.0)
         ship.position = rotated
         val trans2 = Transaction()
-        ship.collisionStrategy.interact(asteroid, trans2)
+        ship.interact(asteroid, trans2)
         assertThat(trans2.removes.size).describedAs("too far").isEqualTo(0)
         val closeEnough = Vector2(ship.killRadius + asteroid.killRadius - 1, 0.0)
         rotated = closeEnough.rotate(37.0)
         ship.position = rotated
-        ship.collisionStrategy.interact(asteroid, trans2)
+        ship.interact(asteroid, trans2)
         assertThat(trans2.removes.size).describedAs("too close").isEqualTo(1)
     }
 //
