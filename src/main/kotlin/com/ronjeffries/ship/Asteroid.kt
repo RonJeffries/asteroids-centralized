@@ -47,7 +47,7 @@ class Asteroid(
         get() = this
 
     override fun interactWith(other: SpaceObject, trans: Transaction)
-        = other.collisionStrategy.interact(this, trans)
+        = other.interact(this, trans)
 
     fun splitIfPossible(trans: Transaction) {
         if (splitCount >= 1) {
