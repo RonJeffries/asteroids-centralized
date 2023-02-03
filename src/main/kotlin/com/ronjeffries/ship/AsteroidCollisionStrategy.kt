@@ -1,6 +1,7 @@
 package com.ronjeffries.ship
 
-class AsteroidCollisionStrategy(val asteroid: Asteroid): Collider {
+class AsteroidCollisionStrategy(): Collider {
+    lateinit var asteroid: Asteroid
     override val position: Point
         get() = asteroid.position
     override val killRadius: Double
