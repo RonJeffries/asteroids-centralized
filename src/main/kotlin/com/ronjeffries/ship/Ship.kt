@@ -15,8 +15,10 @@ private val flare = listOf(
 
 class Ship(
     override var position: Point,
-    val controls: Controls = Controls()
-) : SpaceObject {
+    val controls: Controls = Controls(),
+    private val strategy: ShipCollisionStrategy = ShipCollisionStrategy()
+) : SpaceObject, Collider by strategy {
+    init { strategy.ship = this }
     override val killRadius = U.SHIP_KILL_RADIUS
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
@@ -26,7 +28,7 @@ class Ship(
     private var displayAcceleration: Int = 0
 
     override val collisionStrategy: Collider
-        get() = ShipCollisionStrategy(this)
+        get() = this
     override fun interactWith(other: SpaceObject, trans: Transaction)
         = other.collisionStrategy.interact(this, trans)
 

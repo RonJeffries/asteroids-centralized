@@ -1,6 +1,7 @@
 package com.ronjeffries.ship
 
-class ShipCollisionStrategy(val ship: Ship): Collider {
+class ShipCollisionStrategy(): Collider {
+    lateinit var ship: Ship
     override val position: Point
         get() = ship.position
     override val killRadius: Double
