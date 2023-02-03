@@ -50,7 +50,7 @@ class Missile(
     }
 
     override fun interactWith(other: SpaceObject, trans: Transaction) {
-        other.collisionStrategy.interact(this, trans)
+        other.interact(this, trans)
     }
 
     override fun toString(): String = "Missile $position ($killRadius)"

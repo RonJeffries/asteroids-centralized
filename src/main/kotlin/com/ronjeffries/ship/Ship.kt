@@ -30,7 +30,7 @@ class Ship(
     override val collisionStrategy: Collider
         get() = this
     override fun interactWith(other: SpaceObject, trans: Transaction)
-        = other.collisionStrategy.interact(this, trans)
+        = other.interact(this, trans)
 
     override fun update(deltaTime: Double, trans: Transaction) {
         accelerating = false

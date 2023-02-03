@@ -62,7 +62,7 @@ class Saucer (
     }
 
     override fun interactWith(other: SpaceObject, trans: Transaction)
-        = other.collisionStrategy.interact(this, trans)
+        = other.interact(this, trans)
 
     fun beforeInteractions() {
         sawShip = false; missileReady = true
