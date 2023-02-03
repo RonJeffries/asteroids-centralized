@@ -29,9 +29,6 @@ class Missile(
         velocity = shooterVelocity + missileOwnVelocity
     }
 
-    override val collisionStrategy: Collider
-        get() = this
-
     private val timeOut = OneShot(U.MISSILE_LIFETIME) {
         it.remove(this)
         it.add(Splat(this))

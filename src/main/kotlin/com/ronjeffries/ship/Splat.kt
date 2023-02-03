@@ -14,8 +14,6 @@ class Splat(
     constructor(saucer: Saucer) : this(saucer.position, 2.0, ColorRGBa.GREEN, saucer.velocity*0.5)
     constructor(asteroid: Asteroid) : this(asteroid.position, 2.0, ColorRGBa.WHITE, asteroid.velocity*0.5)
 
-    override val collisionStrategy: Collider
-        get() = this
     override val killRadius: Double
         get() = 0.0
     var elapsedTime = 0.0

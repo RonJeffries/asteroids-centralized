@@ -10,7 +10,6 @@ interface SpaceObject {
     fun interact(saucer: Saucer, trans: Transaction)
     fun interact(ship: Ship, trans: Transaction)
     fun interactWith(other: SpaceObject, trans: Transaction)
-    val collisionStrategy: Collider
     fun draw(drawer: Drawer)
     fun update(deltaTime: Double, trans: Transaction)
 }

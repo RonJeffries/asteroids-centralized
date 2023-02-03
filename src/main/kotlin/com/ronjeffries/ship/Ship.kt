@@ -27,8 +27,6 @@ class Ship(
     private var accelerating: Boolean = false
     private var displayAcceleration: Int = 0
 
-    override val collisionStrategy: Collider
-        get() = this
     override fun interactWith(other: SpaceObject, trans: Transaction)
         = other.interact(this, trans)
 

@@ -43,9 +43,6 @@ class Asteroid(
 
     fun scale() =2.0.pow(splitCount)
 
-    override val collisionStrategy: Collider
-        get() = this
-
     override fun interactWith(other: SpaceObject, trans: Transaction)
         = other.interact(this, trans)
 

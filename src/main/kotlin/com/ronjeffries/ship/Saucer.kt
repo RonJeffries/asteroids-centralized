@@ -24,8 +24,7 @@ class Saucer (
     private val strategy: SaucerCollisionStrategy = SaucerCollisionStrategy()
 ) : SpaceObject, Collider by strategy {
     init { strategy.saucer = this }
-    override val collisionStrategy: Collider
-        get() = this
+
     override lateinit var position: Point
     override val killRadius = U.SAUCER_KILL_RADIUS
 
