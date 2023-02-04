@@ -14,12 +14,14 @@ private val flare = listOf(
 )
 
 class Ship(
-    override var position: Point,
+    var pos: Point,
     val controls: Controls = Controls(),
     private val strategy: ShipCollisionStrategy = ShipCollisionStrategy()
 ) : SpaceObject, Collider by strategy {
-    init { strategy.ship = this }
-    override val killRadius = U.SHIP_KILL_RADIUS
+    init {
+        position = pos
+        strategy.ship = this
+    }
     var velocity:  Velocity = Velocity.ZERO
     var heading: Double = 0.0
 

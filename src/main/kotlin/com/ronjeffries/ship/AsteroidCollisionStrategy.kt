@@ -2,7 +2,7 @@ package com.ronjeffries.ship
 
 class AsteroidCollisionStrategy(): Collider {
     lateinit var asteroid: Asteroid
-    override val position: Point
+    override var position: Point = Point.ZERO
         get() = asteroid.position
     override val killRadius: Double
         get() = asteroid.killRadius

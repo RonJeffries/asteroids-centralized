@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class TransactionTest {
     private fun newShip(): Ship {
         return Ship(
-            position = U.randomPoint()
+            pos = U.randomPoint()
         )
     }
 

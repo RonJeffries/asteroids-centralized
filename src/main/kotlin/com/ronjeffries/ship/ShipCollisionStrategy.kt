@@ -2,10 +2,8 @@ package com.ronjeffries.ship
 
 class ShipCollisionStrategy(): Collider {
     lateinit var ship: Ship
-    override val position: Point
-        get() = ship.position
-    override val killRadius: Double
-        get() = ship.killRadius
+    override var position: Point = Point.ZERO
+    override val killRadius = U.SHIP_KILL_RADIUS
 
     override fun interact(asteroid: Asteroid, trans: Transaction) =
         checkCollision(asteroid, trans)

@@ -2,7 +2,7 @@ package com.ronjeffries.ship
 
 class SaucerCollisionStrategy(): Collider {
     lateinit var saucer: Saucer
-    override val position: Point
+    override var position: Point = Point.ZERO
         get() = saucer.position
     override val killRadius: Double
         get() = saucer.killRadius

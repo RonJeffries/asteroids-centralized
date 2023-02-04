@@ -11,7 +11,7 @@ class SpaceObjectCollectionTest {
         val a = Asteroid(Vector2(100.0, 100.0))
         spaceObjectCollection.add(a)
         val s = Ship(
-            position = Vector2(100.0, 150.0)
+            pos = Vector2(100.0, 150.0)
         )
         spaceObjectCollection.add(s)
         assertThat(spaceObjectCollection.size).isEqualTo(2)
@@ -23,7 +23,7 @@ class SpaceObjectCollectionTest {
         val a = Asteroid(Vector2(100.0, 100.0))
         game.currentMix().add(a)
         val s = Ship(
-            position = Vector2(100.0, 150.0)
+            pos = Vector2(100.0, 150.0)
         )
         game.currentMix().add(s)
         assertThat(game.currentMix().size).isEqualTo(2)
@@ -38,10 +38,10 @@ class SpaceObjectCollectionTest {
         val game = Game()
         val a0 = Asteroid(p1) // yes
         game.currentMix().add(a0)
-        val m1 = Ship(position = p1) // yes
+        val m1 = Ship(pos = p1) // yes
         game.currentMix().add(m1)
         val s2 = Ship(
-            position = p1
+            pos = p1
         ) // yes kr=150
         game.currentMix().add(s2)
         val a3 = Asteroid(p2) // no

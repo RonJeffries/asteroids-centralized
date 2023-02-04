@@ -1,7 +1,7 @@
 package com.ronjeffries.ship
 
 interface Collider {
-    val position: Point
+    var position: Point
     val killRadius: Double
     fun interact(asteroid: Asteroid, trans: Transaction)
     fun interact(missile: Missile, trans: Transaction)

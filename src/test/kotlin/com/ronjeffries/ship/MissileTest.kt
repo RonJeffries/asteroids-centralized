@@ -8,7 +8,7 @@ class MissileTest {
     fun `missile and splat death`() {
         val mix = SpaceObjectCollection()
         val ship = Ship(
-            position = U.randomPoint()
+            pos = U.randomPoint()
         )
         val missile = Missile(ship)
         mix.add(missile)

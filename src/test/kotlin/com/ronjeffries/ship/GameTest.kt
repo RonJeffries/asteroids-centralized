@@ -33,7 +33,7 @@ class GameTest {
         for (i in 1..n) {
             objects.add(
                 Ship(
-                    position = Vector2.ZERO
+                    pos = Vector2.ZERO
                 )
             )
         }
@@ -65,7 +65,7 @@ class GameTest {
     fun `colliding ship and asteroid splits asteroid, loses ship`() {
         val asteroid = Asteroid(Vector2(1000.0, 1000.0))
         val ship = Ship(
-            position = Vector2(1000.0, 1000.0)
+            pos = Vector2(1000.0, 1000.0)
         )
         val knownObjects = SpaceObjectCollection()
         knownObjects.add(asteroid)
