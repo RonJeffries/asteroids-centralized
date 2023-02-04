@@ -19,10 +19,6 @@ class SpaceObjectCollection {
         scoreKeeper.addScore(score)
     }
 
-    fun any(predicate: (SpaceObject) -> Boolean): Boolean {
-        return spaceObjects().any(predicate)
-    }
-
     fun applyChanges(transaction: Transaction) = transaction.applyChanges(this)
 
     val asteroids get() = spaceObjects.filterIsInstance<Asteroid>()
