@@ -25,9 +25,6 @@ class Saucer (
 ) : SpaceObject, Collider by strategy {
     init { strategy.saucer = this }
 
-    override lateinit var position: Point
-    override val killRadius = U.SAUCER_KILL_RADIUS
-
     private var direction: Double = 1.0
     lateinit var velocity: Velocity
     private val speed = U.SAUCER_SPEED
