@@ -2,10 +2,8 @@ package com.ronjeffries.ship
 
 class MissileCollisionStrategy(): Collider {
     lateinit var missile: Missile
-    override var position: Point = Point.ZERO
-        get() = missile.position
-    override val killRadius: Double
-        get() = missile.killRadius
+    override lateinit var position: Point
+    override val killRadius: Double = U.MISSILE_KILL_RADIUS
 
     override fun interact(asteroid: Asteroid, trans: Transaction) =
         checkAndScoreCollision(asteroid, trans, asteroid.getScore())

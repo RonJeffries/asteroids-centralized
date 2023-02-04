@@ -17,8 +17,6 @@ class Missile(
     constructor(saucer: Saucer): this(saucer.position, Random.nextDouble(360.0), saucer.killRadius, saucer.velocity, ColorRGBa.GREEN)
     init { strategy.missile = this }
 
-    override lateinit var position: Point
-    override val killRadius: Double = U.MISSILE_KILL_RADIUS
     val velocity: Velocity
 
     init {
