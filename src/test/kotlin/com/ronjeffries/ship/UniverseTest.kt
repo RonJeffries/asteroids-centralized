@@ -12,7 +12,7 @@ class UniverseTest {
             pos=Vector2.ZERO
         )
         val asteroid = Asteroid(
-            position = Vector2.ZERO,
+            pos = Vector2.ZERO,
             velocity = Vector2.ZERO
         )
         val trans = Transaction()

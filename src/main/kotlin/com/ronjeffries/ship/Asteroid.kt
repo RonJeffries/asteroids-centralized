@@ -5,12 +5,15 @@ import kotlin.math.pow
 import kotlin.random.Random
 
 class Asteroid(
-    override var position: Point,
+    private var pos: Point,
     val velocity: Velocity = U.randomVelocity(U.ASTEROID_SPEED),
     private val splitCount: Int = 2,
     private val strategy: AsteroidCollisionStrategy = AsteroidCollisionStrategy()
 ) : SpaceObject, Collider by strategy {
-    init { strategy.asteroid = this}
+    init {
+        position = pos
+        strategy.asteroid = this
+    }
     override val killRadius: Double =
         when (splitCount) {
             2 -> U.ASTEROID_KILL_RADIUS
@@ -55,7 +58,7 @@ class Asteroid(
 
     private fun asSplit(): Asteroid =
         Asteroid(
-            position = position,
+            pos = position,
             splitCount = splitCount - 1
         )
 }

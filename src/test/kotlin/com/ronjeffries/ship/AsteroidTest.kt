@@ -10,7 +10,7 @@ class AsteroidTest {
     @Test
     fun `Asteroids Exist and Move`() {
         val asteroid = Asteroid(
-            position = Point.ZERO,
+            pos = Point.ZERO,
             velocity = Velocity(15.0,30.0)
         )
         asteroid.update(tick*60, Transaction())
@@ -20,7 +20,7 @@ class AsteroidTest {
     @Test
     fun `asteroid splits on collision death`() {
         val full = Asteroid(
-            position = Point.ZERO,
+            pos = Point.ZERO,
             velocity = Velocity.ZERO
         )
         val ship = Ship(Point.ZERO)
@@ -48,7 +48,7 @@ class AsteroidTest {
     fun `new split asteroids get new directions`() {
         val startingV = Vector2(U.ASTEROID_SPEED,0.0)
         val full = Asteroid(
-            position = Point.ZERO,
+            pos = Point.ZERO,
             velocity = startingV
         )
         val ship = Ship(Point.ZERO)
