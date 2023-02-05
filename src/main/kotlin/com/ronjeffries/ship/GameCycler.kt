@@ -30,7 +30,7 @@ class GameCycler(
         drawer?.let { draw(drawer) }
     }
 
-    fun canShipEmerge(): Boolean {
+    private fun canShipEmerge(): Boolean {
         return knownObjects.canShipEmerge()
     }
 
