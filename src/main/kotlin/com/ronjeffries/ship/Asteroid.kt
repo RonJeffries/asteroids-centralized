@@ -61,4 +61,6 @@ class Asteroid(
             pos = position,
             splitCount = splitCount - 1
         )
+
+    fun distanceToCenter(): Double = position.distanceTo(U.CENTER_OF_UNIVERSE)
 }

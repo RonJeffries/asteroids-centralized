@@ -34,10 +34,7 @@ class SpaceObjectCollection {
     fun canShipEmerge(): Boolean {
         if (saucerIsPresent()) return false
         if (missiles.isNotEmpty()) return false
-        for (asteroid in asteroids) {
-            val distance = asteroid.position.distanceTo(U.CENTER_OF_UNIVERSE)
-            if (distance < U.SAFE_SHIP_DISTANCE) return false
-        }
+        if (asteroids.any { it.distanceToCenter() < U.SAFE_SHIP_DISTANCE}) return false
         return true
     }
 
